@@ -9,6 +9,7 @@ int main() {
     Lexer lexer;
     CodeParser *codeParser = new CodeParser(lexer);
     codeParser->parseCode();
+    int x  = 5; // test for gitub
     /*ExpressionParser expressionParser;
     SymbolTable symbolTable;
     expressionParser.setSymbolTable(symbolTable);
