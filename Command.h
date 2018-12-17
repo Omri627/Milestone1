@@ -1,6 +1,3 @@
-//
-// Created by omri on 14/12/18.
-//
 
 #ifndef MILESTONE1_COMMAND_H
 #define MILESTONE1_COMMAND_H
