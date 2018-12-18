@@ -9,6 +9,7 @@ int main() {
     Lexer lexer;
     CodeParser *codeParser = new CodeParser(lexer);
     codeParser->parseCode();
+    string var = "ran raboh";
     /*ExpressionParser expressionParser;
     SymbolTable symbolTable;
     expressionParser.setSymbolTable(symbolTable);
