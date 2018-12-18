@@ -42,8 +42,6 @@ public:
      */
     vector<string> getSplitFromFile(string filename);
 
-
-
 };
 
 #endif
