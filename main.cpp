@@ -6,15 +6,9 @@
 
 using namespace std;
 int main() {
-    vector<string> strVec;
     Lexer lexer;
-    strVec = lexer.getSplitFromFile("script.txt");
-    for (string s : strVec) {
-        cout << "|" << s;
-
-    }
-    //CodeParser *codeParser = new CodeParser(lexer);
-    //codeParser->parseCode();
+    CodeParser *codeParser = new CodeParser(lexer);
+    codeParser->parseCode();
     /*ExpressionParser expressionParser;
     SymbolTable symbolTable;
     expressionParser.setSymbolTable(symbolTable);
