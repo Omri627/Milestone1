@@ -33,7 +33,13 @@ private:
      * remove the = from the end of the string and remove excess spaces
      * @param s string by refernce
      */
-    void extractEqual(string& s);
+    string extractOneOperator(string &s);
+
+    string extractTwoOperator(string &s);
+
+    bool isContainBoolTwoOperators(string line, int i);
+
+    bool isContainOneBoolOperator(string line, int i);
 public:
     /**
      * get vector of string that represent expressions from file
