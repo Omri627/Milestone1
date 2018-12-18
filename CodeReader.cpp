@@ -1,20 +1,25 @@
 #include "CodeReader.h"
 #include "Lexer.h"
 
-CodeReader::CodeReader(Lexer lexer, SymbolTable& st)
-: symbolTable(st) {
+CodeReader::CodeReader(Lexer lexer, SymbolTable* st) {
     this->codeTokens = lexer.getSplitFromFile();
     this->index = 0;
+    this->symbolTable = st;
 }
-CodeReader::CodeReader(vector<string> codeLines, SymbolTable& st)
-: symbolTable(st) {
+CodeReader::CodeReader(vector<string> codeLines, SymbolTable* st) {
     this->codeTokens = codeLines;
     this->index = 0;
+    this->symbolTable = st;
 }
-CodeReader::CodeReader(int index, vector<string> codeLines, SymbolTable& st)
+CodeReader::CodeReader(int index, vector<string> codeLines, SymbolTable* st)
 : symbolTable(st) {
     this->codeTokens = codeLines;
     this->index = index;
+}
+CodeReader::CodeReader(Lexer lexer) {
+    this->codeTokens = lexer.getSplitFromFile();
+    SymbolTable* st = new SymbolTable;
+    this->symbolTable = st;
 }
 void CodeReader::incrementIndex() {
     this->index++;
@@ -63,10 +68,10 @@ vector<string> CodeReader::getEntireBlock() {
     return block;
 }
 void CodeReader::setVariable(string name, double value) {
-    this->symbolTable.setValue(name, value);
+    this->symbolTable->setValue(name, value);
 }
 
-SymbolTable &CodeReader::getSymbolTable() const {
+SymbolTable *CodeReader::getSymbolTable() const {
     return this->symbolTable;
 }
 string CodeReader::getPreviousToken() {

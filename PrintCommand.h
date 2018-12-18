@@ -4,10 +4,12 @@
 #include "Command.h"
 
 class PrintCommand : public Command {
+private:
+    string str;
 public:
-    PrintCommand();
+    PrintCommand(string str);
 
-    int execute(CodeReader& codeReader);
+    int execute();
 };
 
 

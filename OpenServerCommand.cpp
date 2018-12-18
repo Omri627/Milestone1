@@ -4,6 +4,6 @@
 
 #include "OpenServerCommand.h"
 
-int OpenServerCommand::execute(CodeReader &codeReader) {
+int OpenServerCommand::execute() {
     return 0;
 }

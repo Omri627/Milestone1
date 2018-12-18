@@ -11,10 +11,10 @@
 class UpdateVarCommand : public Command {
 private:
     string var;
-    Expression *phrase;
-    SymbolTable &symbolTable;
+    Expression* phrase;
+    SymbolTable* symbolTable;
 public:
-    UpdateVarCommand(string var, Expression *phrase, SymbolTable& symbolTable);
+    UpdateVarCommand(string var, Expression *phrase, SymbolTable* symbolTable);
 
     virtual int execute();
 };

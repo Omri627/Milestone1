@@ -16,17 +16,19 @@ class CodeReader {
 private:
     int index;
     vector<string> codeTokens;
-    SymbolTable& symbolTable;
+    SymbolTable* symbolTable;
 public:
-    CodeReader(vector<string> codeLines, SymbolTable& st);
+    CodeReader(vector<string> codeLines, SymbolTable* st);
     /**
      * constructor
      * @param index number of current line
      * @param codeLines list of code lines
      */
-    CodeReader(int index, vector<string> codeLines, SymbolTable& st);
+    CodeReader(int index, vector<string> codeLines, SymbolTable* st);
 
-    CodeReader(Lexer lexer, SymbolTable& st);
+    CodeReader(Lexer lexer, SymbolTable* st);
+
+    CodeReader(Lexer lexer);
 
     void incrementIndex();
 
@@ -56,7 +58,7 @@ public:
      * @return the number of cells it read, so the execute will be able to tell the parser
      */
     //int getCommandsFromArry(list<Command*> &commands, string *arr, int length);
-    SymbolTable &getSymbolTable() const;
+    SymbolTable *getSymbolTable() const;
 
     void setVariable(string variable, double value);
 

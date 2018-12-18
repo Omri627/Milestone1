@@ -5,18 +5,23 @@
 #include "Command.h"
 #include "CodeReader.h"
 #include "ConditionParser.h"
+#include "DefineVarCommandGenerator.h"
+#include "PrintCommandGenerator.h"
+#include "CommandGenerator.h"
+#include "UpdateVarCommandGenerator.h"
+#include "ConditionParserGenerator.h"
 using namespace std;
 
 class CodeParser {
 private:
-    CodeReader codeReader;          //the code reader will handle the parameter for each command
+    CodeReader* codeReader;          //the code reader will handle the parameter for each command
 
-    map<string, Command*> commands;
+    map<string, CommandGenerator*> commands;
 public:
 
-    CodeParser(CodeReader codeReader);
+    CodeParser(CodeReader* codeReader);
 
-    CodeParser(vector<string> code);
+    CodeParser(Lexer lexer);
 
     void loadCommandMap();
 
@@ -26,9 +31,8 @@ public:
 
     void parseBlock(ConditionParser & conditionParser);
 
-    Command* getCommand(string keyword);
+    CommandGenerator* getCommand(string keyword);
 
-    void begin();
 };
 
 

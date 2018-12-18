@@ -9,7 +9,6 @@
 
 class OpenServerCommand : public Command {
 private:
-    int port;
 
 public:
     OpenServerCommand(CodeReader& codeReader);

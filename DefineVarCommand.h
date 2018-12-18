@@ -12,9 +12,9 @@ class DefineVarCommand : public Command {
 private:
     string var;
     string path;
-    SymbolTable& symbolTable;
+    SymbolTable* symbolTable;
 public:
-    DefineVarCommand(string var, string path,SymbolTable& symbolTable);
+    DefineVarCommand(string var, string path,SymbolTable* symbolTable);
 
     int execute() override;
 };

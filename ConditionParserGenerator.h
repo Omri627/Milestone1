@@ -1,15 +1,11 @@
-//
-// Created by ranraboh on 16/12/18.
-//
-
-#ifndef PROJECT_CONDITIONPARSERGENERATOR_H
-#define PROJECT_CONDITIONPARSERGENERATOR_H
+#ifndef CONDITION_PARSER
+    #define CONDITION_PARSER
 
 
 #include "CommandGenerator.h"
 
 class ConditionParserGenerator : public CommandGenerator {
-
+    Command *create(CodeReader &codeReader);
 };
 
 

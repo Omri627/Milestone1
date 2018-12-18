@@ -1,8 +1,9 @@
 #include <iostream>
 #include "PrintCommand.h"
-PrintCommand::PrintCommand() {
+
+PrintCommand::PrintCommand(string str) {
+    this->str = str.substr(1, str.size() - 2);
 }
-int PrintCommand::execute(CodeReader& codeReader) {
-    string strToPrint = codeReader.getNextToken();
-    cout << strToPrint.substr(1, strToPrint.size()-2) << endl;
+int PrintCommand::execute() {
+    cout << str << endl;
 }

@@ -4,10 +4,10 @@
 
 #include "DefineVarCommand.h"
 
-DefineVarCommand::DefineVarCommand(string var, string path, SymbolTable& symbolTable)
-: symbolTable(symbolTable) {
+DefineVarCommand::DefineVarCommand(string var, string path, SymbolTable* symbolTable) {
     this->var = var;
     this->path = path;
+    this->symbolTable = symbolTable;
 }
 
 int DefineVarCommand::execute() {
