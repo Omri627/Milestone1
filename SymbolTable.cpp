@@ -47,14 +47,15 @@ Var* SymbolTable::getVar(string var) {
 
 void SymbolTable::setValueAndBind(string varName, double value, bool isBind) {
     if(isVariableExist(varName)) {
-
+        Var* var = getVar(varName);
+        var->setValue(value);
+        var->setIsBind(isBind);
     }
 }
 
-void SymbolTable::setVar(Var *var) {
-
-}
-
 void SymbolTable::setIsBind(string varName, bool isBind) {
-
+    if(isVariableExist(varName)) {
+        Var* var = getVar(varName);
+        var->setIsBind(isBind);
+    }
 }

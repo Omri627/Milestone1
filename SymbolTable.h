@@ -29,8 +29,6 @@ public:
 
     void setValueAndBind(string varName, double value, bool isBind);
 
-    void setVar (Var* var);
-
     void setIsBind(string varName, bool isBind);
 };
 
