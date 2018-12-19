@@ -36,7 +36,7 @@ public:
 
     void runCode();
 
-    void parseBlock(ConditionParserGenerator* conditionParser);
+    list < Command* > parseBlock();
 
     CommandGenerator* getCommand(string keyword);
 

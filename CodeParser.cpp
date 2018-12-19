@@ -35,15 +35,15 @@ Command* CodeParser::parseNext() {
     //loop trough all the command in the string array
     string codeToken = codeReader->getNextToken();
     CommandGenerator * commandGenerator = this->getCommand(codeToken);
-    Command * command = commandGenerator->create(*codeReader);
     if (!codeToken.compare("while"))
         this->parseBlock(whileCommand);
     if (!codeToken.compare("if"))
         this->parseBlock(ifCommand);
+    Command * command = commandGenerator->create(*codeReader);
     return command;
 }
 
-void CodeParser::parseBlock(ConditionParserGenerator* conditionParser) {
+list< Command* > CodeParser::parseBlock() {
     list<Command *> blockCommands;
     string codeToken;
     while (!this->codeReader->isBlockEnd()) {
@@ -51,7 +51,7 @@ void CodeParser::parseBlock(ConditionParserGenerator* conditionParser) {
         blockCommands.push_back(command);
     }
     this->codeReader->getNextToken();          // ignore end of block '}'
-    conditionParser->setBlockCommands(blockCommands);
+    return blockCommands;
 }
 CommandGenerator* CodeParser::getCommand(string keyword) {
     map< string, CommandGenerator * >::iterator iterator;

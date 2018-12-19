@@ -7,7 +7,7 @@ class IfCommandGenerator : public ConditionParserGenerator {
 public:
     IfCommandGenerator();
 
-    IfCommandGenerator(list<Command *> commands);
+    IfCommandGenerator(CodeParser* codeParser);
 
     virtual Command *create(CodeReader &codeReader);
 

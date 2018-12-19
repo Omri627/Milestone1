@@ -7,7 +7,8 @@ ConditionParser::ConditionParser(list<Command *> commands, Expression *rightExpr
         this->commands = commands;
         this->relation = relation;
 }
-ConditionParser::ConditionParser(Expression *rightExpression, Expression *leftExpression, string relation) {
+ConditionParser::ConditionParser(list<Command *> commands, Expression *rightExpression, Expression *leftExpression, string relation) {
+    this->commands = commands;
     this->rightExpression = rightExpression;
     this->leftExpression = leftExpression;
     this->relation = this->getRelation(relation);
@@ -34,7 +35,6 @@ bool ConditionParser::checkCondition() {
             return this->leftExpression == this->rightExpression;
     }
 }
-
 const list<Command *> &ConditionParser::getCommands() const {
     return this->commands;
 }

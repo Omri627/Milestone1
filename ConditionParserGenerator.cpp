@@ -2,9 +2,6 @@
 ConditionParserGenerator::ConditionParserGenerator() {
 
 }
-ConditionParserGenerator::ConditionParserGenerator(list<Command *> blockCommands) {
-    this->blockCommands = blockCommands;
-}
 void ConditionParserGenerator::setBlockCommands(list<Command *> commands) {
     this->blockCommands = commands;
 }
@@ -13,4 +10,10 @@ void ConditionParserGenerator::clearBlockCommands() {
 }
 list< Command* > ConditionParserGenerator::getBlockCommands() {
     return this->blockCommands;
+}
+void ConditionParserGenerator::setCodeParser(CodeParser *parser) {
+    this->codeParser = parser;
+}
+void ConditionParserGenerator::generateBlockCommands() {
+    this->blockCommands = this->codeParser->parseBlock();
 }

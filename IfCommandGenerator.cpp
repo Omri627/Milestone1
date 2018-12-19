@@ -2,7 +2,7 @@
 
 IfCommandGenerator::IfCommandGenerator() {
 }
-IfCommandGenerator::IfCommandGenerator(list<Command *> commands) : ConditionParserGenerator(commands) {
+IfCommandGenerator::IfCommandGenerator(CodeParser * parser) : ConditionParserGenerator(parser) {
 }
 Command* IfCommandGenerator::create(CodeReader &codeReader) {
     ExpressionParser expressionParser(codeReader.getSymbolTable());
@@ -11,7 +11,7 @@ Command* IfCommandGenerator::create(CodeReader &codeReader) {
     string rightExpression = codeReader.getNextToken();
     if (codeReader.getNextToken() != "{")
         throw "invalid expression";
-    IfCommand* ifCommand = new IfCommand(expressionParser.parseExpression(rightExpression),
+    IfCommand* ifCommand = new IfCommand(this(), expressionParser.parseExpression(rightExpression),
             expressionParser.parseExpression(leftExpression), relation);
     return ifCommand;
 }
