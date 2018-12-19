@@ -3,7 +3,7 @@
 //
 
 #include "Utils.h"
-
+//static function
 string Utils::reverseStr(string str) {
     int n = str.length();
 

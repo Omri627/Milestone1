@@ -10,6 +10,7 @@
 using namespace std;
 
 class Utils {
+public:
     static string reverseStr(string str);
 
 };
