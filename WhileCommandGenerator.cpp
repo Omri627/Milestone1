@@ -3,8 +3,6 @@
 
 WhileCommandGenerator::WhileCommandGenerator() {
 }
-WhileCommandGenerator::WhileCommandGenerator(list<Command *> commands) : ConditionParserGenerator(commands) {
-}
 Command* WhileCommandGenerator::create(CodeReader &codeReader) {
     ExpressionParser expressionParser(codeReader.getSymbolTable());
     string leftExpression = codeReader.getNextToken();
@@ -12,7 +10,8 @@ Command* WhileCommandGenerator::create(CodeReader &codeReader) {
     string rightExpression = codeReader.getNextToken();
     if (codeReader.getNextToken() != "{")
         throw "invalid expression";
-    WhileCommand* ifCommand = new WhileCommand(expressionParser.parseExpression(rightExpression),
+    this->generateBlockCommands();
+    WhileCommand* ifCommand = new WhileCommand(this->getBlockCommands(),expressionParser.parseExpression(rightExpression),
                                          expressionParser.parseExpression(leftExpression), relation);
     return  ifCommand;
 }

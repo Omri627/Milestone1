@@ -3,7 +3,10 @@
 
 #include "SymbolTable.h"
 class Expression {
+private:
+    SymbolTable* symbolTable;
 public:
+
     virtual double calculate() const = 0;
 
     virtual bool operator<(const Expression &other) const;

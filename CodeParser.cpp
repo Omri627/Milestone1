@@ -16,29 +16,26 @@ void CodeParser::runCode() {
     while (!this->codeReader->isEndPoint()) {
         command = this->parseNext();
         command->execute();
-
     }
 }
 void CodeParser::loadCommandMap() {
     PrintCommandGenerator* printGenerator = new PrintCommandGenerator;
     DefineVarCommandGenerator* defineGenerator = new DefineVarCommandGenerator;
     UpdateVarCommandGenerator* updateVarCommandGenerator = new UpdateVarCommandGenerator;
-    this->ifCommand = new IfCommandGenerator;
-    this->whileCommand = new WhileCommandGenerator;
+    WhileCommandGenerator* whileGenerator = new WhileCommandGenerator;
+    whileGenerator->setCodeParser(this);
+    IfCommandGenerator* ifGenerator = new IfCommandGenerator;
+    ifGenerator->setCodeParser(this);
     this->commands["print"] = printGenerator;
     this->commands["var"] = defineGenerator;
     this->commands["update"] = updateVarCommandGenerator;
-    this->commands["if"] = this->ifCommand;
-    this->commands["while"] = this->whileCommand;
+    this->commands["if"] = ifGenerator;
+    this->commands["while"] = whileGenerator;
 }
 Command* CodeParser::parseNext() {
     //loop trough all the command in the string array
     string codeToken = codeReader->getNextToken();
     CommandGenerator * commandGenerator = this->getCommand(codeToken);
-    if (!codeToken.compare("while"))
-        this->parseBlock(whileCommand);
-    if (!codeToken.compare("if"))
-        this->parseBlock(ifCommand);
     Command * command = commandGenerator->create(*codeReader);
     return command;
 }

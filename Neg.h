@@ -4,7 +4,8 @@
 #include "UnaryExpression.h"
 class Neg : public UnaryExpression {
 public:
-    double calculate() const ;
+
+    virtual double calculate() const ;
 };
 
 

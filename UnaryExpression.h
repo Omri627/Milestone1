@@ -6,7 +6,7 @@ class UnaryExpression : public Expression {
 private:
     Expression * operand;
 public:
-    UnaryExpression(Expression * operand);
+    UnaryExpression(SymbolTable* st, Expression * operand);
 
     virtual Expression * getOperand() const ;
 };

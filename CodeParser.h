@@ -11,10 +11,8 @@
 #include "UpdateVarCommandGenerator.h"
 #include "ConditionParserGenerator.h"
 #include "WhileCommandGenerator.h"
-#include "IfCommandGenerator.h"
-
 using namespace std;
-
+class IfCommandGenerator;
 class CodeParser {
 private:
     CodeReader* codeReader;          //the code reader will handle the parameter for each command
@@ -23,7 +21,7 @@ private:
 
     WhileCommandGenerator* whileCommand;
 
-    ConditionParserGenerator* ifCommand;
+    IfCommandGenerator* ifCommand;
 public:
 
     CodeParser(CodeReader* codeReader);
