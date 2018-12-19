@@ -2,6 +2,13 @@
 #include <iostream>
 #include "Lexer.h"
 #define EQUAL "="
+#define EQUAL "="
+#define GRATER ">"
+#define LESS "<"
+#define LESS_EQUAL "<="
+#define GRATER_EQUAL ">="
+#define EQUAL_EQUAL "=="
+#define NOT_EQUAL "!="
 #define C_EQUAL '='
 #define C_PLUS '+'
 #define C_MINUS '-'
@@ -10,6 +17,9 @@
 #define C_POW '^'
 #define C_SPACE ' '
 #define C_COMMA ','
+#define C_GRATER '>'
+#define C_LESS '<'
+#define PRINT "print"
 vector<string> Lexer::getSplitFromFile(string filename) {
 
     ifstream infile;
@@ -25,13 +35,33 @@ vector<string> Lexer::getSplitFromFile(string filename) {
                 word = trimSpaces(word);
                 if (word == "") {
                     continue;
-                }
-                if (word.find(EQUAL) != -1) {
-                    extractEqual(word);
-                    word = trimSpaces(word);
+                } if (word == PRINT) {
                     codeLine.push_back(word);
-                    codeLine.push_back(EQUAL);
                     i++;
+                    //the next parameter is the rest of the word;
+                    word = getRestFromIndex(line, i);
+                    codeLine.push_back(word);
+                    break;
+
+                }else if (word.find(EQUAL) != string::npos || word.find(GRATER) != string::npos ||
+                          word.find(LESS) != string::npos)  { //check if contains  = | < | >
+
+                    if (word.find(NOT_EQUAL) != string::npos|| word.find(EQUAL_EQUAL) != string::npos||
+                        word.find(GRATER_EQUAL) != string::npos|| word.find(LESS_EQUAL) != string::npos) {
+                        //check if contains two boolean operators
+                        string s = extractTwoOperator(word);
+                        word = trimSpaces(word);
+                        codeLine.push_back(word);
+                        codeLine.push_back(s);
+
+                    } else {
+                        //one boolean operator
+                        string s = extractOneOperator(word);
+                        word = trimSpaces(word);
+                        codeLine.push_back(word);
+                        codeLine.push_back(s);
+                    }
+
                 } else {
                     codeLine.push_back(word);
                 }
@@ -71,13 +101,22 @@ string Lexer::getOneExpression(string line, int &i) {
     int endIndex = i;
 
     for (i; i < line.length(); i++) {
-        char cc = line[i];
         //loop through line
-        if (line[i] == C_EQUAL) {
+
+        if (isContainBoolTwoOperators(line, i)) {
+            //found Two boolean operators
+            i++;
             endIndex = i;
             isBreak = false;
             break;
         }
+
+        if (line[i] == C_EQUAL || isContainOneBoolOperator(line, i)) {
+            endIndex = i;
+            isBreak = false;
+            break;
+        }
+
         if (line[i] == C_COMMA){
             endIndex = i;
             isBreak = true;
@@ -130,7 +169,48 @@ bool Lexer::isCharOperator(char c) {
     return  false;
 }
 
-void Lexer::extractEqual(string &s) {
+string Lexer::extractOneOperator(string &s) {
+    string res = "";
+    res += s[s.length()-1];
     s = s.substr(0,s.length()-1); //remove the equals
     s = trimSpaces(s); //trim the spaces
+    return res;
+}
+
+string Lexer::extractTwoOperator(string &s) {
+    string res = "";
+    res += s[s.length()-2];
+    res += s[s.length()-1];
+    s = s.substr(0,s.length()-2); //remove the equals
+    s = trimSpaces(s); //trim the spaces
+    return res;
+}
+
+bool Lexer::isContainBoolTwoOperators(string line, int i) {
+    string operatorsTwo[] = {NOT_EQUAL, EQUAL_EQUAL, LESS_EQUAL, GRATER_EQUAL };
+
+    if (i < line.length() - 1) { // make sure there is another char to read
+        string s = "";
+        s += line[i];
+        if (line[i+1] == C_EQUAL) {
+            s += line[i+1];
+            for (int j = 0; j < 4; j++) {
+                if (s == operatorsTwo[j])
+                    return true;
+            }
+        }
+        return false;
+    } else {
+        return false;
+    }
+}
+
+bool Lexer::isContainOneBoolOperator(string line, int i) {
+    return (line[i] == C_GRATER || line[i] == C_LESS);
+}
+
+string Lexer::getRestFromIndex(string line, int i) {
+    string s = line.substr(i, line.length() -i );
+    s = trimSpaces(s);
+    return s;
 }
