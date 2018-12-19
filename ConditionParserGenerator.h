@@ -3,27 +3,22 @@
 
 
 #include "CommandGenerator.h"
-#include "CodeParser.h"
-
+class CodeParser;
 class ConditionParserGenerator : public CommandGenerator {
-    CodeParser * codeParser;
+    CodeParser *codeParser;
     list<Command *> blockCommands;
 public:
     ConditionParserGenerator();
 
-    ConditionParserGenerator(CodeParser* codeParser);
+    virtual void setBlockCommands(list<Command *> commands);
 
-    void setBlockCommands(list<Command *> commands);
+    virtual void setCodeParser(CodeParser *parser);
 
-    void setCodeParser(CodeParser * parser);
+    virtual void generateBlockCommands();
 
-    void generateBlockCommands();
+    virtual void clearBlockCommands();
 
-    void clearBlockCommands();
-
-    list< Command* > getBlockCommands();
+    virtual list<Command *> getBlockCommands();
 
 };
-
-
-#endif //PROJECT_CONDITIONPARSERGENERATOR_H
+#endif

@@ -9,8 +9,6 @@ class WhileCommandGenerator : public ConditionParserGenerator {
 public:
     WhileCommandGenerator();
 
-    WhileCommandGenerator(list<Command *> commands);
-
     virtual Command *create(CodeReader &codeReader);
 
 };

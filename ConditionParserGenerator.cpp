@@ -1,4 +1,5 @@
 #include "ConditionParserGenerator.h"
+#include "CodeParser.h"
 ConditionParserGenerator::ConditionParserGenerator() {
 
 }

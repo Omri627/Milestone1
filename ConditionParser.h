@@ -23,7 +23,7 @@ public:
     ConditionParser(list< Command * > commands, Expression * rightExpression,
             Expression * leftExpression, Expression::Relation relation);
 
-    ConditionParser(Expression * rightExpression, Expression * leftExpression, string relation);
+    ConditionParser(list< Command * > commands, Expression * rightExpression, Expression * leftExpression, string relation);
 
     virtual bool checkCondition();
 

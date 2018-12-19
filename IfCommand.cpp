@@ -8,8 +8,8 @@ IfCommand::IfCommand(list<Command *> commands, Expression *rightExpression, Expr
                            Expression::Relation relation) : ConditionParser(commands, rightExpression, leftExpression, relation) {
 
 }
-IfCommand::IfCommand(Expression *rightExpression, Expression *leftExpression, string relation)
-: ConditionParser(rightExpression, leftExpression, relation) {
+IfCommand::IfCommand(list< Command * > commands, Expression *rightExpression, Expression *leftExpression, string relation)
+: ConditionParser(commands, rightExpression, leftExpression, relation) {
 
 }
 int IfCommand::execute() {
