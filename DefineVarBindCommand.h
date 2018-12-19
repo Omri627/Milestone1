@@ -1,9 +1,5 @@
-//
-// Created by ranraboh on 16/12/18.
-//
-
-#ifndef PROJECT_DEFINEVARCOMMAND_H
-#define PROJECT_DEFINEVARCOMMAND_H
+#ifndef DEFINE_VAR_BIND_COMMAND
+    #define DEFINE_VAR_BIND_COMMAND
 
 
 #include "Command.h"
@@ -20,4 +16,4 @@ public:
 };
 
 
-#endif //PROJECT_DEFINEVARCOMMAND_H
+#endif

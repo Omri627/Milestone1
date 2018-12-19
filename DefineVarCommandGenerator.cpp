@@ -1,5 +1,7 @@
 #include "DefineVarCommandGenerator.h"
+#include "DefineVarCommand.h"
 #include "DefineVarBindCommand.h"
+#include "ExpressionParser.h"
 
 Command *DefineVarCommandGenerator::create(CodeReader &codeReader) {
     bool isBind = false;
@@ -15,5 +17,5 @@ Command *DefineVarCommandGenerator::create(CodeReader &codeReader) {
         return new DefineVarBindCommand(var, path, codeReader.getSymbolTable());
     }
     expression = codeReader.getNextToken();
-    return new DefineVarCommand(var, expressionParser.parseExpression(expression), codeReader.getSymbolTable());
+    return new DefineVarCommand(var, expressionParser.parseExpression(expression)->calculate(), codeReader.getSymbolTable());
 }

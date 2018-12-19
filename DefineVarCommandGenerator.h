@@ -5,13 +5,12 @@
 #ifndef PROJECT_DEFINEVARCOMMANDGENERATOR_H
 #define PROJECT_DEFINEVARCOMMANDGENERATOR_H
 
-#include "DefineVarCommand.h"
 #include "CommandGenerator.h"
-#include "DefineVarBindCommand.h"
-#include "ExpressionParser.h"
+
+class DefineVarCommand;
 class DefineVarCommandGenerator  : public CommandGenerator{
 public:
-    Command *create(CodeReader &codeReader);
+    virtual Command *create(CodeReader &codeReader);
 };
 
 

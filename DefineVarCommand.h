@@ -1,6 +1,7 @@
-#ifndef PROJECT_DEFINEVARCOMMAND_H
-#define PROJECT_DEFINEVARCOMMAND_H
+#ifndef DEFINE_VAR_COMMAND
+    #define DEFINE_VAR_COMMAND
 #include "Command.h"
+#include "Expression.h"
 
 class DefineVarCommand : public Command {
 private:
@@ -9,6 +10,8 @@ private:
     SymbolTable* symbolTable;
 public:
     DefineVarCommand(string var, double value, SymbolTable * symbolTable);
+
+    DefineVarCommand(string var, Expression* expression, SymbolTable * symbolTable);
 
     virtual int execute();
 };
