@@ -7,7 +7,7 @@
 #include "UpdateVarCommand.h"
 
 Command *UpdateVarCommandGenerator::create(CodeReader &codeReader) {
-    ExpressionParser expressionParser;
+    ExpressionParser expressionParser(codeReader.getSymbolTable());
     string var =  codeReader.getPreviousToken();             // get name of variable which we skipped
     if (codeReader.getNextToken() != "=")
         throw "syntax error: missing operator '='";

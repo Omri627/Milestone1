@@ -5,7 +5,17 @@
 #include "CommandGenerator.h"
 
 class ConditionParserGenerator : public CommandGenerator {
-    Command *create(CodeReader &codeReader);
+    list<Command *> blockCommands;
+public:
+    ConditionParserGenerator();
+
+    ConditionParserGenerator(list<Command*> blockCommands);
+
+    void setBlockCommands(list<Command *> commands);
+
+    void clearBlockCommands();
+
+    list< Command* > getBlockCommands();
 };
 
 

@@ -2,24 +2,28 @@
 #include "Lexer.h"
 
 CodeReader::CodeReader(Lexer lexer, SymbolTable* st) {
-    this->codeTokens = lexer.getSplitFromFile();
+    this->codeTokens = lexer.getSplitFromFile("script.txt");
     this->index = 0;
     this->symbolTable = st;
+    this->markEndBlocks();
 }
 CodeReader::CodeReader(vector<string> codeLines, SymbolTable* st) {
     this->codeTokens = codeLines;
     this->index = 0;
     this->symbolTable = st;
+    this->markEndBlocks();
 }
 CodeReader::CodeReader(int index, vector<string> codeLines, SymbolTable* st)
 : symbolTable(st) {
     this->codeTokens = codeLines;
     this->index = index;
+    this->markEndBlocks();
 }
 CodeReader::CodeReader(Lexer lexer) {
-    this->codeTokens = lexer.getSplitFromFile();
+    this->codeTokens = lexer.getSplitFromFile("script.txt");
     SymbolTable* st = new SymbolTable;
     this->symbolTable = st;
+    this->markEndBlocks();
 }
 void CodeReader::incrementIndex() {
     this->index++;
@@ -78,4 +82,22 @@ string CodeReader::getPreviousToken() {
     if (this->index <= 0)
         throw "syntax error, parameter not defined";
     return this->codeTokens[this->index - 1];
+}
+bool CodeReader::isBlockEnd() {
+    if (this->index == this->blockEnds.top())
+        return true;
+    return false;
+}
+void CodeReader::markEndBlocks() {
+    int blocksAmount = 0;
+    for (int i = 0; i < this->codeTokens.size(); i++) {
+        if (this->codeTokens[i] == "{")
+            blocksAmount++;
+        if (this->codeTokens[i] == "}") {
+            this->blockEnds.push(i);
+            blocksAmount--;
+        }
+    }
+    if (blocksAmount != 0)
+        throw "invalid code";
 }

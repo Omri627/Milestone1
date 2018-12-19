@@ -23,11 +23,15 @@ public:
     ConditionParser(list< Command * > commands, Expression * rightExpression,
             Expression * leftExpression, Expression::Relation relation);
 
+    ConditionParser(Expression * rightExpression, Expression * leftExpression, string relation);
+
     virtual bool checkCondition();
 
     virtual void setCondition(Expression * left, Expression * right, Expression::Relation relation);
 
     const list<Command *> &getCommands() const;
+
+    Expression::Relation getRelation(string relation);
 };
 
 

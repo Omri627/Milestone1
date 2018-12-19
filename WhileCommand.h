@@ -13,6 +13,9 @@ public:
     WhileCommand(list<Command *> commands, Expression *rightExpression, Expression *leftExpression,
                  Expression::Relation relation);
 
+    WhileCommand(Expression *rightExpression, Expression *leftExpression,
+                 string relation);
+
     virtual int execute() ;
 };
 

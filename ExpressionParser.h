@@ -20,9 +20,9 @@ public:
     };
     ExpressionParser();
 
-    ExpressionParser(SymbolTable& st);
+    ExpressionParser(SymbolTable* st);
 
-    void setSymbolTable(SymbolTable& st);
+    void setSymbolTable(SymbolTable* st);
 
     Expression *parseExpression(string expression);
 

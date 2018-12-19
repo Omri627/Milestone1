@@ -9,6 +9,8 @@ public:
     IfCommand(list<Command *> commands, Expression *rightExpression, Expression *leftExpression,
               Expression::Relation relation);
 
+    IfCommand(Expression *rightExpression, Expression *leftExpression, string relation);
+
     virtual int execute();
 
 };

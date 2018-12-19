@@ -1,7 +1,4 @@
-//
-// Created by ranraboh on 16/12/18.
-//
-
+#include <iostream>
 #include "DefineVarCommand.h"
 
 DefineVarCommand::DefineVarCommand(string var, string path, SymbolTable* symbolTable) {
@@ -11,6 +8,7 @@ DefineVarCommand::DefineVarCommand(string var, string path, SymbolTable* symbolT
 }
 
 int DefineVarCommand::execute() {
-    // todo connect to network and update symbol table
-    return 1;
+    // todo connect to network
+    this->symbolTable->addVariable(this->var, 1);
+
 }

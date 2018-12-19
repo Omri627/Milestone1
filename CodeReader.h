@@ -17,6 +17,7 @@ private:
     int index;
     vector<string> codeTokens;
     SymbolTable* symbolTable;
+    stack<int> blockEnds;
 public:
     CodeReader(vector<string> codeLines, SymbolTable* st);
     /**
@@ -63,6 +64,10 @@ public:
     void setVariable(string variable, double value);
 
     string getPreviousToken();          // not decrement index
+
+    void markEndBlocks();
+
+    bool isBlockEnd();
 };
 
 

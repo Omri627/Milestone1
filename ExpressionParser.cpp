@@ -8,8 +8,8 @@ ExpressionParser::ExpressionParser() {
     this->precedence['*'] = 2;
     this->precedence['/'] = 2;
 }
-ExpressionParser::ExpressionParser(SymbolTable &st) : ExpressionParser() {
-    this->symbolTable = &st;
+ExpressionParser::ExpressionParser(SymbolTable *st) : ExpressionParser() {
+    this->symbolTable = st;
 }
 Expression* ExpressionParser::parseExpression(string expression) {
     stack <char > operators;
@@ -160,6 +160,6 @@ bool ExpressionParser::isValidExpression(string expression) {
         return false;
     return true;
 }
-void ExpressionParser::setSymbolTable(SymbolTable &st) {
-    this->symbolTable = &st;
+void ExpressionParser::setSymbolTable(SymbolTable *st) {
+    this->symbolTable = st;
 }

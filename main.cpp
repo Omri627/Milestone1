@@ -8,8 +8,7 @@ using namespace std;
 int main() {
     Lexer lexer;
     CodeParser *codeParser = new CodeParser(lexer);
-    codeParser->parseCode();
-    string var = "ran raboh";
+    codeParser->runCode();
     /*ExpressionParser expressionParser;
     SymbolTable symbolTable;
     expressionParser.setSymbolTable(symbolTable);

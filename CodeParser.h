@@ -1,5 +1,5 @@
 #ifndef CODE_PAESER
-    #define CODE_PARSER
+    #define CODE_PAESER
 #include <string>
 #include <map>
 #include "Command.h"
@@ -10,6 +10,9 @@
 #include "CommandGenerator.h"
 #include "UpdateVarCommandGenerator.h"
 #include "ConditionParserGenerator.h"
+#include "WhileCommandGenerator.h"
+#include "IfCommandGenerator.h"
+
 using namespace std;
 
 class CodeParser {
@@ -17,6 +20,10 @@ private:
     CodeReader* codeReader;          //the code reader will handle the parameter for each command
 
     map<string, CommandGenerator*> commands;
+
+    WhileCommandGenerator* whileCommand;
+
+    ConditionParserGenerator* ifCommand;
 public:
 
     CodeParser(CodeReader* codeReader);
@@ -25,11 +32,11 @@ public:
 
     void loadCommandMap();
 
-    void parseNext();
+    Command* parseNext();
 
-    void parseCode();
+    void runCode();
 
-    void parseBlock(ConditionParser & conditionParser);
+    void parseBlock(ConditionParserGenerator* conditionParser);
 
     CommandGenerator* getCommand(string keyword);
 

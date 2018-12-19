@@ -7,6 +7,11 @@ ConditionParser::ConditionParser(list<Command *> commands, Expression *rightExpr
         this->commands = commands;
         this->relation = relation;
 }
+ConditionParser::ConditionParser(Expression *rightExpression, Expression *leftExpression, string relation) {
+    this->rightExpression = rightExpression;
+    this->leftExpression = leftExpression;
+    this->relation = this->getRelation(relation);
+}
 void ConditionParser::setCondition(Expression * left, Expression * right, Expression::Relation relation) {
     this->leftExpression = leftExpression;
     this->rightExpression = rightExpression;
@@ -32,4 +37,17 @@ bool ConditionParser::checkCondition() {
 
 const list<Command *> &ConditionParser::getCommands() const {
     return this->commands;
+}
+Expression::Relation ConditionParser::getRelation(string relation) {
+    if (relation.compare(">"))
+        return Expression::G;
+    if (relation.compare(">="))
+        return Expression::GE;
+    if (relation.compare("<"))
+        return Expression::L;
+    if (relation.compare("<="))
+        return Expression::LE;
+    if (relation.compare("=="))
+        return Expression::E;
+    throw "relation is invalid";
 }
