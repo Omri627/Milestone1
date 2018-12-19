@@ -35,6 +35,9 @@ void CodeReader::setIndex(int index) {
 int CodeReader::getIndex() const {
     return index;
 }
+string CodeReader::peekNextToken() {
+    return this->codeTokens[this->index];
+}
 
 string CodeReader::getNextToken() {
     this->index++;

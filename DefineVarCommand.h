@@ -1,22 +1,16 @@
-//
-// Created by ranraboh on 16/12/18.
-//
-
 #ifndef PROJECT_DEFINEVARCOMMAND_H
 #define PROJECT_DEFINEVARCOMMAND_H
-
-
 #include "Command.h"
 
 class DefineVarCommand : public Command {
 private:
     string var;
-    string path;
+    double value;
     SymbolTable* symbolTable;
 public:
-    DefineVarCommand(string var, string path,SymbolTable* symbolTable);
+    DefineVarCommand(string var, double value, SymbolTable * symbolTable);
 
-    int execute() override;
+    virtual int execute();
 };
 
 

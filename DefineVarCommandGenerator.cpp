@@ -1,16 +1,19 @@
-//
-// Created by ranraboh on 16/12/18.
-//
-
 #include "DefineVarCommandGenerator.h"
-#include "DefineVarCommand.h"
+#include "DefineVarBindCommand.h"
 
 Command *DefineVarCommandGenerator::create(CodeReader &codeReader) {
+    bool isBind = false;
     string var = codeReader.getNextToken();
+    string expression;
+    ExpressionParser expressionParser(codeReader.getSymbolTable());
     if (codeReader.getNextToken() != "=")
         throw "syntax error: missing operator '='";
-    if (codeReader.getNextToken() != "bind")
-        throw "sytax error: missing bind keyword";
-    string path = codeReader.getNextToken();
-    return new DefineVarCommand(var, path, codeReader.getSymbolTable());
+    if (codeReader.peekNextToken() == "bind") {
+        isBind = true;
+        codeReader.getNextToken();
+        string path = codeReader.getNextToken();
+        return new DefineVarBindCommand(var, path, codeReader.getSymbolTable());
+    }
+    expression = codeReader.getNextToken();
+    return new DefineVarCommand(var, expressionParser.parseExpression(expression), codeReader.getSymbolTable());
 }

@@ -1,14 +1,10 @@
-#include <iostream>
 #include "DefineVarCommand.h"
 
-DefineVarCommand::DefineVarCommand(string var, string path, SymbolTable* symbolTable) {
+DefineVarCommand::DefineVarCommand(string var, double value, SymbolTable *symbolTable) {
     this->var = var;
-    this->path = path;
+    this->value = value;
     this->symbolTable = symbolTable;
 }
-
 int DefineVarCommand::execute() {
-    // todo connect to network
-    this->symbolTable->addVariable(this->var, 1);
-
+    this->symbolTable->addVariable(this->var, this->value, false);
 }

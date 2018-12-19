@@ -45,6 +45,8 @@ public:
 
     bool isRemainingToken(int tokens) const ;
 
+    string peekNextToken();
+
     string getNextToken();
     /**
      * get the strings between brackets
