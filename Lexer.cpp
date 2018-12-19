@@ -17,10 +17,13 @@
 #define C_POW '^'
 #define C_SPACE ' '
 #define C_COMMA ','
+#define C_GRATER '>'
+#define C_LESS '<'
+#define PRINT "print"
 vector<string> Lexer::getSplitFromFile(string filename) {
 
     ifstream infile;
-    infile.open("script.txt", ios::in);
+    infile.open(filename, ios::in);
     if (!infile.is_open()) {
         throw "file did not opened";
     }
@@ -32,10 +35,16 @@ vector<string> Lexer::getSplitFromFile(string filename) {
                 word = trimSpaces(word);
                 if (word == "") {
                     continue;
-                }
-                //check if contains  = | < | >
-                if (word.find(EQUAL) != string::npos || word.find(GRATER) != string::npos ||
-                    word.find(LESS) != string::npos)  {
+                } if (word == PRINT) {
+                    codeLine.push_back(word);
+                    i++;
+                    //the next parameter is the rest of the word;
+                    word = getRestFromIndex(line, i);
+                    codeLine.push_back(word);
+                    break;
+
+                }else if (word.find(EQUAL) != string::npos || word.find(GRATER) != string::npos ||
+                          word.find(LESS) != string::npos)  { //check if contains  = | < | >
 
                     if (word.find(NOT_EQUAL) != string::npos|| word.find(EQUAL_EQUAL) != string::npos||
                         word.find(GRATER_EQUAL) != string::npos|| word.find(LESS_EQUAL) != string::npos) {
@@ -92,7 +101,6 @@ string Lexer::getOneExpression(string line, int &i) {
     int endIndex = i;
 
     for (i; i < line.length(); i++) {
-        char cc = line[i]; //todo: delete later
         //loop through line
 
         if (isContainBoolTwoOperators(line, i)) {
@@ -179,7 +187,7 @@ string Lexer::extractTwoOperator(string &s) {
 }
 
 bool Lexer::isContainBoolTwoOperators(string line, int i) {
-    string operatorsTwo[] = {"!=", "==", "<=", ">=" };
+    string operatorsTwo[] = {NOT_EQUAL, EQUAL_EQUAL, LESS_EQUAL, GRATER_EQUAL };
 
     if (i < line.length() - 1) { // make sure there is another char to read
         string s = "";
@@ -198,5 +206,11 @@ bool Lexer::isContainBoolTwoOperators(string line, int i) {
 }
 
 bool Lexer::isContainOneBoolOperator(string line, int i) {
-    return (line[i] == '>' || line[i] == '<');
+    return (line[i] == C_GRATER || line[i] == C_LESS);
+}
+
+string Lexer::getRestFromIndex(string line, int i) {
+    string s = line.substr(i, line.length() -i );
+    s = trimSpaces(s);
+    return s;
 }
