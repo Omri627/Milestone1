@@ -7,8 +7,10 @@ class Var;
 using namespace std;
 class SymbolTable {
 private:
-    map < string, double > variables;
+    map < string, Var* > variables; //todo: add free memory to variable
 public:
+    void addVariable(string var, double value, bool isBind);
+
     void addVariable(string var, double value);
 
     unsigned long removeVariable(string var);
@@ -24,6 +26,12 @@ public:
     bool isVariableExist(string var) ;
 
     Var * getVariableObject(string var);
+
+    void setValueAndBind(string varName, double value, bool isBind);
+
+    void setVar (Var* var);
+
+    void setIsBind(string varName, bool isBind);
 };
 
 

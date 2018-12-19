@@ -5,6 +5,13 @@ Var::Var(string name) {
 Var::Var(string name, double value) {
     this->name = name;
     this->value = value;
+    this->isBind = false;
+}
+
+Var::Var(string name, double value, bool isBind) {
+    this->name = name;
+    this->value = value;
+    this->isBind = isBind;
 }
 Var::Var(string name, SymbolTable st) {
     this->name = name;
@@ -29,4 +36,16 @@ string Var::getVariableName() const {
 }
 double Var::calculate() const {
     return this->value;
+}
+
+bool Var::getIsBind() const {
+    return isBind;
+}
+
+void Var::setIsBind(bool isBind) {
+    Var::isBind = isBind;
+}
+
+double Var::getValue() const {
+    return value;
 }

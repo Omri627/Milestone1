@@ -10,10 +10,13 @@ class Var : public Expression {
 private:
     string name;
     double value;
+    bool isBind;
 public:
     Var(string name);
 
     Var(string name, double value);
+
+    Var(string name, double value, bool isBind);
 
     Var(string name, SymbolTable st);
 
@@ -27,7 +30,11 @@ public:
 
     virtual double calculate() const ;
 
+    bool getIsBind() const;
 
+    void setIsBind(bool isBind);
+
+    double getValue() const;
 
 
 };
