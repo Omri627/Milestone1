@@ -1,5 +1,6 @@
 #include "ConditionParser.h"
 #include "Expression.h"
+#include<algorithm>
 ConditionParser::ConditionParser(list<Command *> commands, Expression *rightExpression, Expression *leftExpression,
                                  Expression::Relation relation) {
         this->rightExpression = rightExpression;
@@ -24,30 +25,30 @@ bool ConditionParser::checkCondition() {
         throw "condition did not defined";
     switch (this->relation) {
         case Expression::G:
-            return this->leftExpression > this->rightExpression;
+            return *this->leftExpression > *this->rightExpression;
         case Expression::GE:
-            return this->leftExpression >= this->rightExpression;
+            return *this->leftExpression >= *this->rightExpression;
         case Expression::LE:
-            return this->leftExpression <= this->rightExpression;
+            return *this->leftExpression <= *this->rightExpression;
         case Expression::L:
-            return this->leftExpression < this->rightExpression;
+            return *this->leftExpression < *this->rightExpression;
         case Expression::E:
-            return this->leftExpression == this->rightExpression;
+            return *this->leftExpression == *this->rightExpression;
     }
 }
 const list<Command *> &ConditionParser::getCommands() const {
     return this->commands;
 }
 Expression::Relation ConditionParser::getRelation(string relation) {
-    if (relation.compare(">"))
+    if (!relation.compare(">"))
         return Expression::G;
-    if (relation.compare(">="))
+    if (!relation.compare(">="))
         return Expression::GE;
-    if (relation.compare("<"))
+    if (!relation.compare("<"))
         return Expression::L;
-    if (relation.compare("<="))
+    if (!relation.compare("<="))
         return Expression::LE;
-    if (relation.compare("=="))
+    if (!relation.compare("=="))
         return Expression::E;
     throw "relation is invalid";
 }

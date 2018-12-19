@@ -22,7 +22,7 @@ bool SymbolTable::isVariableExist(string var) {
 }
 void SymbolTable::setValue(string var, double value) {
     if (isVariableExist(var))
-        this->variables[var] = new Var(var, value);
+        this->variables[var]->setValue(value);
 }
 unsigned long SymbolTable::removeVariable(string var) {
     return this->variables.erase(var);

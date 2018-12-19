@@ -1,6 +1,8 @@
+#include <algorithm>
 #include "ExpressionParser.h"
 #include "Expression.h"
 #include "Var.h"
+#include "Utils.h"
 
 ExpressionParser::ExpressionParser() {
     this->precedence['+'] = 1;
@@ -17,7 +19,7 @@ Expression* ExpressionParser::parseExpression(string expression) {
     string prefix = this->shuntingYardAlgorithm(expression);
     Expression * firstOperand;
     Expression * secondOperand;
-    string variable = "";
+    string variableName = "";
     int num = 0;
     char_type charType;
     bool numberAddition = false, variableAddition = false;
@@ -35,13 +37,13 @@ Expression* ExpressionParser::parseExpression(string expression) {
             num = 0;
         }
         if (charType == VARIABLE) {
-            variable = variable + currentChar;
+            variableName = variableName + currentChar;
             variableAddition = true;
         } else {
             if (variableAddition == true)
-                operands.push(new Var(variable, *this->symbolTable));
+                operands.push(this->symbolTable->getVar(Utils::reverseStr(variableName)));
             variableAddition = false;
-            variable.clear();
+            variableName.clear();
         }
         if (charType == OPERATOR)
             operators.push(currentChar);
@@ -49,7 +51,7 @@ Expression* ExpressionParser::parseExpression(string expression) {
     if (numberAddition)
         operands.push(new Number(num));
     if (variableAddition)
-        operands.push(new Var(variable, *this->symbolTable));
+        operands.push(this->symbolTable->getVar(Utils::reverseStr(variableName)));
     while (!operators.empty()) {
         if (operands.size() < 2)
             throw "expression invalid";

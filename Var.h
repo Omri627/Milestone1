@@ -18,7 +18,7 @@ public:
 
     Var(string name, double value, bool isBind);
 
-    Var(string name, SymbolTable st);
+    Var(string name, SymbolTable* st);
 
     string getVariableName() const;
 

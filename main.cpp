@@ -3,12 +3,14 @@
 #include "ExpressionParser.h"
 #include "Lexer.h"
 #include "CodeParser.h"
+#include "Utils.h"
 
 using namespace std;
 int main() {
     Lexer lexer;
     CodeParser *codeParser = new CodeParser(lexer);
     codeParser->runCode();
+
     /*ExpressionParser expressionParser;
     SymbolTable symbolTable;
     expressionParser.setSymbolTable(symbolTable);

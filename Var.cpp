@@ -13,9 +13,9 @@ Var::Var(string name, double value, bool isBind) {
     this->value = value;
     this->isBind = isBind;
 }
-Var::Var(string name, SymbolTable st) {
+Var::Var(string name, SymbolTable* st) {
     this->name = name;
-    this->value = st.getVariable(name);
+    this->value = st->getVariable(name);
 }
 void Var::setValue(SymbolTable st) {
     if (!st.isVariableExist(this->name))
