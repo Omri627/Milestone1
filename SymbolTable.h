@@ -25,7 +25,7 @@ public:
 
     bool isVariableExist(string var) ;
 
-    Var * getVariableObject(string var);
+    Var * getVar(string var);
 
     void setValueAndBind(string varName, double value, bool isBind);
 

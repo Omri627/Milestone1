@@ -40,9 +40,9 @@ void SymbolTable::updateVariable(Var &var) {
     double value = this->getVariable(var.getVariableName());
     var.setValue(value);
 }
-Var * SymbolTable::getVariableObject(string var) {
-    double value = this->getVariable(var);
-    return new Var(var);
+
+Var* SymbolTable::getVar(string var) {
+    return this->variables[var];
 }
 
 void SymbolTable::setValueAndBind(string varName, double value, bool isBind) {

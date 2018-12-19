@@ -49,3 +49,4 @@ void Var::setIsBind(bool isBind) {
 double Var::getValue() const {
     return value;
 }
+
