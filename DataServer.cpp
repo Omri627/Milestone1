@@ -66,10 +66,11 @@ void DataServer::closeDataServer() {
 }
 
 void DataServer::readData() {
+    const int bufferSize = 512;
     int bytesReaded;
-    char buffer[512];
-    bzero(buffer,512);                      // set buffer with null values
-    bytesReaded = read(this->fileDescriptor, buffer, 511);
+    char buffer[bufferSize];
+    bzero(buffer,bufferSize);                      // set buffer with null values
+    bytesReaded = read(this->fileDescriptor, buffer, bufferSize-1);
     if (bytesReaded < 0) {
         perror("ERROR reading from socket");
         exit(1);
