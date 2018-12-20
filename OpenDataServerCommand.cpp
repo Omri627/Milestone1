@@ -29,9 +29,10 @@ int OpenDataServerCommand::getSpeed() const {
 }
 int OpenDataServerCommand::execute() {
 
-    DataServer server(this->symbolTable, this->port, this->speed);
+    //DataServer server(this->symbolTable, this->port, this->speed);
     pthread_t serverThread;
-    pthread_create(&serverThread, nullptr, &DataServer::openDataServerHelper, &server);
+    pthread_create(&serverThread, nullptr, &DataServer::openDataServerHelper, this->server);
+    pthread_detach(serverThread);
 }
 
 void* serverThread(DataServer* dataServer) {
