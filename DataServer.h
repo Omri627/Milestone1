@@ -20,6 +20,12 @@ public:
     DataServer(SymbolTable * symbolTable, int port, int speed);
 
     void* openDataServer();
+    /**
+     * help to pass openDataServer to pthread
+     * @param context the context fo the function to be send
+     * @return
+     */
+    static void *openDataServerHelper(void *context);
 
     void closeDataServer();
 
@@ -32,7 +38,6 @@ public:
     void setPort(int port);
 
     void setSpeed(int speed);
-
 
     void writeData();
 

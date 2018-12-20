@@ -77,3 +77,7 @@ void DataServer::readData() {
     }
     cout << buffer << endl;
 }
+
+void* DataServer::openDataServerHelper(void *context) {
+    return ((DataServer*) context)->openDataServer();
+}

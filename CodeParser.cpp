@@ -3,6 +3,7 @@
 #include "PrintCommand.h"
 #include "WhileCommand.h"
 #include "IfCommandGenerator.h"
+#include "OpenServerCommandGenerator.h"
 CodeParser::CodeParser(CodeReader* codeReader) {
     this->codeReader = codeReader;
     this->loadCommandMap();
@@ -26,11 +27,14 @@ void CodeParser::loadCommandMap() {
     whileGenerator->setCodeParser(this);
     IfCommandGenerator* ifGenerator = new IfCommandGenerator;
     ifGenerator->setCodeParser(this);
+    OpenServerCommandGenerator* serverCommandGenerator = new OpenServerCommandGenerator;
+
     this->commands["print"] = printGenerator;
     this->commands["var"] = defineGenerator;
     this->commands["update"] = updateVarCommandGenerator;
     this->commands["if"] = ifGenerator;
     this->commands["while"] = whileGenerator;
+    this->commands["openDataServer"] = serverCommandGenerator;
 }
 Command* CodeParser::parseNext() {
     //loop trough all the command in the string array
