@@ -11,8 +11,8 @@ OpenDataServerCommand::OpenDataServerCommand(SymbolTable * symbolTable,int port,
 }
 
 OpenDataServerCommand::OpenDataServerCommand(SymbolTable *symbolTable, Expression *port, Expression *speed) {
-    this->port = port->calculate();
-    this->speed = speed->calculate();
+    this->port = 5400;
+    this->speed = 10;
     this->server = new DataServer(symbolTable, this->port, this->speed);
 }
 void OpenDataServerCommand::setPort(int port) {
@@ -32,7 +32,8 @@ int OpenDataServerCommand::execute() {
     //DataServer server(this->symbolTable, this->port, this->speed);
     pthread_t serverThread;
     pthread_create(&serverThread, nullptr, &DataServer::openDataServerHelper, this->server);
-    pthread_detach(serverThread);
+    pthread_join(serverThread, nullptr);
+   //this->server->openDataServer();
 }
 
 void* serverThread(DataServer* dataServer) {
