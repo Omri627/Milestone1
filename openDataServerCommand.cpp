@@ -21,11 +21,9 @@ int openDataServerCommand::getSpeed() const {
 int openDataServerCommand::execute() {
     pthread_t serverThread;
     int i;
-    //void* (*serverMethod) = this->server->openDataServer();
-    pthread_create(&serverThread, 0, this->serverMethod, );
-
-
+    void* (*serverMethodPtr) = openDataServerCommand::serverMethod;
+    pthread_create(&serverThread, 0, serverMethodPtr, nullptr);
 }
-void* serverThread(DataServer* dataServer) {
+static void* serverMethod(DataServer* dataServer) {
 
 }

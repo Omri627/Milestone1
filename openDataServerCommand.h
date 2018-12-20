@@ -21,7 +21,8 @@ public:
 
     int execute() override;
 
-};
+    static void* serverMethod(DataServer* dataServer);
+    };
 
 
 #endif
