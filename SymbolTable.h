@@ -39,6 +39,8 @@ public:
     string getVarNameByPath(string path);
 
     Var* getVarByPath(string path);
+
+
 };
 
 

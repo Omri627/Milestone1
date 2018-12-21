@@ -70,10 +70,22 @@ void SymbolTable::addPath(string path, string varName) {
 }
 
 string SymbolTable::getVarNameByPath(string path) {
-    return paths[path];
+    if (isPathExist(path)) {
+        return paths[path];
+    }
 }
 
 Var* SymbolTable::getVarByPath(string path) {
-    string varName = paths[path];
-    return getVar(varName);
+    if (isPathExist(path)) {
+        string varName = paths[path];
+        if (isVariableExist(varName))
+            return getVar(varName);
+        return nullptr;
+    }
+    return nullptr;
+
+
 }
+
+
+

@@ -4,8 +4,9 @@
 
 #include <iostream>
 #include "DataServer.h"
+#define SIZE 512
 
-DataServer::DataServer(SymbolTable *symbolTable, int port, int speed) {
+DataServer::DataServer(SymbolTable *symbolTable, int port, int speed) : updater(symbolTable) {
     this->symbolTable = symbolTable;
     this->port = port;
     this->speed = speed;
@@ -66,7 +67,7 @@ void DataServer::closeDataServer() {
 }
 
 void DataServer::readData() {
-    const int bufferSize = 512;
+    const int bufferSize = SIZE;
     int bytesReaded;
     char buffer[bufferSize];
     bzero(buffer,bufferSize);                      // set buffer with null values
@@ -75,7 +76,7 @@ void DataServer::readData() {
         perror("ERROR reading from socket");
         exit(1);
     }
-    cout << buffer << endl;
+    updater.update(buffer);
 }
 
 void* DataServer::openDataServerHelper(void *context) {

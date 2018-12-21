@@ -8,7 +8,9 @@ DefineVarBindCommand::DefineVarBindCommand(string var, string path, SymbolTable*
 }
 
 int DefineVarBindCommand::execute() {
-    // todo connect to network
     this->symbolTable->addVariable(this->var, 1, true);
+    //add path make sure the server will update it
+    this->symbolTable->addPath(this->path, this->var);
+
 
 }
