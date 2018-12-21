@@ -32,9 +32,11 @@ int OpenDataServerCommand::execute() {
     //DataServer server(this->symbolTable, this->port, this->speed);
     pthread_t serverThread;
     pthread_create(&serverThread, nullptr, &DataServer::openDataServerHelper, this->server);
-    pthread_join(serverThread, nullptr);
+    pthread_detach(serverThread);
+    //pthread_join(serverThread, nullptr);
    //this->server->openDataServer();
 }
+
 
 void* serverThread(DataServer* dataServer) {
 
