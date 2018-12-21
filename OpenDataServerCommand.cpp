@@ -37,7 +37,6 @@ int OpenDataServerCommand::execute() {
    //this->server->openDataServer();
 }
 
-
 void* serverThread(DataServer* dataServer) {
 
 }

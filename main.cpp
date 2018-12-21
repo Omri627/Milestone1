@@ -10,7 +10,7 @@ int main() {
     Lexer lexer;
     CodeParser *codeParser = new CodeParser(lexer);
     codeParser->runCode();
-
+    exit(0);
     /*ExpressionParser expressionParser;
     SymbolTable symbolTable;
     expressionParser.setSymbolTable(symbolTable);
