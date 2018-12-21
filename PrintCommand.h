@@ -1,5 +1,5 @@
 #ifndef PRINT_COMMAND
-    #define PRINT_COMMAND
+#define PRINT_COMMAND
 #include "CodeReader.h"
 #include "Command.h"
 

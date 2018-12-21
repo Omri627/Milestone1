@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <netinet/in.h>
 #include "Command.h"
+#include "SymbolUpdater.h"
 class DataServer {
 private:
     int port;
@@ -16,6 +17,7 @@ private:
     struct sockaddr_in server_address, client_address;
     int fileDescriptor;
     SymbolTable * symbolTable;
+    SymbolUpdater updater;
 public:
     DataServer(SymbolTable * symbolTable, int port, int speed);
 

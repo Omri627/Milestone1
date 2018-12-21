@@ -59,3 +59,33 @@ void SymbolTable::setIsBind(string varName, bool isBind) {
         var->setIsBind(isBind);
     }
 }
+
+bool SymbolTable::isPathExist(string path) {
+    //check if the map contains the path key
+    map<string, string>::const_iterator it = paths.find(path);
+    return it != paths.end();
+}
+
+void SymbolTable::addPath(string path, string varName) {
+    this->paths[path] = varName;
+}
+
+string SymbolTable::getVarNameByPath(string path) {
+    if (isPathExist(path)) {
+        return paths[path];
+    }
+}
+
+Var* SymbolTable::getVarByPath(string path) {
+    if (isPathExist(path)) {
+        string varName = paths[path];
+        if (isVariableExist(varName))
+            return getVar(varName);
+        return nullptr;
+    }
+    return nullptr;
+
+
+}
+
+

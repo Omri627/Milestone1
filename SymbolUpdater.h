@@ -1,36 +1,32 @@
-#ifndef SYMBOL_TABLE
-#define SYMBOL_TABLE
 
-#include <string>
-#include <map>
-class Var;
+#ifndef PROJECT_SYMBOLUPDATER_H
+#define PROJECT_SYMBOLUPDATER_H
+#define SIZE 512
+
+#include <vector>
+#include "SymbolTable.h"
+#include "Var.h"
+
 using namespace std;
-class SymbolTable {
+
+class SymbolUpdater {
+
 private:
-    map < string, Var* > variables; //todo: add free memory to variable
+    SymbolTable* symbolTable;
+    vector<string> pathsVec;
+
+    void loadPath();
+
+    void updateVar(double value, string path);
 public:
-    void addVariable(string var, double value, bool isBind);
 
-    void addVariable(string var, double value);
+    SymbolUpdater(SymbolTable *symbolTable);
 
-    unsigned long removeVariable(string var);
+    void update(char buffer[SIZE]);
 
-    void setValue(string var, double value);
+    void printBinds();
 
-    void updateVariable(Var& var);
-
-    double getVariable(string var) ;
-
-    bool isVariableEquels(string var, double value);
-
-    bool isVariableExist(string var) ;
-
-    Var * getVar(string var);
-
-    void setValueAndBind(string varName, double value, bool isBind);
-
-    void setIsBind(string varName, bool isBind);
 };
 
 
-#endif
+#endif //PROJECT_SYMBOLUPDATER_H

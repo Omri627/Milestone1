@@ -1,11 +1,7 @@
-//
-// Created by ranraboh on 20/12/18.
-//
-
 #include <iostream>
 #include "DataServer.h"
 
-DataServer::DataServer(SymbolTable *symbolTable, int port, int speed) {
+DataServer::DataServer(SymbolTable *symbolTable, int port, int speed) : updater(symbolTable) {
     this->symbolTable = symbolTable;
     this->port = port;
     this->speed = speed;
@@ -76,7 +72,8 @@ void DataServer::readData() {
         perror("ERROR reading from socket");
         exit(1);
     }
-    cout << buffer << endl;
+    updater.update(buffer);
+
 }
 
 void* DataServer::openDataServerHelper(void *context) {

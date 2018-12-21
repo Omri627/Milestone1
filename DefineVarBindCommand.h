@@ -1,5 +1,5 @@
 #ifndef DEFINE_VAR_BIND_COMMAND
-    #define DEFINE_VAR_BIND_COMMAND
+#define DEFINE_VAR_BIND_COMMAND
 
 
 #include "Command.h"

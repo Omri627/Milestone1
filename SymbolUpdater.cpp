@@ -78,12 +78,11 @@ void SymbolUpdater::updateVar(double value, string path) {
 }
 
 void SymbolUpdater::printBinds() { //todo:: delete later, for debugging only
-   for (string s : pathsVec) {
-       Var* var = symbolTable->getVarByPath(s);
-       if (var!= nullptr) {
-           cout << var->getVariableName() << ": " << var->getValue() <<endl;
-       }
-   }
+    for (string s : pathsVec) {
+        Var* var = symbolTable->getVarByPath(s);
+        if (var!= nullptr) {
+            cout << var->getVariableName() << ": " << var->getValue() <<endl;
+        }
+    }
 }
-
 

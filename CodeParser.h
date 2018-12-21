@@ -43,6 +43,8 @@ public:
 
     void setClientServer(ClientServer * server);
 
+    CodeReader *getCodeReader() const;
+
 };
 
 

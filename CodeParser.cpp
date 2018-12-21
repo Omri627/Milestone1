@@ -79,3 +79,8 @@ CommandGenerator* CodeParser::getCommand(string keyword) {
 void CodeParser::setClientServer(ClientServer *server) {
     this->clientServer = server;
 }
+
+
+CodeReader *CodeParser::getCodeReader() const {
+    return codeReader;
+}

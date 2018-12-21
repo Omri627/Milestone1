@@ -5,8 +5,8 @@
 #include "Command.h"
 
 #ifndef PRINT_COMMAND_GENERATOR
-    #define PRINT_COMMAND_GENERATOR
-
+#define PRINT_COMMAND_GENERATOR
+using namespace std;
 #include "CommandGenerator.h"
 #include "PrintCommand.h"
 class PrintCommandGenerator : public CommandGenerator {
