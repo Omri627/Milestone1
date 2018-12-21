@@ -9,6 +9,7 @@
 
 using namespace std;
 int main() {
+    int ranraboh = 0;
     ThreadManager* threadManager = new ThreadManager;
     Lexer lexer;
     CodeParser *codeParser = new CodeParser(lexer, threadManager);
