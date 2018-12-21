@@ -13,7 +13,7 @@ private:
     int port;
     int speed;
     /* socket structures */
-    struct sockaddr_in server_address, client_address;       // socket structur
+    struct sockaddr_in server_address, client_address;
     int fileDescriptor;
     SymbolTable * symbolTable;
 public:
@@ -42,8 +42,6 @@ public:
     void writeData();
 
     void updateBindVariables();
-
-
 
 };
 

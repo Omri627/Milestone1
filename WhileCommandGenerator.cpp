@@ -3,6 +3,9 @@
 
 WhileCommandGenerator::WhileCommandGenerator() {
 }
+WhileCommandGenerator::WhileCommandGenerator(CodeParser *codeParser) {
+    this->setCodeParser(codeParser);
+}
 Command* WhileCommandGenerator::create(CodeReader &codeReader) {
     ExpressionParser expressionParser(codeReader.getSymbolTable());
     string leftExpression = codeReader.getNextToken();

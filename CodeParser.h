@@ -11,6 +11,8 @@
 #include "UpdateVarCommandGenerator.h"
 #include "ConditionParserGenerator.h"
 #include "WhileCommandGenerator.h"
+#include "ClientServer.h"
+#include "ThreadManager.h"
 using namespace std;
 class IfCommandGenerator;
 class CodeParser {
@@ -19,14 +21,15 @@ private:
 
     map<string, CommandGenerator*> commands;
 
-    WhileCommandGenerator* whileCommand;
+    ClientServer * clientServer;
 
-    IfCommandGenerator* ifCommand;
+    ThreadManager * threadManager;
 public:
-
     CodeParser(CodeReader* codeReader);
 
     CodeParser(Lexer lexer);
+
+    CodeParser(Lexer lexer, ThreadManager * threadManager);
 
     void loadCommandMap();
 
@@ -37,6 +40,8 @@ public:
     list < Command* > parseBlock();
 
     CommandGenerator* getCommand(string keyword);
+
+    void setClientServer(ClientServer * server);
 
 };
 

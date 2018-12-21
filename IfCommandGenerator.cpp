@@ -3,6 +3,9 @@
 IfCommandGenerator::IfCommandGenerator() {
 
 }
+IfCommandGenerator::IfCommandGenerator(CodeParser *codeParser) {
+    this->setCodeParser(codeParser);
+}
 Command* IfCommandGenerator::create(CodeReader &codeReader) {
     ExpressionParser expressionParser(codeReader.getSymbolTable());
     string leftExpression = codeReader.getNextToken();

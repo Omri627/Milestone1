@@ -59,6 +59,7 @@ void* DataServer::openDataServer() {
     }
     while (1){
         this->readData();
+        sleep(20);
     }
 }
 void DataServer::closeDataServer() {

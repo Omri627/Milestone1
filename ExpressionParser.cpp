@@ -28,7 +28,7 @@ Expression* ExpressionParser::parseExpression(string expression) {
         currentChar = prefix[i];
         charType = getCharType(currentChar);
         if (charType == NUMBER) {
-            num = num * 10 + (currentChar - '0');
+            num = (log(num) + 1) * (currentChar - '0') + num;
             numberAddition = true;
         } else {
             if (numberAddition)

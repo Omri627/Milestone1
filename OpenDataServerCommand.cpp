@@ -1,18 +1,23 @@
 #include "OpenDataServerCommand.h"
+#include "ThreadManager.h"
 #include <pthread.h>
 
-OpenDataServerCommand::OpenDataServerCommand(DataServer*  dataServer) {
+OpenDataServerCommand::OpenDataServerCommand(ThreadManager * threadManager, DataServer*  dataServer) {
     this->server = dataServer;
+    this->threadManager = threadManager;
 }
-OpenDataServerCommand::OpenDataServerCommand(SymbolTable * symbolTable,int port, int speed) {
+OpenDataServerCommand::OpenDataServerCommand(ThreadManager * threadManager, SymbolTable * symbolTable,
+        int port, int speed) {
     this->server = new DataServer(symbolTable, port, speed);
+    this->threadManager = threadManager;
     this->port = port;
     this->speed = speed;
 }
 
-OpenDataServerCommand::OpenDataServerCommand(SymbolTable *symbolTable, Expression *port, Expression *speed) {
+OpenDataServerCommand::OpenDataServerCommand(ThreadManager * threadManager, SymbolTable *symbolTable, Expression *port, Expression *speed) {
     this->port = 5400;
     this->speed = 10;
+    this->threadManager = threadManager;
     this->server = new DataServer(symbolTable, this->port, this->speed);
 }
 void OpenDataServerCommand::setPort(int port) {
@@ -28,14 +33,10 @@ int OpenDataServerCommand::getSpeed() const {
     return this->server->getSpeed();
 }
 int OpenDataServerCommand::execute() {
-
-    //DataServer server(this->symbolTable, this->port, this->speed);
+    int threadId;
     pthread_t serverThread;
     pthread_create(&serverThread, nullptr, &DataServer::openDataServerHelper, this->server);
-    pthread_join(serverThread, nullptr);
-   //this->server->openDataServer();
-}
-
-void* serverThread(DataServer* dataServer) {
-
+    threadId = this->threadManager->addThread(serverThread, ThreadManager::ServerThread);
+    this->threadManager->runThread(serverThread);
+    return threadId;
 }

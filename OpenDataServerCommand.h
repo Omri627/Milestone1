@@ -4,18 +4,21 @@
 #include "pthread.h"
 #include "DataServer.h"
 #include "Expression.h"
+#include "ThreadManager.h"
+
 class OpenDataServerCommand : public Command {
 private:
     DataServer * server;
     SymbolTable *symbolTable;
     int port;
     int speed;
+    ThreadManager * threadManager;
 public:
-    OpenDataServerCommand(DataServer* dataServer);
+    OpenDataServerCommand(ThreadManager * threadManager, DataServer* dataServer);
 
-    OpenDataServerCommand(SymbolTable * symbolTable ,int port, int speed);
+    OpenDataServerCommand(ThreadManager * threadManager, SymbolTable * symbolTable ,int port, int speed);
 
-    OpenDataServerCommand(SymbolTable * symbolTable, Expression* port, Expression* speed);
+    OpenDataServerCommand(ThreadManager * threadManager, SymbolTable * symbolTable, Expression* port, Expression* speed);
 
     int getPort() const ;
 
@@ -25,7 +28,7 @@ public:
 
     void setSpeed(int speed);
 
-    int execute() override;
+    virtual int execute();
 
 };
 

@@ -5,9 +5,14 @@
 
 
 #include "CommandGenerator.h"
+#include "ThreadManager.h"
 
 class OpenServerCommandGenerator  : public CommandGenerator{
+private:
+    ThreadManager * threadManager;
 public:
+    OpenServerCommandGenerator(ThreadManager* threadManager);
+
     virtual Command *create(CodeReader &codeReader);
 };
 
