@@ -64,3 +64,7 @@ CommandGenerator* CodeParser::getCommand(string keyword) {
     }
     return iterator->second;
 }
+
+CodeReader *CodeParser::getCodeReader() const {
+    return codeReader;
+}

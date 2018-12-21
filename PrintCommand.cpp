@@ -1,9 +1,11 @@
 #include <iostream>
 #include "PrintCommand.h"
+#include "Var.h"
 
 PrintCommand::PrintCommand(string str) {
-    this->str = str.substr(1, str.size() - 2);
+    this->str = str;
 }
+
 int PrintCommand::execute() {
     cout << str << endl;
 }

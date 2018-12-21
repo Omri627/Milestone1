@@ -4,13 +4,20 @@
 #include "Lexer.h"
 #include "CodeParser.h"
 #include "Utils.h"
+#include <thread>
 
 using namespace std;
 int main() {
     Lexer lexer;
     CodeParser *codeParser = new CodeParser(lexer);
     codeParser->runCode();
-    exit(0);
+    SymbolTable* symbol = codeParser->getCodeReader()->getSymbolTable();
+    while(true) {
+        cout << symbol->getVar("throttle")->getVariableName() << ": " << symbol->getVar("throttle")->getValue() << endl;
+        cout << symbol->getVar("heading")->getVariableName() << ": " << symbol->getVar("heading")->getValue() << endl;
+        this_thread::sleep_for(0.2s);
+
+    }
     /*ExpressionParser expressionParser;
     SymbolTable symbolTable;
     expressionParser.setSymbolTable(symbolTable);

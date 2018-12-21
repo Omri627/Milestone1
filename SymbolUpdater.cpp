@@ -1,3 +1,4 @@
+#include <iostream>
 #include "SymbolUpdater.h"
 #define COMMA ","
 
@@ -43,20 +44,23 @@ void SymbolUpdater::update(char *buffer) {
 
     int start = 0; // start index for param
     int end = 0; // end index for the param
+    double value;
 
     for (start = 0; start < buff.length(); start++) {
         string param;
         end = buff.find(COMMA ,start);
         if (end == string::npos) {
             //last param, read to the end
-            param.substr(start);
+            param = buff.substr(start);
+            value = stod(param);
+            updateVar(value, *it);
             break;
         } else {
-            param.substr(start, end - start);
+            param = buff.substr(start, end - start);
         }
         start = end; // point to the next comma
 
-        double value = stod(param);
+        value = stod(param);
         updateVar(value, *it);
         if (it != pathsVec.end()) {
             it++;
@@ -66,7 +70,19 @@ void SymbolUpdater::update(char *buffer) {
 
 void SymbolUpdater::updateVar(double value, string path) {
     Var* var = symbolTable->getVarByPath(path);
-    var->setValue(value);
+    if (var != nullptr) {
+        var->setValue(value);
+    }
+
+}
+
+void SymbolUpdater::printBinds() { //todo:: delete later, for debugging only
+   for (string s : pathsVec) {
+       Var* var = symbolTable->getVarByPath(s);
+       if (var!= nullptr) {
+           cout << var->getVariableName() << ": " << var->getValue() <<endl;
+       }
+   }
 }
 
 

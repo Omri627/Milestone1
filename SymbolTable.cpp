@@ -62,7 +62,8 @@ void SymbolTable::setIsBind(string varName, bool isBind) {
 
 bool SymbolTable::isPathExist(string path) {
     //check if the map contains the path key
-    return paths.find(path) != paths.end();
+    map<string, string>::const_iterator it = paths.find(path);
+    return it != paths.end();
 }
 
 void SymbolTable::addPath(string path, string varName) {

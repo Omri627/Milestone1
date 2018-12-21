@@ -38,6 +38,8 @@ public:
 
     CommandGenerator* getCommand(string keyword);
 
+    CodeReader *getCodeReader() const;
+
 };
 
 

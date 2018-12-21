@@ -77,7 +77,9 @@ void DataServer::readData() {
         exit(1);
     }
     updater.update(buffer);
+    //updater.printBinds();
 }
+
 
 void* DataServer::openDataServerHelper(void *context) {
     return ((DataServer*) context)->openDataServer();

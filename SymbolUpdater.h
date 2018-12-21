@@ -4,7 +4,7 @@
 #define SIZE 512
 
 #include <vector>
-#import "SymbolTable.h"
+#include "SymbolTable.h"
 #include "Var.h"
 
 using namespace std;
@@ -23,6 +23,8 @@ public:
     SymbolUpdater(SymbolTable *symbolTable);
 
     void update(char buffer[SIZE]);
+
+    void printBinds();
 
 };
 
