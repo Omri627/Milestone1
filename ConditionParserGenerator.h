@@ -1,8 +1,9 @@
 #ifndef CONDITION_PARSER
     #define CONDITION_PARSER
 
-
 #include "CommandGenerator.h"
+#define INVALID_EXPRESSION "invalid expression"
+
 class CodeParser;
 class ConditionParserGenerator : public CommandGenerator {
     CodeParser *codeParser;
