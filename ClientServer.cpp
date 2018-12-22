@@ -79,7 +79,7 @@ void ClientServer::connectToServer() {
     portno = this->port;
 
     cout << "connect: going to sleep" << endl;
-    sleep(70);
+    //sleep(70); todo::if the simulator is already on, no sleep needed
     cout << "woke up" << endl;
 
     /* Create a socket point */
@@ -114,22 +114,25 @@ void ClientServer::connectToServer() {
 
     printf("Please enter the message: ");
     bzero(buffer,256);
-    fgets(buffer,255,stdin);
+    //fgets(buffer,255,stdin);
+    strcpy(buffer, "set controls/flight/rudder 1\r\n");
 
     /* Send message to the server */
     n = write(sockfd, buffer, strlen(buffer));
 
     if (n < 0) {
         perror("ERROR writing to socket");
+        cout << "ERROR writing to socket" << endl;
         exit(1);
     }
-
+    cout << buffer << endl;
     /* Now read server response */
     bzero(buffer,256);
     n = read(sockfd, buffer, 255);
 
     if (n < 0) {
         perror("ERROR reading from socket");
+        cout<< "ERROR reading from socket" << endl;
         exit(1);
     }
 
