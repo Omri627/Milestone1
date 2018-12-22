@@ -5,6 +5,10 @@
 #include "Command.h"
 class IfCommandGenerator : public ConditionParserGenerator {
 public:
+
+    /**
+    * default constructor
+    */
     IfCommandGenerator();
 
     IfCommandGenerator(CodeParser* codeParser);
