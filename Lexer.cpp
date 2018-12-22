@@ -20,6 +20,11 @@
 #define C_GRATER '>'
 #define C_LESS '<'
 #define PRINT "print"
+/**
+* get vector of string that represent expressions from file
+* @param filename
+* @return vector<string>
+*/
 vector<string> Lexer::getSplitFromFile(string filename) {
 
     ifstream infile;
@@ -71,7 +76,11 @@ vector<string> Lexer::getSplitFromFile(string filename) {
     infile.close();
     return codeLine;
 }
-
+/**
+* trim excess spaces
+* @param s string
+* @return the string withoutexcess spaces
+*/
 string Lexer::trimSpaces(string s) {
     int start = 0;
     for (int i = 0; i < s.length(); i++) {
@@ -92,7 +101,12 @@ string Lexer::trimSpaces(string s) {
     s = s.substr(start, s.length() - start - count);
     return s;
 }
-
+/**
+* extract one expression at the time from string line
+* @param line string that reprsant one line of the script
+* @param i the current position of the line looping
+* @return one string that got extracted from line by order
+*/
 string Lexer::getOneExpression(string line, int &i) {
     int temp = i;
     bool isSign = false;
@@ -157,6 +171,11 @@ string Lexer::getOneExpression(string line, int &i) {
     return  word;
 }
 
+/**
+* check if the char is operator
+* @param c the char to be checked
+* @return true if char is operator, false otherwise
+*/
 bool Lexer::isCharOperator(char c) {
     char operators[]  = {C_DIV, C_MUL, C_MINUS, C_PLUS, C_POW};
 
@@ -168,7 +187,11 @@ bool Lexer::isCharOperator(char c) {
     }
     return  false;
 }
-
+/**
+* remove the One size boolean operator from the end of the string and remove excess spaces
+* @param s string by reference
+* @return the operator
+*/
 string Lexer::extractOneOperator(string &s) {
     string res = "";
     res += s[s.length()-1];
@@ -177,6 +200,11 @@ string Lexer::extractOneOperator(string &s) {
     return res;
 }
 
+/**
+* remove the Two size boolean operator from the end of the string and remove excess spaces
+* @param s string by reference
+* @return the operator
+*/
 string Lexer::extractTwoOperator(string &s) {
     string res = "";
     res += s[s.length()-2];
@@ -186,6 +214,12 @@ string Lexer::extractTwoOperator(string &s) {
     return res;
 }
 
+/**
+* check if the line contain boolean operator of size 2
+* @param line string line to check
+* @param i the index to check from
+* @return true if contains, else false
+*/
 bool Lexer::isContainBoolTwoOperators(string line, int i) {
     string operatorsTwo[] = {NOT_EQUAL, EQUAL_EQUAL, LESS_EQUAL, GRATER_EQUAL };
 
@@ -205,10 +239,21 @@ bool Lexer::isContainBoolTwoOperators(string line, int i) {
     }
 }
 
+/**
+* check if the line contain boolean operator of size 1
+* @param line string line to check
+* @param i the index to check from
+* @return true if contains, else false
+*/
 bool Lexer::isContainOneBoolOperator(string line, int i) {
     return (line[i] == C_GRATER || line[i] == C_LESS);
 }
-
+/**
+* get the rest of the line from given index and remove excess spacess
+* @param line string
+* @param i the index to get the rest of the line
+* @return string- the rest of the line
+*/
 string Lexer::getRestFromIndex(string line, int i) {
     string s = line.substr(i, line.length() -i );
     s = trimSpaces(s);
