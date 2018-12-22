@@ -6,8 +6,11 @@
 class PrintCommand : public Command {
 private:
     string str;
+    SymbolTable * symbolTable;
 public:
     PrintCommand(string str);
+
+    PrintCommand(SymbolTable * symbolTable, string var);
 
     int execute();
 };

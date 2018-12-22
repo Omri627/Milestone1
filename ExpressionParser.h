@@ -15,9 +15,11 @@ private:
     SymbolTable * symbolTable;
     map<char, int> precedence;
 public:
-    enum char_type {
-        NUMBER, OPERATOR, OPEN_BRACKET, CLOSE_BRACKET, VARIABLE, OTHER
+    enum token_type {
+        NUMBER, OPERATOR, UNARY , OPEN_BRACKET, CLOSE_BRACKET, VARIABLE, OTHER
     };
+    typedef pair<string, token_type> token;
+
     ExpressionParser();
 
     ExpressionParser(SymbolTable* st);
@@ -26,14 +28,20 @@ public:
 
     Expression *parseExpression(string expression);
 
-    string shuntingYardAlgorithm(string expression);
+    deque < token > shuntingYardAlgorithm(string expression);
+
+    vector< token > getExpressionTokens(string expression);
 
     bool isValidExpression(string expression);
 
-private:
-    char_type getCharType(char ch) const;
+    void printPostfixNotation(string expression);
 
-    Expression *makeExpression(Expression *firstOperand, Expression *secondOperand, char op);
+private:
+    bool isGreaterPrecedence(string firstOperation, string secondOperation);
+
+    token_type getTokenType(char ch) const;
+
+    Expression *makeExpression(Expression *firstOperand, Expression *secondOperand, string op);
 };
 
 

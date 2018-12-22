@@ -9,7 +9,9 @@ public:
 
     Plus(Expression *firstOperand, Expression *secondOperand);
 
-    double calculate() const;
+    virtual double calculate() const;
+
+    void printExpression() const override;
 };
 
 #endif

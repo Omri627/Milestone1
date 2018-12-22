@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Var.h"
 Var::Var(string name) {
     this->name = name;
@@ -48,5 +49,10 @@ void Var::setIsBind(bool isBind) {
 
 double Var::getValue() const {
     return value;
+}
+
+void Var::printExpression() const {
+    cout << " " << this->name << " ";
+
 }
 

@@ -36,7 +36,7 @@ public:
 
     double getValue() const;
 
-
+    void printExpression() const override;
 };
 
 #endif

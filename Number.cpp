@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Number.h"
 Number::Number(double value) {
     this->value = value;
@@ -11,3 +12,9 @@ double Number::getValue() const {
 void Number::setValue(double value) {
     this->value = value;
 }
+
+void Number::printExpression() const {
+    cout << " " << this->value << " ";
+
+}
+

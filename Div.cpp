@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Div.h"
 Div::Div(Expression *firstOpernad, Expression *secondOperand)
 : BinaryExpression(firstOpernad, secondOperand) {
@@ -9,4 +10,12 @@ double Div::calculate() const {
     if (!denominator)
         throw "cannot divide by 0";
     return numerator / denominator;
+}
+
+void Div::printExpression() const {
+    cout << "(";
+    this->getFirstOperand()->printExpression();
+    std::cout << " / ";
+    this->getSecondOperand()->printExpression();
+    cout << ")";
 }

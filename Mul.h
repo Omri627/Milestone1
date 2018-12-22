@@ -5,8 +5,11 @@
 #include "BInaryExpression.h"
 class Mul : public BinaryExpression {
 public:
-    Mul(Expression * firstOperand, Expression * secondOperand);
+    Mul(Expression *firstOperand, Expression *secondOperand);
+
     double calculate() const;
+
+    virtual void printExpression() const;
 };
 
 

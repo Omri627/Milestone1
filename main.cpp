@@ -9,25 +9,27 @@
 
 using namespace std;
 int main() {
-    int ranraboh = 0;
+    const int mainThread = 0;
     ThreadManager* threadManager = new ThreadManager;
     Lexer lexer;
     CodeParser *codeParser = new CodeParser(lexer, threadManager);
     codeParser->runCode();
-    while (threadManager->isThereSubThread(0))
+    while (threadManager->isThereSubThread(mainThread))
         sleep(1000);
     return 0;
     /*ExpressionParser expressionParser;
-    SymbolTable symbolTable;
+    SymbolTable* symbolTable = new SymbolTable;
     expressionParser.setSymbolTable(symbolTable);
-    symbolTable.addVariable("x", 3);
-    symbolTable.addVariable("y", 5);
-    symbolTable.addVariable("ran", 10);
-    string expression = "3 * x + 2 * y";
-    Expression * expObject = expressionParser.parseExpression(expression);
+    symbolTable->addVariable("x", 3);
+    symbolTable->addVariable("y", 5);
+    symbolTable->addVariable("ran", 10);
+    string expression = "5 + 0.5 * x ";
+    Expression *expObject = expressionParser.parseExpression(expression);
     double value = expObject->calculate();
+    cout <<  "before: " << expression << endl << endl;
+    cout <<  "after: ";
+    expressionParser.printPostfixNotation(expression);
+    expObject->printExpression();
     cout << value << endl;
-    return 0; */
-    //sleep(100000);
-
+    */
 }

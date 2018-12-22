@@ -17,6 +17,8 @@ public:
     virtual double calculate() const ;
     virtual double getValue() const ;
     virtual void setValue(double value);
+
+    void printExpression() const override;
 };
 
 
