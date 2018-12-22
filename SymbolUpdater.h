@@ -8,7 +8,9 @@
 #include "Var.h"
 
 using namespace std;
-
+/**
+ * the symbolUpdater updates the binds var from the parameters that we got from the DataServer
+ */
 class SymbolUpdater {
 
 private:

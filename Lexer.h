@@ -6,6 +6,9 @@
 #include <regex>
 
 using namespace std;
+/**
+ * the Lexer class is handle to divide the code into array of string, which eac string represant one word or expression
+ */
 class Lexer {
 private:
     vector<string> codeLine;

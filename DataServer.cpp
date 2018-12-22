@@ -1,23 +1,49 @@
 #include <iostream>
 #include "DataServer.h"
-
+/**
+ * constructor
+ * @param symbolTable symbolTable
+ * @param port
+ * @param speed
+ */
 DataServer::DataServer(SymbolTable *symbolTable, int port, int speed) : updater(symbolTable) {
     this->symbolTable = symbolTable;
     this->port = port;
     this->speed = speed;
 };
+/**
+ * setter for port
+ * @param port: port's number
+ */
 void DataServer::setPort(int port) {
     this->port = port;
 }
+/**
+ * setter for speed of reading
+ * @param speed int
+ */
 void DataServer::setSpeed(int speed) {
     this->speed = speed;
 }
+/**
+ * getter for port
+ * @return int port
+ */
 int DataServer::getPort() const {
     return this->port;
 }
+/**
+ * getter for speed of reading
+ * @return speed
+ */
 int DataServer::getSpeed() const {
     return this->speed;
 }
+
+/**
+ * open our dataReaderServer, that reads parameters that the simulator is sending us
+ * @return
+ */
 void* DataServer::openDataServer() {
     int socketFd, establishedFd;                            // socket file descriptor
     struct sockaddr_in server_address, client_address;       // socket structure
@@ -60,7 +86,9 @@ void* DataServer::openDataServer() {
 void DataServer::closeDataServer() {
 
 }
-
+/**
+ * read the parameters that the server send
+ */
 void DataServer::readData() {
     const int bufferSize = 512;
     int bytesReaded;
@@ -74,7 +102,11 @@ void DataServer::readData() {
     updater.update(buffer);
 
 }
-
+/**
+* help to pass openDataServer to pthread
+* @param context the context fo the function to be send
+* @return
+ */
 void* DataServer::openDataServerHelper(void *context) {
     return ((DataServer*) context)->openDataServer();
 }

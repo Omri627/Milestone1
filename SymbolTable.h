@@ -5,6 +5,10 @@
 #include <map>
 class Var;
 using namespace std;
+/**
+ * the SymbolTable hold a map between the their name and tha Var itself, also it mange a map between paths and the
+ * var's name. we can add variables to the maps
+ */
 class SymbolTable {
 private:
     map < string, Var* > variables; // map between the string name of the var to the actual Var*
