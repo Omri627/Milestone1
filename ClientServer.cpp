@@ -70,7 +70,7 @@ void ClientServer::connectToServer() {
      }
      this->socketFd = socketFd;
     cout << "connected successfully" << endl;
-     this->threadManager->removeThread(pthread_self());
+     //this->threadManager->removeThread(pthread_self()); todo:: check if keep on comment
      //cout << "connection worked" << endl;
 
 
@@ -145,9 +145,10 @@ void ClientServer::writeIntoServer(string message) {
     const char * msgToTransmit = message.c_str();
     cout << "msgTotransmit " << msgToTransmit << endl;
     /* Send message to the server */
-    //pthread_mutex_lock(&mutex);
+    pthread_mutex_lock(&mutex);
+    bzero(buffer,512);
     byteTransmitted = write(this->socketFd, msgToTransmit, strlen(msgToTransmit));
-    //pthread_mutex_unlock(&mutex);
+    pthread_mutex_unlock(&mutex);
     if (byteTransmitted <= 0) {
         perror("ERROR writing to socket");
         exit(1);

@@ -61,16 +61,21 @@ void SymbolUpdater::update(char *buffer) {
         if (end == string::npos) {
             //last param, read to the end
             param = buff.substr(start);
-            value = stod(param);
-            updateVar(value, *it);
+            if (param != "") {
+                value = stod(param);
+                updateVar(value, *it);
+            }
             break;
         } else {
             param = buff.substr(start, end - start);
         }
         start = end; // point to the next comma
 
-        value = stod(param);
-        updateVar(value, *it);
+        if (param != "") {
+            value = stod(param);
+            updateVar(value, *it);
+        }
+
         if (it != pathsVec.end()) {
             //increment the iterator
             it++;

@@ -65,6 +65,11 @@ vector<string> Lexer::getSplitFromFile(string filename) {
                         word = trimSpaces(word);
                         codeLine.push_back(word);
                         codeLine.push_back(s);
+                        if (s == EQUAL) {
+                            string s2 = line.substr(i + 1);
+                            codeLine.push_back(s2);
+                            break;
+                        }
                     }
 
                 } else {
