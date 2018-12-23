@@ -79,6 +79,8 @@ CommandGenerator* CodeParser::getCommand(string keyword) {
 }
 void CodeParser::setClientServer(ClientServer *server) {
     this->clientServer = server;
+    delete this->commands["update"];
+    this->commands["update"] = new UpdateVarCommandGenerator(server);
 }
 CodeReader *CodeParser::getCodeReader() const {
     return codeReader;
