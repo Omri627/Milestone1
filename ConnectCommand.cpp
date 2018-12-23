@@ -37,7 +37,8 @@ int ConnectCommand::execute() {
         return 0;
     pthread_create(&serverThread, nullptr, &ClientServer::connectServerHelper, this->server);
     this->threadManager->addThread(serverThread);
-    this->threadManager->runThread(serverThread);
+    //this->threadManager->runThread(serverThread);
+    pthread_join(serverThread, nullptr);
     //this->threadManager->addThread(serverThread, ThreadManager::ConnectThread);
     return 1;
 }

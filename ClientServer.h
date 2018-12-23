@@ -73,7 +73,9 @@ public:
 
     void writeIntoServer(string message);
 
-    void updateSymbolTableValues();
+
+
+        void updateSymbolTableValues();
 
 };
 

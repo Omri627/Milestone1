@@ -196,6 +196,8 @@ void SymbolTable::updateServer(string variable, ClientServer *server) {
     string path = this->getPathByVar(variable);
     double value = this->getVariable(variable);
     sprintf(commandMessage, "set %s %f \r\n", path.c_str(), value);
+    cout << "sending update of " << variable << endl;
+    cout << commandMessage << endl;
     server->writeIntoServer(commandMessage);
 }
 /**
