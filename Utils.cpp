@@ -1,7 +1,3 @@
-//
-// Created by omri on 19/12/18.
-//
-
 #include "Utils.h"
 //static function
 string Utils::reverseStr(string str) {

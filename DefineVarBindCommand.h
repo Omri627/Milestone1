@@ -12,7 +12,7 @@ private:
 public:
     DefineVarBindCommand(string var, string path, SymbolTable* symbolTable);
 
-    int execute() override;
+    virtual int execute();
 };
 
 

@@ -17,7 +17,7 @@ private:
     struct sockaddr_in server_address, client_address;
     int fileDescriptor;
     SymbolTable * symbolTable;
-    SymbolUpdater updater;
+    SymbolUpdater varsUpdater;
 public:
     DataServer(SymbolTable * symbolTable, int port, int speed);
 
@@ -27,7 +27,9 @@ public:
      * @param context the context fo the function to be send
      * @return
      */
-    static void *openDataServerHelper(void *context);
+    static void* openDataServerHelper(void *context);
+
+    static void* readLineHelper(void *context);
 
     void closeDataServer();
 
@@ -41,10 +43,7 @@ public:
 
     void setSpeed(int speed);
 
-    void writeData();
-
-    void updateBindVariables();
-
+    void readSingleLine();
 };
 
 

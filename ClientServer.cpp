@@ -28,15 +28,13 @@ void ClientServer::setThreadManager(ThreadManager *threadManager) {
     this->threadManager = threadManager;
 }
 void ClientServer::connectToServer() {
-    /*int socketFd;                           // socket file descriptor
+    int socketFd;                           // socket file descriptor
     struct sockaddr_in serverAddress;       // server address
     struct hostent *server;                 // store information about hostt
-    pthread_mutex_init(&this->mutex, nullptr);
-    cout << "connect: going to sleep" << endl;
-    sleep(70);
+    cout << "wating for open data server" << endl;
     if (this->threadManager != nullptr)
-        threadManager->waitForThread(ThreadManager::ServerThread);
-    cout << "woke up" << endl;
+        threadManager->waitForThread(ThreadManager::SERVER_THREAD);
+    cout << "now trying to connect..." << endl;
     const char * address = this->address.c_str();
     // AF-INET = address family ipv4
     // SOCK_STREAM = protocol tcp provides reliable, ordered, and error-checked delivery of bytes.
@@ -60,18 +58,18 @@ void ClientServer::connectToServer() {
     serverAddress.sin_family = AF_INET;                     // setting address family (=ipv4)
     bcopy((char *)server->h_addr, (char *)&serverAddress.sin_addr.s_addr, server->h_length);
     serverAddress.sin_port = htons(this->port);         // setting server port
+
     /* connect to the server */
-   /* pthread_mutex_lock(&this->mutex);
-    if (connect(socketFd, (struct sockaddr*)&serverAddress, sizeof(serverAddress)) < 0) {
-        perror("ERROR connecting");
-        exit(1);
-    }
-    pthread_mutex_unlock(&this->mutex);
-    cout << "connection worked" << endl;
-    //this->writeIntoServer("set"); */
+     if (connect(socketFd, (struct sockaddr*)&serverAddress, sizeof(serverAddress)) < 0) {
+         perror("ERROR connecting");
+         exit(1);
+     }
+    cout << "connected successfully" << endl;
+     this->threadManager->removeThread(pthread_self());
+     //cout << "connection worked" << endl;
 
 
-    int sockfd, portno, n;
+    /*int sockfd, portno, n;
     struct sockaddr_in serv_addr;
     struct hostent *server;
 
@@ -83,7 +81,7 @@ void ClientServer::connectToServer() {
     cout << "woke up" << endl;
 
     /* Create a socket point */
-    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    /*sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
     if (sockfd < 0) {
         perror("ERROR opening socket");
@@ -103,7 +101,7 @@ void ClientServer::connectToServer() {
     serv_addr.sin_port = htons(portno);
 
     /* Now connect to the server */
-    if (connect(sockfd, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) < 0) {
+    /*if (connect(sockfd, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) < 0) {
         perror("ERROR connecting");
         exit(1);
     }
@@ -112,22 +110,22 @@ void ClientServer::connectToServer() {
        * will be read by server
     */
 
-    printf("Please enter the message: ");
+    /*printf("Please enter the message: ");
     bzero(buffer,256);
     //fgets(buffer,255,stdin);
     strcpy(buffer, "set controls/flight/rudder 1\r\n");
 
     /* Send message to the server */
-    n = write(sockfd, buffer, strlen(buffer));
+    //n = write(sockfd, buffer, strlen(buffer));
 
-    if (n < 0) {
+    /*if (n < 0) {
         perror("ERROR writing to socket");
         cout << "ERROR writing to socket" << endl;
         exit(1);
     }
     cout << buffer << endl;
     /* Now read server response */
-    bzero(buffer,256);
+    /*bzero(buffer,256);
     n = read(sockfd, buffer, 255);
 
     if (n < 0) {
@@ -136,13 +134,16 @@ void ClientServer::connectToServer() {
         exit(1);
     }
 
-    printf("%s\n",buffer);
+    printf("%s\n",buffer); */
 }
 void ClientServer::writeIntoServer(string message) {
     int byteTransmitted;
+    pthread_mutex_t mutex;
     const char * msgToTransmit = message.c_str();
     /* Send message to the server */
+    pthread_mutex_lock(&mutex);
     byteTransmitted = write(this->socketFd, msgToTransmit, strlen(msgToTransmit));
+    pthread_mutex_unlock(&mutex);
     if (byteTransmitted <= 0) {
         perror("ERROR writing to socket");
         exit(1);

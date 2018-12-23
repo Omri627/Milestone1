@@ -1,9 +1,7 @@
 
 
-#ifndef PROJECT_OPENSERVERCOMMANDGENERATOR_H
-#define PROJECT_OPENSERVERCOMMANDGENERATOR_H
-
-
+#ifndef OPEN_SERVER_COMMAND_GENERATOR
+    #define OPEN_SERVER_COMMAND_GENERATOR
 #include "CommandGenerator.h"
 #include "ThreadManager.h"
 

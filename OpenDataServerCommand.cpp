@@ -15,6 +15,7 @@ OpenDataServerCommand::OpenDataServerCommand(ThreadManager * threadManager, Symb
 }
 
 OpenDataServerCommand::OpenDataServerCommand(ThreadManager * threadManager, SymbolTable *symbolTable, Expression *port, Expression *speed) {
+    //todo: changes port and speed!
     this->port = 5400;
     this->speed = 10;
     this->threadManager = threadManager;
@@ -34,9 +35,12 @@ int OpenDataServerCommand::getSpeed() const {
 }
 int OpenDataServerCommand::execute() {
     int threadId;
-    pthread_t serverThread;
+    pthread_t serverThread, serverListenThread;
     pthread_create(&serverThread, nullptr, &DataServer::openDataServerHelper, this->server);
-    threadId = this->threadManager->addThread(serverThread, ThreadManager::ServerThread);
-    this->threadManager->runThread(serverThread);
+    this->threadManager->addThread(serverThread, ThreadManager::SERVER_THREAD);
+    pthread_join(serverThread, nullptr);
+    pthread_create(&serverListenThread, nullptr, &DataServer::readLineHelper, this->server);
+    threadId = this->threadManager->addThread(serverThread, ThreadManager::SERVER_LISTEN_THREAD);
+    this->threadManager->runThread(serverListenThread);
     return threadId;
 }

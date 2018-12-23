@@ -6,6 +6,8 @@ OpenServerCommandGenerator::OpenServerCommandGenerator(ThreadManager *threadMana
     this->threadManager = threadManager;
 }
 Command *OpenServerCommandGenerator::create(CodeReader &codeReader) {
+    if (!codeReader.isRemainingToken(2))
+        throw "invalid open server command: no enough parameters transmitted";
     string port = codeReader.getNextToken();
     string speed = codeReader.getNextToken();
     //todo throw error if there is no 2 parameter

@@ -6,6 +6,7 @@
 #include "OpenServerCommandGenerator.h"
 #include "ConnectCommand.h"
 #include "ConnectCommandGenerator.h"
+#include "SleepCommandGenerator.h"
 CodeParser::CodeParser(CodeReader* codeReader) {
     this->codeReader = codeReader;
     this->threadManager = new ThreadManager;
@@ -21,7 +22,6 @@ CodeParser::CodeParser(Lexer lexer, ThreadManager *threadManager) {
     this->threadManager = threadManager;
     this->loadCommandMap();
 }
-
 void CodeParser::runCode() {
     Command * command;
     while (!this->codeReader->isEndPoint()) {
@@ -39,6 +39,7 @@ void CodeParser::loadCommandMap() {
     ifGenerator->setCodeParser(this);
     OpenServerCommandGenerator* serverCommandGenerator = new OpenServerCommandGenerator(this->threadManager);
     ConnectCommandGenerator* connectCommandGenerator = new ConnectCommandGenerator(this, this->threadManager);
+    SleepCommandGenerator * sleepCommandGenerator = new SleepCommandGenerator;
     this->commands["print"] = printGenerator;
     this->commands["var"] = defineGenerator;
     this->commands["update"] = updateVarCommandGenerator;
@@ -46,6 +47,7 @@ void CodeParser::loadCommandMap() {
     this->commands["while"] = whileGenerator;
     this->commands["openDataServer"] = serverCommandGenerator;
     this->commands["connect"] = connectCommandGenerator;
+    this->commands["sleep"] = sleepCommandGenerator;
 }
 Command* CodeParser::parseNext() {
     //loop trough all the command in the string array
@@ -75,12 +77,9 @@ CommandGenerator* CodeParser::getCommand(string keyword) {
     }
     return iterator->second;
 }
-
 void CodeParser::setClientServer(ClientServer *server) {
     this->clientServer = server;
 }
-
-
 CodeReader *CodeParser::getCodeReader() const {
     return codeReader;
 }

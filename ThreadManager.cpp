@@ -1,10 +1,14 @@
 #include <thread>
+#include <unistd.h>
 #include "ThreadManager.h"
 ThreadManager::ThreadManager() {
+    //@todo add main thread
+    this->addThread(pthread_self(),MAIN_THREAD);
 }
 
 int ThreadManager::addThread(pthread_t thread) {
-    static int threadCounter = 3;
+    /* thread ids 0-3 reserved */
+    static int threadCounter = 4;
     thread_detail detail;
     detail.thread = thread;
     detail.id = threadCounter++;
@@ -13,10 +17,12 @@ int ThreadManager::addThread(pthread_t thread) {
     return detail.id;
 }
 int ThreadManager::addThread(pthread_t thread, knownThread known) {
+    //@ todo changes parent id
     thread_detail detail;
     detail.thread = thread;
     detail.id = known;
-    detail.parent_id =  0;
+    if (detail.id != 0)
+        detail.parent_id =  this->getThreadId(pthread_self());
     this->threads[detail.id] = detail;
     return detail.id;
 }
@@ -34,8 +40,14 @@ bool ThreadManager::isThreadExist(int id) {
 }
 int ThreadManager::removeThread(int id) {
     if (!this->isThreadExist(id))
-        return 1;
+        return 0;
     this->threads.erase(id);
+    return 1;
+}
+int ThreadManager::removeThread(pthread_t pthread) {
+    int id = this->getThreadId(pthread);
+    this->threads.erase(id);
+    return 1;
 }
 int ThreadManager::getThreadQuantity() {
     this->threads.size();
@@ -76,4 +88,10 @@ ThreadManager::thread_detail ThreadManager::getThreadParent(int id) {
 int ThreadManager::getThreadId(pthread_t thread) {
     thread_detail thread_detail = this->getThreadDetail(thread);
     return thread_detail.id;
+}
+void ThreadManager::closeMainThread() {
+    while (isThereSubThread(MAIN_THREAD))
+        sleep(1000);
+    this->threads.clear();
+    exit(0);
 }

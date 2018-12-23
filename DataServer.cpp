@@ -1,7 +1,7 @@
 #include <iostream>
 #include "DataServer.h"
 
-DataServer::DataServer(SymbolTable *symbolTable, int port, int speed) : updater(symbolTable) {
+DataServer::DataServer(SymbolTable *symbolTable, int port, int speed) : varsUpdater(symbolTable) {
     this->symbolTable = symbolTable;
     this->port = port;
     this->speed = speed;
@@ -43,9 +43,10 @@ void* DataServer::openDataServer() {
         perror("ERROR on binding");
         exit(1);
     }
+    cout << "server opened listen for client request" << endl;
     // start listening for the clients,
     // the process be in sleep mode and will wait for the incoming connection
-    listen(socketFd, this->speed);
+    listen(socketFd, 5);
     //* Accept actual connection from the client *//*
     clientSizeStructure = sizeof(client_address);
     this->fileDescriptor = accept(socketFd, (struct sockaddr *) &client_address, (socklen_t *) &clientSizeStructure);
@@ -53,15 +54,13 @@ void* DataServer::openDataServer() {
         perror("ERROR on accept");
         exit(1);
     }
-    while (1){
-        this->readData();
-    }
+    cout << "request accpted"  << endl;
+    return nullptr;
 }
 void DataServer::closeDataServer() {
-
+    //@ todo close data server
 }
-
-void DataServer::readData() {
+void DataServer::readSingleLine() {
     const int bufferSize = 512;
     int bytesReaded;
     char buffer[bufferSize];
@@ -71,10 +70,20 @@ void DataServer::readData() {
         perror("ERROR reading from socket");
         exit(1);
     }
-    updater.update(buffer);
-
+    varsUpdater.update(buffer);
 }
-
+void DataServer::readData() {
+    pthread_mutex_t mutex;
+    while (true){
+        pthread_mutex_lock(&mutex);
+        this->readSingleLine();
+        pthread_mutex_unlock(&mutex);
+    }
+}
 void* DataServer::openDataServerHelper(void *context) {
     return ((DataServer*) context)->openDataServer();
+}
+void* DataServer::readLineHelper(void *context) {
+    ((DataServer*) context)->readData();
+    return nullptr;
 }

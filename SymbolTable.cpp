@@ -1,5 +1,7 @@
 #include "SymbolTable.h"
 #include "Var.h"
+#include "ClientServer.h"
+
 /**
   * add variable to the variables map
   * @param var: name of the var
@@ -75,7 +77,20 @@ bool SymbolTable::isVariableEquels(string var, double value) {
         return true;
     return false;
 }
-
+/**
+ * isVariableBind method gets variable name and returns
+ * whether the variable is bind or not.
+ * @param varName variable name
+ * @return returns true if given variable is bind
+ * at any other case returns false
+ **/
+bool SymbolTable::isVariableBind(string varName) {
+    if (!this->isVariableExist(varName))
+        return false;
+    if (this->variables[varName]->getIsBind())
+        return true;
+    return false;
+}
 /**
 * update existing var inside the variables map
 * @param var Var by reference
@@ -160,9 +175,28 @@ Var* SymbolTable::getVarByPath(string path) {
     }
     return nullptr;
 }
-
+/**
+ * getPathByVar method gets variable name and return assosciated path.
+ * @param varName variable name
+ * @return returns path associated with given variable.
+ */
 string SymbolTable::getPathByVar(string varName) {
-    return nullptr;
+    map <string, string >::iterator iterator;
+    while (iterator != this->paths.end()) {
+        if (iterator->second == varName)
+            return iterator->first;
+        iterator++;
+    }
+    throw "error: variable name not found";
+}
+void SymbolTable::updateServer(string variable, ClientServer *server) {
+    char commandMessage[512];
+    if (server == nullptr)
+        return;
+    string path = this->getPathByVar(variable);
+    double value = this->getVariable(variable);
+    sprintf(commandMessage, "set %s %f \r\n", path.c_str(), value);
+    server->writeIntoServer(commandMessage);
 }
 /**
 * destructor, free memory
@@ -172,5 +206,3 @@ SymbolTable::~SymbolTable() {
         delete p.second;
     }
 }
-
-

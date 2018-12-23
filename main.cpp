@@ -14,8 +14,7 @@ int main() {
     Lexer lexer;
     CodeParser *codeParser = new CodeParser(lexer, threadManager);
     codeParser->runCode();
-    while (threadManager->isThereSubThread(mainThread))
-        sleep(1000);
+    threadManager->closeMainThread();
     return 0;
     /*ExpressionParser expressionParser;
     SymbolTable* symbolTable = new SymbolTable;

@@ -1,8 +1,9 @@
 #ifndef SYMBOL_TABLE
-#define SYMBOL_TABLE
+    #define SYMBOL_TABLE
 
 #include <string>
 #include <map>
+class ClientServer;
 class Var;
 using namespace std;
 class SymbolTable {
@@ -81,6 +82,14 @@ public:
      * @param isBind: true if the var isBind, else false
      */
     void setValueAndBind(string varName, double value, bool isBind);
+    /**
+     * isVariableBind method gets variable name and returns
+     * whether the variable is bind or not.
+     * @param varName variable name
+     * @return returns true if given variable is bind
+     * at any other case returns false
+     **/
+    bool isVariableBind(string varName);
 
     /**
      * set IsBind
@@ -113,8 +122,26 @@ public:
      * @return Var*
      */
     Var* getVarByPath(string path);
+    /**
+    * getPathByVar method gets variable name and return assosciated path.
+    * @param varName variable name
+    * @return returns path associated with given variable.
+    */
+    string getPathByVar(string varName);
+    /**
+     * updateServer method sends a message to server
+     * for update a single variable
+     * @param variable variable name
+     * @param server connected server
+     */
+    void updateServer(string variable, ClientServer * server);
+    /**
+     * updateServer method sends a message to server
+     * for update bind variables list.
+     * @param server connected server
+     */
+    void updateServer(ClientServer * server);
 
-    string getPathByVar(string varName);//todo: to ran, you can write the code inside or delete it
     /**
      * destructor, free memory
      */

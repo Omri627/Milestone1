@@ -33,7 +33,7 @@ void ConnectCommand::setPort(Expression *port) {
 }
 int ConnectCommand::execute() {
     pthread_t serverThread;                     // define new thread
-    if (!threadManager->isThreadExist(ThreadManager::ServerThread))
+    if (!threadManager->isThreadExist(ThreadManager::SERVER_THREAD))
         return 0;
     pthread_create(&serverThread, nullptr, &ClientServer::connectServerHelper, this->server);
     this->threadManager->addThread(serverThread);

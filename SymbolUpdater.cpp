@@ -36,9 +36,7 @@ void SymbolUpdater::loadPath() {
 }
 
 void SymbolUpdater::update(char *buffer) {
-
     string buff = string(buffer);
-
     vector<string>::iterator it; //create iterator
     it = pathsVec.begin(); // the iterator push to the beginning of the vector
 
@@ -74,9 +72,7 @@ void SymbolUpdater::updateVar(double value, string path) {
     if (var != nullptr) {
         var->setValue(value);
     }
-
 }
-
 void SymbolUpdater::printBinds() { //todo:: delete later, for debugging only
     for (string s : pathsVec) {
         Var* var = symbolTable->getVarByPath(s);

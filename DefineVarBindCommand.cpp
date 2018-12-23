@@ -8,7 +8,7 @@ DefineVarBindCommand::DefineVarBindCommand(string var, string path, SymbolTable*
 }
 
 int DefineVarBindCommand::execute() {
-    this->symbolTable->addVariable(this->var, 1, true);
+    this->symbolTable->addVariable(this->var, 0, true);
     //add path make sure the server will update it
     this->symbolTable->addPath(this->path, this->var);
 

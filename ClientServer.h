@@ -20,7 +20,6 @@ private:
     SymbolTable * symbolTable;
     ThreadManager * threadManager;
     int socketFd;
-    pthread_mutex_t mutex;
 public:
     /**
      * the constructor gets connection details: ip address, port and the symbols table
@@ -75,8 +74,6 @@ public:
     void writeIntoServer(string message);
 
     void updateSymbolTableValues();
-
-    void setVariableValue(Var& var);
 
 };
 
