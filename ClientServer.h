@@ -11,6 +11,7 @@
 #include "SymbolTable.h"
 #include "Expression.h"
 #include "ThreadManager.h"
+#include "SymbolUpdater.h"
 #include <string.h>
 using namespace std;
 class ClientServer {
@@ -20,6 +21,7 @@ private:
     SymbolTable * symbolTable;
     ThreadManager * threadManager;
     int socketFd;
+    SymbolUpdater symbolUpdater;
 public:
     /**
      * the constructor gets connection details: ip address, port and the symbols table

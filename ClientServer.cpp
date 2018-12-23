@@ -1,10 +1,12 @@
 #include "ClientServer.h"
-ClientServer::ClientServer(string address, int port, SymbolTable *st) {
+ClientServer::ClientServer(string address, int port, SymbolTable *st)
+:   symbolUpdater(st) {
     this->address = address;
     this->port = port;
     this->symbolTable = st;
 }
-ClientServer::ClientServer(string address, Expression* portExpression, SymbolTable *st) {
+ClientServer::ClientServer(string address, Expression* portExpression, SymbolTable *st)
+:   symbolUpdater(st) {
     this->address = address;
     this->port = portExpression->calculate();
     this->symbolTable = st;
@@ -127,19 +129,17 @@ void ClientServer::connectToServer() {
     }
     cout << buffer << endl;
     /* Now read server response */
-    /*bzero(buffer,256);
-    n = read(sockfd, buffer, 255);
-
-    if (n < 0) {
+    /*if (n < 0) {
         perror("ERROR reading from socket");
         cout<< "ERROR reading from socket" << endl;
         exit(1);
     }
-
-    printf("%s\n",buffer); */
+r
+    pintf("%s\n",buffer); */
 }
 void ClientServer::writeIntoServer(string message) {
-    int byteTransmitted;
+    int byteTransmitted, byteReaded;
+    char buffer[512];
     pthread_mutex_t mutex;
     const char * msgToTransmit = message.c_str();
     /* Send message to the server */
@@ -150,8 +150,21 @@ void ClientServer::writeIntoServer(string message) {
         perror("ERROR writing to socket");
         exit(1);
     }
+    cout << "clientserver: wrote into server" << endl;
+    bzero(buffer,512);
+    byteReaded = read(this->socketFd, buffer, 511);
+    if (byteReaded < 0) {
+        perror("ERROR reading from socket");
+        exit(1);
+    }
+    cout << "read response from server" << endl;
+    cout << buffer << endl;
+    this->symbolUpdater.update(buffer);
+    cout << "clientserver: finish write into server" << endl;
+
+
 }
 void *ClientServer::connectServerHelper(void *context) {
-    ((ClientServer*)context)->connectToServer();
-    return nullptr;
+((ClientServer*)context)->connectToServer();
+return nullptr;
 }
