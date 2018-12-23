@@ -3,8 +3,8 @@
  * the constructor creates Sleep-Command object with the given seconds as parameter.
  * @param seconds number of seconds to sleep
  */
-SleepCommand::SleepCommand(int seconds) {
-    this->seconds = seconds;
+SleepCommand::SleepCommand(double seconds) {
+    this->miliseconds = seconds / 1000;
 }
 /**
  * execute sleep command operation
@@ -14,5 +14,5 @@ SleepCommand::SleepCommand(int seconds) {
  */
 int SleepCommand::execute() {
     //@todo check if sleep unit is in seconds
-    sleep(this->seconds);
+    usleep(this->miliseconds);
 }
