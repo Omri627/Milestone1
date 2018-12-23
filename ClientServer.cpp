@@ -68,9 +68,9 @@ void ClientServer::connectToServer() {
          cout << "ERROR connecting"<< endl;
          exit(1);
      }
-    this->socketFd = socketFd;
-     cout << "connected successfully" << endl;
-     this->threadManager->removeThread(pthread_self());
+     this->socketFd = socketFd;
+    cout << "connected successfully" << endl;
+     //this->threadManager->removeThread(pthread_self()); todo:: check if keep on comment
      //cout << "connection worked" << endl;
 
 
@@ -143,8 +143,10 @@ void ClientServer::writeIntoServer(string message) {
     char buffer[512];
     pthread_mutex_t mutex;
     const char * msgToTransmit = message.c_str();
+    cout << "msgTotransmit " << msgToTransmit << endl;
     /* Send message to the server */
     pthread_mutex_lock(&mutex);
+    bzero(buffer,512);
     byteTransmitted = write(this->socketFd, msgToTransmit, strlen(msgToTransmit));
     pthread_mutex_unlock(&mutex);
     if (byteTransmitted <= 0) {
@@ -153,14 +155,13 @@ void ClientServer::writeIntoServer(string message) {
     }
     cout << "clientserver: wrote into server" << endl;
     bzero(buffer,512);
-    byteReaded = read(this->socketFd, buffer, 511);
+    byteReaded = read(this->socketFd, buffer, sizeof(buffer));
     if (byteReaded < 0) {
         perror("ERROR reading from socket");
         exit(1);
     }
     cout << "read response from server" << endl;
     cout << buffer << endl;
-    this->symbolUpdater.update(buffer);
     cout << "clientserver: finish write into server" << endl;
 
 
