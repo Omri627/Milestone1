@@ -60,7 +60,9 @@ vector< ExpressionParser::token > ExpressionParser::getExpressionTokens(string e
      for (int i = 0; i < expression.size(); i++) {
         pervType = curType;
         curType = getTokenType(expression[i]);
-        if (operand != "" && pervType != curType) {
+        if (pervType == VARIABLE && curType == NUMBER) {
+            curType = pervType;
+        } else if (operand != "" && pervType != curType) {
             tokens.push_back(make_pair(operand, pervType));
             operand.clear();
         }

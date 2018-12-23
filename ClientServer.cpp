@@ -68,7 +68,8 @@ void ClientServer::connectToServer() {
          cout << "ERROR connecting"<< endl;
          exit(1);
      }
-    cout << "connected successfully" << endl;
+    this->socketFd = socketFd;
+     cout << "connected successfully" << endl;
      this->threadManager->removeThread(pthread_self());
      //cout << "connection worked" << endl;
 
