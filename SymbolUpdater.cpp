@@ -2,11 +2,17 @@
 #include "SymbolUpdater.h"
 #define COMMA ","
 
-
+/**
+ * constructor
+ * @param symbolTable symbolTable that holds the map of vars
+ */
 SymbolUpdater::SymbolUpdater(SymbolTable *symbolTable) : symbolTable(symbolTable) {
     loadPath();
 }
 
+/**
+ * load the path into the paths vector
+ */
 void SymbolUpdater::loadPath() {
 
     pathsVec.emplace_back("/instrumentation/airspeed-indicator/indicated-speed-kt");
@@ -34,9 +40,14 @@ void SymbolUpdater::loadPath() {
     pathsVec.emplace_back("/engines/engine/rpm");
 
 }
-
+/**
+ * update each bind var from the information that got from the server
+ * @param buffer
+ */
 void SymbolUpdater::update(char *buffer) {
+
     string buff = string(buffer);
+
     vector<string>::iterator it; //create iterator
     it = pathsVec.begin(); // the iterator push to the beginning of the vector
 
@@ -61,24 +72,20 @@ void SymbolUpdater::update(char *buffer) {
         value = stod(param);
         updateVar(value, *it);
         if (it != pathsVec.end()) {
+            //increment the iterator
             it++;
         }
     }
 }
-
+/**
+ * update the value of the var
+ * @param value: the value to update
+ * @param path: the path of the var
+ */
 void SymbolUpdater::updateVar(double value, string path) {
-    //symbolTable->setValue(path, value);
     Var* var = symbolTable->getVarByPath(path);
     if (var != nullptr) {
         var->setValue(value);
-    }
-}
-void SymbolUpdater::printBinds() { //todo:: delete later, for debugging only
-    for (string s : pathsVec) {
-        Var* var = symbolTable->getVarByPath(s);
-        if (var!= nullptr) {
-            cout << var->getVariableName() << ": " << var->getValue() <<endl;
-        }
     }
 }
 

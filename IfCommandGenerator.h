@@ -5,10 +5,18 @@
 #include "Command.h"
 class IfCommandGenerator : public ConditionParserGenerator {
 public:
+
+    /**
+    * default constructor
+    */
     IfCommandGenerator();
 
     IfCommandGenerator(CodeParser* codeParser);
-
+    /**
+    * this function crate the if command
+    * @param codeReader: to get the next token
+    * @return ifCommand*
+    */
     virtual Command *create(CodeReader &codeReader);
 
 
