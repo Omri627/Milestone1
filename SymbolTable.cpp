@@ -182,6 +182,7 @@ Var* SymbolTable::getVarByPath(string path) {
  */
 string SymbolTable::getPathByVar(string varName) {
     map <string, string >::iterator iterator;
+    iterator = this->paths.begin();
     while (iterator != this->paths.end()) {
         if (iterator->second == varName)
             return iterator->first;
@@ -190,12 +191,17 @@ string SymbolTable::getPathByVar(string varName) {
     throw "error: variable name not found";
 }
 void SymbolTable::updateServer(string variable, ClientServer *server) {
+    cout << "entered updateServer" << endl;
     char commandMessage[512];
-    if (server == nullptr)
+    if (server == nullptr){
+        cout << "server == nullptr" << endl;
         return;
+    }
     string path = this->getPathByVar(variable);
+    cout << path << endl;
     double value = this->getVariable(variable);
-    sprintf(commandMessage, "set %s %f \r\n", path.c_str(), value);
+    sprintf(commandMessage, "set %s %.3f", path.c_str(), value);
+    strcat(commandMessage, "\r\n");
     cout << "sending update of " << variable << endl;
     cout << commandMessage << endl;
     server->writeIntoServer(commandMessage);
