@@ -45,6 +45,7 @@ void ClientServer::connectToServer() {
     // send message in case there is an error in opening socket
     if (socketFd < 0) {
         perror("ERROR opening socket");
+        cout << "ERROR opening socket"<< endl;
         exit(1);
     }
     server = gethostbyname(address);
@@ -62,6 +63,7 @@ void ClientServer::connectToServer() {
     /* connect to the server */
      if (connect(socketFd, (struct sockaddr*)&serverAddress, sizeof(serverAddress)) < 0) {
          perror("ERROR connecting");
+         cout << "ERROR connecting"<< endl;
          exit(1);
      }
     cout << "connected successfully" << endl;
@@ -151,4 +153,5 @@ void ClientServer::writeIntoServer(string message) {
 }
 void *ClientServer::connectServerHelper(void *context) {
     ((ClientServer*)context)->connectToServer();
+    return nullptr;
 }
