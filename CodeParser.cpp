@@ -32,7 +32,7 @@ void CodeParser::runCode() {
 void CodeParser::loadCommandMap() {
     PrintCommandGenerator* printGenerator = new PrintCommandGenerator;
     DefineVarCommandGenerator* defineGenerator = new DefineVarCommandGenerator;
-    UpdateVarCommandGenerator* updateVarCommandGenerator = new UpdateVarCommandGenerator;
+    UpdateVarCommandGenerator* updateVarCommandGenerator = new UpdateVarCommandGenerator(this->clientServer);
     WhileCommandGenerator* whileGenerator = new WhileCommandGenerator;
     whileGenerator->setCodeParser(this);
     IfCommandGenerator* ifGenerator = new IfCommandGenerator;
