@@ -5,16 +5,14 @@
  */
 WhileCommandGenerator::WhileCommandGenerator() {
 }
-
 /**
- * constructor
- * @param codeParser
+ * creates WhileCommandGenerator object with given code parser.
+ * the code parser used to read the commands in block.
+ * @param codeParser code parser object
  */
- //todo: I dont understand what the codeParser is doing here, anyway we're not using it.
 WhileCommandGenerator::WhileCommandGenerator(CodeParser *codeParser) {
     this->setCodeParser(codeParser);
 }
-
 /**
  * this function crate the while command
  * @param codeReader: to get the next token

@@ -1,10 +1,12 @@
 #include "WhileCommand.h"
 #include "CodeParser.h"
 /**
- * constructor
+ * the constructor creates while commands with the given
+ * commands in loop block and the condition composed of
+ * right and left expression and the relation between them.
  * @param commands: command list to be excute
- * @param rightExpression: the right expression
- * @param leftExpression: the left expression
+ * @param rightExpression: the right expression in condition
+ * @param leftExpression: the left expression in condition
  * @param relation: the operator between the expression
  */
 WhileCommand::WhileCommand(list<Command *> commands, Expression *rightExpression, Expression *leftExpression,
@@ -12,12 +14,14 @@ WhileCommand::WhileCommand(list<Command *> commands, Expression *rightExpression
 
 }
 /**
- * constructor
- * @param commands: command list to be excute
- * @param rightExpression: the right expression
- * @param leftExpression: the left expression
- * @param relation: the operator between the expression
- */
+* the constructor creates while commands with the given
+* commands in loop block and the condition composed of
+* right and left expression and the relation between them.
+* @param commands: command list to be excute
+* @param rightExpression: the right expression
+* @param leftExpression: the left expression
+* @param relation: the operator between the expression
+*/
 WhileCommand::WhileCommand(list< Command * > commands, Expression *rightExpression, Expression *leftExpression, string relation)
 : ConditionParser(commands, rightExpression, leftExpression, relation) {
 

@@ -3,7 +3,7 @@
 #include "Var.h"
 
 /**
- * constructor
+ * constructor creates print command with the given variable and symbol-table
  * @param str the string to print
  */
 PrintCommand::PrintCommand(string str) {
@@ -11,17 +11,17 @@ PrintCommand::PrintCommand(string str) {
 }
 
 /**
- * constructor
- * @param symbolTable symbolTable
- * @param var the var to print his value
+ * constructor creates print command with the given variable and symbol-table
+ * @param symbolTable symbolTable object
+ * @param var the variable to print his value
  */
 PrintCommand::PrintCommand(SymbolTable *symbolTable, string var) {
     this->symbolTable = symbolTable;
     this->str = var;
 }
 /**
- * preform print command
- * @return int
+ * prints out the messege or variable value on screen.
+ * @return 1 if the operation finished successfully
  */
 int PrintCommand::execute() {
     if (symbolTable != nullptr) {
@@ -29,4 +29,5 @@ int PrintCommand::execute() {
     } else {
         cout << str << endl;
     }
+    return 1;
 }

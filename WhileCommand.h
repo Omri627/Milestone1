@@ -7,17 +7,21 @@
 class WhileCommand : public ConditionParser {
 public:
 /**
- * constructor
+ * the constructor creates while commands with the given
+ * commands in loop block and the condition composed of
+ * right and left expression and the relation between them.
  * @param commands: command list to be excute
- * @param rightExpression: the right expression
- * @param leftExpression: the left expression
+ * @param rightExpression: the right expression in condition
+ * @param leftExpression: the left expression in condition
  * @param relation: the operator between the expression
  */
     WhileCommand(list<Command *> commands, Expression *rightExpression, Expression *leftExpression,
                  Expression::Relation relation);
 
  /**
- * constructor
+ * the constructor creates while commands with the given
+ * commands in loop block and the condition composed of
+ * right and left expression and the relation between them.
  * @param commands: command list to be excute
  * @param rightExpression: the right expression
  * @param leftExpression: the left expression
@@ -26,7 +30,7 @@ public:
     WhileCommand(list< Command * > commands, Expression *rightExpression, Expression *leftExpression,
                  string relation);
 /**
- * execute all he command inside the params
+ * execute all the commands inside the block
  * @return 1 if successful
  */
     virtual int execute() ;

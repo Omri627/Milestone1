@@ -8,7 +8,7 @@
 using namespace std;
 class Var : public Expression {
 private:
-    /* variable name/notation */
+    /* variable name-notation */
     string name;
     /* value of variable */
     double value;

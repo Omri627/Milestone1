@@ -55,13 +55,13 @@ public:
      * at any other case returns 0
      */
     int removeThread(pthread_t pthread);
-        /**
-         * isThreadExist method gets id of thread and checks
-         * whether this id is exist in storage.
-         * @param id id of thread
-         * @return returns true if there is a thread with the given id in storage
-         * at any other case returns 0
-         */
+    /**
+     * isThreadExist method gets id of thread and checks
+     * whether this id is exist in storage.
+     * @param id id of thread
+     * @return returns true if there is a thread with the given id in storage
+     * at any other case returns 0
+    */
     bool isThreadExist(int id);
     /**
      * getThreadDetail method gets id of thread
@@ -104,24 +104,15 @@ public:
      * @return returns true if there are subthread of the given thread.
      */
     bool isThereSubThread(int id);
-    //@todo i dont know if its true. (need to check what detach function do)
     /**
-     * runThread method gets id of thread and run it
+     * waitForThread join the running thread to thread with the given id.
      * @param id id of thread
      */
-    void runThread(int id);
-    /**
-     * runThread method run given thread
-     * @param pthread pthread object
-     */
-    void runThread(pthread_t pthread);
-    //@ todo write documentation
-    /**
-     *
-     * @param id
-     */
     void waitForThread(int id);
-
+    /**
+     * closeMainThread closes the main thread.
+     * when his sub-threads finished their tasks.
+     */
     void closeMainThread();
 private:
     /* holds information about threads in program. */

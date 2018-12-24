@@ -1,15 +1,15 @@
 #include "ClientServer.h"
-ClientServer::ClientServer(string address, int port, SymbolTable *st)
-:   symbolUpdater(st) {
+ClientServer::ClientServer(string address, int port, SymbolTable *st) {
     this->address = address;
     this->port = port;
     this->symbolTable = st;
+    this->socketFd = 0;
 }
-ClientServer::ClientServer(string address, Expression* portExpression, SymbolTable *st)
-:   symbolUpdater(st) {
+ClientServer::ClientServer(string address, Expression* portExpression, SymbolTable *st) {
     this->address = address;
     this->port = portExpression->calculate();
     this->symbolTable = st;
+    this->socketFd = 0;
 }
 int ClientServer::getPort() {
     return this->port;
@@ -28,6 +28,20 @@ void ClientServer::setAddress(string address) {
 }
 void ClientServer::setThreadManager(ThreadManager *threadManager) {
     this->threadManager = threadManager;
+}
+void ClientServer::updateServer(string variable) {
+    cout << "entered updateServer" << endl;
+    char commandMessage[512];
+    if (socketFd == 0)
+        return;
+    string path = this->symbolTable->getPathByVar(variable);
+    cout << path << endl;
+    double value = this->symbolTable->getVariable(variable);
+    sprintf(commandMessage, "set %s %.3f", path.c_str(), value);
+    strcat(commandMessage, "\r\n");
+    cout << "sending update of " << variable << endl;
+    cout << commandMessage << endl;
+    this->writeIntoServer(commandMessage);
 }
 void ClientServer::connectToServer() {
     int socketFd;                           // socket file descriptor
@@ -139,14 +153,15 @@ r
     pintf("%s\n",buffer); */
 }
 void ClientServer::writeIntoServer(string message) {
+    const int bufferSize = 512;
     int byteTransmitted, byteReaded;
-    char buffer[512];
+    char buffer[bufferSize];
     pthread_mutex_t mutex;
     const char * msgToTransmit = message.c_str();
     cout << "msgTotransmit " << msgToTransmit << endl;
     /* Send message to the server */
     pthread_mutex_lock(&mutex);
-    bzero(buffer,512);
+    bzero(buffer,bufferSize);
     byteTransmitted = write(this->socketFd, msgToTransmit, strlen(msgToTransmit));
     pthread_mutex_unlock(&mutex);
     if (byteTransmitted <= 0) {
@@ -154,8 +169,8 @@ void ClientServer::writeIntoServer(string message) {
         exit(1);
     }
     cout << "clientserver: wrote into server" << endl;
-    bzero(buffer,512);
-    byteReaded = read(this->socketFd, buffer, sizeof(buffer));
+    bzero(buffer,bufferSize);
+    byteReaded = read(this->socketFd, buffer, bufferSize-1);
     if (byteReaded < 0) {
         perror("ERROR reading from socket");
         exit(1);
@@ -167,6 +182,6 @@ void ClientServer::writeIntoServer(string message) {
 
 }
 void *ClientServer::connectServerHelper(void *context) {
-((ClientServer*)context)->connectToServer();
-return nullptr;
+    ((ClientServer*)context)->connectToServer();
+    return nullptr;
 }

@@ -2,10 +2,8 @@
 #include <unistd.h>
 #include "ThreadManager.h"
 ThreadManager::ThreadManager() {
-    //@todo add main thread
     this->addThread(pthread_self(),MAIN_THREAD);
 }
-
 int ThreadManager::addThread(pthread_t thread) {
     /* thread ids 0-3 reserved */
     static int threadCounter = 4;
@@ -61,12 +59,6 @@ bool ThreadManager::isThereSubThread(int id) {
         iterator++;
     }
     return false;
-}
-void ThreadManager::runThread(int id) {
-    pthread_detach(this->getThreadDetail(id).thread);
-}
-void ThreadManager::runThread(pthread_t thread) {
-    pthread_detach(thread);
 }
 void ThreadManager::waitForThread(int id) {
     pthread_join(this->threads[id].thread, nullptr);

@@ -132,19 +132,6 @@ public:
     * @return returns path associated with given variable.
     */
     string getPathByVar(string varName);
-    /**
-     * updateServer method sends a message to server
-     * for update a single variable
-     * @param variable variable name
-     * @param server connected server
-     */
-    void updateServer(string variable, ClientServer * server);
-    /**
-     * updateServer method sends a message to server
-     * for update bind variables list.
-     * @param server connected server
-     */
-    void updateServer(ClientServer * server);
 
     /**
      * destructor, free memory

@@ -21,7 +21,6 @@ private:
     SymbolTable * symbolTable;
     ThreadManager * threadManager;
     int socketFd;
-    SymbolUpdater symbolUpdater;
 public:
     /**
      * the constructor gets connection details: ip address, port and the symbols table
@@ -74,10 +73,12 @@ public:
     static void *connectServerHelper(void *context);
 
     void writeIntoServer(string message);
-
-
-
-        void updateSymbolTableValues();
+    /**
+    * updateServer method sends a message to server
+    * for update a single variable
+    * @param variable variable name
+     */
+    void updateServer(string variable);
 
 };
 
