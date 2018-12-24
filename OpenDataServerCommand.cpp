@@ -41,6 +41,6 @@ int OpenDataServerCommand::execute() {
     pthread_join(serverThread, nullptr);
     pthread_create(&serverListenThread, nullptr, &DataServer::readLineHelper, this->server);
     threadId = this->threadManager->addThread(serverThread, ThreadManager::SERVER_LISTEN_THREAD);
-    this->threadManager->runThread(serverListenThread);
+    pthread_detach(serverListenThread);
     return threadId;
 }

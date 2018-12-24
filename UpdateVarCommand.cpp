@@ -60,6 +60,6 @@ int UpdateVarCommand::execute() {
     /* if variable is bound with server,
      * update server for this modification */
     if (this->symbolTable->isVariableBind(this->var))
-        symbolTable->updateServer(var, this->server);
+        this->server->updateServer(this->var);
     return 1;
 }

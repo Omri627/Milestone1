@@ -66,9 +66,11 @@ vector<string> Lexer::getSplitFromFile(string filename) {
                         codeLine.push_back(word);
                         codeLine.push_back(s);
                         if (s == EQUAL) {
-                            string s2 = line.substr(i + 1);
-                            codeLine.push_back(s2);
-                            break;
+                            if (line.find("bind") == string::npos) {
+                                string s2 = line.substr(i + 1);
+                                codeLine.push_back(s2);
+                                break;
+                            }
                         }
                     }
 

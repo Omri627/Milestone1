@@ -8,15 +8,16 @@
 #include "pthread.h"
 
 using namespace std;
+
 int main() {
-    /*const int mainThread = 0;
+    const int mainThread = 0;
     ThreadManager* threadManager = new ThreadManager;
     Lexer lexer;
     CodeParser *codeParser = new CodeParser(lexer, threadManager);
     codeParser->runCode();
-    threadManager->closeMainThread(); */
-    //return 0;
-    ExpressionParser expressionParser;
+    threadManager->closeMainThread();
+    return 0;
+    /*ExpressionParser expressionParser;
     SymbolTable* symbolTable = new SymbolTable;
     expressionParser.setSymbolTable(symbolTable);
     symbolTable->addVariable("x", 3);
@@ -30,5 +31,5 @@ int main() {
     expressionParser.printPostfixNotation(expression);
     expObject->printExpression();
     cout << endl;
-    cout << value << endl;
+    cout << value << endl;*/
 }

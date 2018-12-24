@@ -9,6 +9,9 @@
 #include <netinet/in.h>
 #include "Command.h"
 #include "SymbolUpdater.h"
+#include "Utils.h"
+
+
 class DataServer {
 private:
     int port;

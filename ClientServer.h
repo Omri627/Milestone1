@@ -13,6 +13,8 @@
 #include "ThreadManager.h"
 #include "SymbolUpdater.h"
 #include <string.h>
+#include "Utils.h"
+
 using namespace std;
 class ClientServer {
 private:

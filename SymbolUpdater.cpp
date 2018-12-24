@@ -36,7 +36,8 @@ void SymbolUpdater::loadPath() {
     pathsVec.emplace_back("/controls/flight/elevator");
     pathsVec.emplace_back("/controls/flight/rudder");
     pathsVec.emplace_back("/controls/flight/flaps");
-    pathsVec.emplace_back("/controls/engines/engine/throttle");
+    //pathsVec.emplace_back("/controls/engines/engine/throttle");
+    pathsVec.emplace_back("controls/engines/current-engine/throttle");
     pathsVec.emplace_back("/engines/engine/rpm");
 
 }

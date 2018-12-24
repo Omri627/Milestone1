@@ -30,17 +30,16 @@ void ClientServer::setThreadManager(ThreadManager *threadManager) {
     this->threadManager = threadManager;
 }
 void ClientServer::updateServer(string variable) {
-    cout << "entered updateServer" << endl;
+    //cout << "entered updateServer" << endl;
     char commandMessage[512];
     if (socketFd == 0)
         return;
     string path = this->symbolTable->getPathByVar(variable);
-    cout << path << endl;
     double value = this->symbolTable->getVariable(variable);
     sprintf(commandMessage, "set %s %.3f", path.c_str(), value);
     strcat(commandMessage, "\r\n");
-    cout << "sending update of " << variable << endl;
-    cout << commandMessage << endl;
+    //cout << "sending update of " << variable << endl;
+    //cout << commandMessage << endl;
     this->writeIntoServer(commandMessage);
 }
 void ClientServer::connectToServer() {
@@ -153,31 +152,38 @@ r
     pintf("%s\n",buffer); */
 }
 void ClientServer::writeIntoServer(string message) {
+    pthread_mutex_lock(&g__mutex);
     const int bufferSize = 512;
     int byteTransmitted, byteReaded;
     char buffer[bufferSize];
-    pthread_mutex_t mutex;
+    //pthread_mutex_t mutex;
     const char * msgToTransmit = message.c_str();
-    cout << "msgTotransmit " << msgToTransmit << endl;
+    //cout << "msgTotransmit " << msgToTransmit << endl;
     /* Send message to the server */
-    pthread_mutex_lock(&mutex);
+    //pthread_mutex_lock(&mutex);
     bzero(buffer,bufferSize);
     byteTransmitted = write(this->socketFd, msgToTransmit, strlen(msgToTransmit));
-    pthread_mutex_unlock(&mutex);
+
+    pthread_mutex_unlock(&g__mutex);
+    fflush(stdin);
+    fflush(stdout);
     if (byteTransmitted <= 0) {
         perror("ERROR writing to socket");
         exit(1);
     }
-    cout << "clientserver: wrote into server" << endl;
+    //cout << "clientserver: wrote into server" << endl;
     bzero(buffer,bufferSize);
     byteReaded = read(this->socketFd, buffer, bufferSize-1);
+    cout << buffer << endl;
+    //fflush(stdin);
+
     if (byteReaded < 0) {
         perror("ERROR reading from socket");
         exit(1);
     }
-    cout << "read response from server" << endl;
-    cout << buffer << endl;
-    cout << "clientserver: finish write into server" << endl;
+    //cout << "read response from server" << endl;
+    //cout << buffer << endl;
+    //cout << "clientserver: finish write into server" << endl;
 
 
 }
