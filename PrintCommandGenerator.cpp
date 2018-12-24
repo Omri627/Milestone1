@@ -8,7 +8,7 @@
  */
 Command* PrintCommandGenerator::create(CodeReader &codeReader) {
     string str = codeReader.getNextToken();
-    if (str.find("\"") == string::npos) {
+    if (str[0] != '\"') {
         //the string to print is var
         return new PrintCommand(codeReader.getSymbolTable(), str);
     } else {

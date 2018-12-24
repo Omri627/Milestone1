@@ -8,6 +8,7 @@
  */
 PrintCommand::PrintCommand(string str) {
     this->str = str;
+    this->symbolTable = nullptr;
 }
 
 /**
