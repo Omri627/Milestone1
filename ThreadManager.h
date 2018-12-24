@@ -6,9 +6,12 @@
 #include <vector>
 #include <map>
 using namespace std;
+
+
+static pthread_mutex_t g__mutex;
+
 class ThreadManager {
 public:
-    pthread_mutex_t g__mutex;
     /**
      * thread_detail struct holds information about single thread
      */
@@ -115,6 +118,7 @@ public:
      * when his sub-threads finished their tasks.
      */
     void closeMainThread();
+
 private:
     /* holds information about threads in program. */
     map<int, thread_detail> threads;

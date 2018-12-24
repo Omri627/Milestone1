@@ -62,21 +62,19 @@ void DataServer::closeDataServer() {
     //@ todo close data server
 }
 void DataServer::readSingleLine() {
-    pthread_mutex_lock(&threadManager->g__mutex);
+    pthread_mutex_lock(&g__mutex);
     const int bufferSize = 512;
     int bytesReaded;
     char buffer[bufferSize];
     bzero(buffer,bufferSize);                      // set buffer with null values
-    //pthread_mutex_t mutex;
-    //pthread_mutex_lock(&mutex);
     bytesReaded = read(this->fileDescriptor, buffer, bufferSize-1);
-    //pthread_mutex_unlock(&mutex);
     if (bytesReaded < 0) {
         perror("ERROR reading from socket");
         exit(1);
     }
+    pthread_mutex_unlock(&g__mutex);
     varsUpdater.update(buffer);
-    pthread_mutex_unlock(&threadManager->g__mutex);
+
 }
 void DataServer::readData() {
 

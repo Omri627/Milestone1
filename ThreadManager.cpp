@@ -87,3 +87,4 @@ void ThreadManager::closeMainThread() {
     this->threads.clear();
     exit(0);
 }
+
