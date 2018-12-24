@@ -152,7 +152,7 @@ r
     pintf("%s\n",buffer); */
 }
 void ClientServer::writeIntoServer(string message) {
-    pthread_mutex_lock(&g__mutex);
+    pthread_mutex_lock(&threadManager->g__mutex);
     const int bufferSize = 512;
     int byteTransmitted, byteReaded;
     char buffer[bufferSize];
@@ -164,7 +164,7 @@ void ClientServer::writeIntoServer(string message) {
     bzero(buffer,bufferSize);
     byteTransmitted = write(this->socketFd, msgToTransmit, strlen(msgToTransmit));
 
-    pthread_mutex_unlock(&g__mutex);
+    pthread_mutex_unlock(&threadManager->g__mutex);
     fflush(stdin);
     fflush(stdout);
     if (byteTransmitted <= 0) {

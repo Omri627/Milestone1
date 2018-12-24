@@ -2,11 +2,8 @@
 #define PROJECT_UTILS_H
 
 #include <string>
-#include <pthread.h>
 
 using namespace std;
-
-static pthread_mutex_t g__mutex;
 
 class Utils {
 public:

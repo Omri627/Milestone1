@@ -1,10 +1,11 @@
 #include <iostream>
 #include "DataServer.h"
 
-DataServer::DataServer(SymbolTable *symbolTable, int port, int speed) : varsUpdater(symbolTable) {
+DataServer::DataServer(SymbolTable *symbolTable, int port, int speed, ThreadManager* threadManager) : varsUpdater(symbolTable) {
     this->symbolTable = symbolTable;
     this->port = port;
     this->speed = speed;
+    this->threadManager = threadManager;
 };
 void DataServer::setPort(int port) {
     this->port = port;
@@ -61,7 +62,7 @@ void DataServer::closeDataServer() {
     //@ todo close data server
 }
 void DataServer::readSingleLine() {
-    pthread_mutex_lock(&g__mutex);
+    pthread_mutex_lock(&threadManager->g__mutex);
     const int bufferSize = 512;
     int bytesReaded;
     char buffer[bufferSize];
@@ -75,7 +76,7 @@ void DataServer::readSingleLine() {
         exit(1);
     }
     varsUpdater.update(buffer);
-    pthread_mutex_unlock(&g__mutex);
+    pthread_mutex_unlock(&threadManager->g__mutex);
 }
 void DataServer::readData() {
 

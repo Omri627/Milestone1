@@ -8,6 +8,7 @@
 using namespace std;
 class ThreadManager {
 public:
+    pthread_mutex_t g__mutex;
     /**
      * thread_detail struct holds information about single thread
      */

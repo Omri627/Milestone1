@@ -10,6 +10,7 @@
 #include "Command.h"
 #include "SymbolUpdater.h"
 #include "Utils.h"
+#include "ThreadManager.h"
 
 
 class DataServer {
@@ -21,8 +22,9 @@ private:
     int fileDescriptor;
     SymbolTable * symbolTable;
     SymbolUpdater varsUpdater;
+    ThreadManager* threadManager;
 public:
-    DataServer(SymbolTable * symbolTable, int port, int speed);
+    DataServer(SymbolTable * symbolTable, int port, int speed, ThreadManager* threadManager);
 
     void* openDataServer();
     /**

@@ -8,7 +8,7 @@ OpenDataServerCommand::OpenDataServerCommand(ThreadManager * threadManager, Data
 }
 OpenDataServerCommand::OpenDataServerCommand(ThreadManager * threadManager, SymbolTable * symbolTable,
         int port, int speed) {
-    this->server = new DataServer(symbolTable, port, speed);
+    this->server = new DataServer(symbolTable, port, speed, threadManager);
     this->threadManager = threadManager;
     this->port = port;
     this->speed = speed;
@@ -19,7 +19,7 @@ OpenDataServerCommand::OpenDataServerCommand(ThreadManager * threadManager, Symb
     this->port = 5400;
     this->speed = 10;
     this->threadManager = threadManager;
-    this->server = new DataServer(symbolTable, this->port, this->speed);
+    this->server = new DataServer(symbolTable, this->port, this->speed,threadManager);
 }
 void OpenDataServerCommand::setPort(int port) {
     this->server->setPort(port);
