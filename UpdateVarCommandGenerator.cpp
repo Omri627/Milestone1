@@ -23,8 +23,7 @@ Command *UpdateVarCommandGenerator::create(CodeReader &codeReader) {
         throw "syntax error: missing operator '='";
     string expression = codeReader.getNextToken();           // get expression
     UpdateVarCommand* command =  new UpdateVarCommand(var, expressionParser.parseExpression(expression), codeReader.getSymbolTable());
-    if (!this->server)
-        command->setServer(this->server);
+    command->setServer(this->server);
     return command;
 }
 /**
