@@ -1,11 +1,33 @@
 #include "ClientServer.h"
+/**
+ * the constructor gets connection details: ip address, port and the symbols table
+ * and creates new ClientServer object which manage the the connection between the client and server.
+ * enables us to connect, write messages to server and updates his variables.
+ * @param address ip address of server
+ * @param port port of the connection
+ * @param threadManager thread manager object
+ * @param symbolTable symbol table object
+ */
 ClientServer::ClientServer(string address, int port,ThreadManager*threadManager ,SymbolTable *st)
 : Server(address, port, threadManager, st) {
 }
+/**
+ * creates Server object with initialized with given fields:
+ * ip address, port, thread manager and symbol table
+ * @param address ip address of server
+ * @param port port of the connection represented as expression
+ * @param threadManager thread manager object
+ * @param symbolTable symbol table object
+ */
 ClientServer::ClientServer(string address, Expression* portExpression, ThreadManager*threadManager, SymbolTable *st)
 : Server(address, portExpression, threadManager, st) {
 
 }
+/**
+* updateServer method sends a message to server
+* to update a single variable
+* @param variable variable name
+ */
 void ClientServer::updateServer(string variable) {
     //cout << "entered updateServer" << endl;
     char commandMessage[512];
@@ -17,6 +39,9 @@ void ClientServer::updateServer(string variable) {
     strcat(commandMessage, "\r\n");
     this->sendData(commandMessage);
 }
+/**
+ * connect to this server via sockets
+ */
 void ClientServer::connectToServer() {
     int socketFd;                           // socket file descriptor
     struct sockaddr_in serverAddress;       // server address
@@ -59,12 +84,18 @@ void ClientServer::connectToServer() {
      this->setSocketFd(socketFd);
     cout << "connected successfully" << endl;
 }
-
+/**
+ * helper static method to run thread that connect to this server
+ * @param context client server param.
+ * @return nullptr
+ */
 void *ClientServer::connectServerHelper(void *context) {
     ((ClientServer*)context)->connectToServer();
     return nullptr;
 }
-
+/**
+ * readData method reads data from server
+ */
 void ClientServer::readData() {
     const int bufferSize = 512;
     int byteReaded;

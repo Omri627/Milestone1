@@ -6,17 +6,19 @@
 IfCommandGenerator::IfCommandGenerator() {
 
 }
-
+/**
+ * creates If Command generator object initialized with code parser.
+ * @param codeParser code parser object
+ */
 IfCommandGenerator::IfCommandGenerator(CodeParser *codeParser)
 : ConditionParserGenerator(codeParser) {
 
 }
-
 /**
- * this function crate the if command
- * @param codeReader: to get the next token
- * @return ifCommand*
- */
+* create method creates if command object.
+* @param codeReader: to get the next token
+* @return ifCommand *
+*/
 Command* IfCommandGenerator::create(CodeReader &codeReader) {
     ExpressionParser expressionParser(codeReader.getSymbolTable());
     const int commandParameters = 5;
@@ -33,5 +35,8 @@ Command* IfCommandGenerator::create(CodeReader &codeReader) {
                                          expressionParser.parseExpression(leftExpression), relation);
     return ifCommand;
 }
+/**
+* destructor, free memory
+*/
 IfCommandGenerator::~IfCommandGenerator() {
 }

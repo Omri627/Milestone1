@@ -249,7 +249,6 @@ void ExpressionParser::printPostfixNotation(string expression) {
     }
     cout << endl;
 }
-
 ExpressionParser::~ExpressionParser() {
     this->precedence.clear();
 }

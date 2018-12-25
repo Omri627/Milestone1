@@ -10,15 +10,20 @@ public:
     * default constructor
     */
     IfCommandGenerator();
-
+    /**
+     * creates If Command generator object initialized with code parser.
+     * @param codeParser code parser object
+     */
     IfCommandGenerator(CodeParser* codeParser);
     /**
-    * this function crate the if command
+    * create method creates if command object.
     * @param codeReader: to get the next token
-    * @return ifCommand*
+    * @return ifCommand *
     */
     virtual Command *create(CodeReader &codeReader);
-
+    /**
+     * destructor, free memory
+     */
     virtual ~IfCommandGenerator();
 
 

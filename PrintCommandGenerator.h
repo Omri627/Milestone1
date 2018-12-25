@@ -13,7 +13,9 @@ public:
      * @return new Command
      */
     virtual Command * create(CodeReader& codeReader);
-
+    /**
+     * destructor, free memory
+     */
     virtual ~PrintCommandGenerator();
 };
 #endif
