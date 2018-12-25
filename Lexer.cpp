@@ -25,10 +25,10 @@
 * @param filename
 * @return vector<string>
 */
-vector<string> Lexer::getSplitFromFile(string filename) {
+vector<string> Lexer::getSplitFromFile() {
 
     ifstream infile;
-    infile.open(filename, ios::in);
+    infile.open(this->fileName, ios::in);
     if (!infile.is_open()) {
         throw "file did not opened";
     }
@@ -266,3 +266,5 @@ string Lexer::getRestFromIndex(string line, int i) {
     s = trimSpaces(s);
     return s;
 }
+
+Lexer::Lexer(const string &fileNmae) : fileName(fileNmae) {}

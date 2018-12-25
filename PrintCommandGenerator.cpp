@@ -12,7 +12,10 @@ Command* PrintCommandGenerator::create(CodeReader &codeReader) {
         //the string to print is var
         return new PrintCommand(codeReader.getSymbolTable(), str);
     } else {
-        str = str.substr(1, str.size() - 2);
-        return new PrintCommand(str);
+        if (str != "") { //just in case, making sure str not equal ""
+            str = str.substr(1, str.size() - 2);
+            return new PrintCommand(str);
+        }
+
     }
 }

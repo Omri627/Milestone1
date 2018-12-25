@@ -11,6 +11,7 @@ using namespace std;
  */
 class Lexer {
 private:
+    string fileName;
     vector<string> codeLine;
 
     /**
@@ -73,12 +74,19 @@ private:
      */
     string getRestFromIndex(string line, int i);
 public:
+
+    /**
+     * cinstructor
+     * @param fileName: the script name
+     */
+    Lexer(const string &fileName);
+
     /**
      * get vector of string that represent expressions from file
      * @param filename
      * @return vector<string>
      */
-    vector<string> getSplitFromFile(string filename);
+    vector<string> getSplitFromFile();
 
 };
 

@@ -9,13 +9,17 @@
 
 using namespace std;
 
-int main() {
-    const int mainThread = 0;
-    ThreadManager* threadManager = new ThreadManager;
-    Lexer lexer;
-    CodeParser *codeParser = new CodeParser(lexer, threadManager);
-    codeParser->runCode();
-    threadManager->closeMainThread();
+int main(int argc, char *argv[]) {
+
+    if (argc >= 2) {
+        string fileName = string(argv[1]);
+        ThreadManager* threadManager = new ThreadManager;
+        Lexer lexer(fileName);
+        CodeParser *codeParser = new CodeParser(lexer, threadManager);
+        codeParser->runCode();
+        threadManager->closeMainThread();
+    }
+
     return 0;
     /*ExpressionParser expressionParser;
     SymbolTable* symbolTable = new SymbolTable;

@@ -13,6 +13,5 @@ SleepCommand::SleepCommand(double seconds) {
  * at any other case return 0
  */
 int SleepCommand::execute() {
-    //@todo check if sleep unit is in seconds
     usleep(this->miliseconds);
 }
