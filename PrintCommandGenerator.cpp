@@ -24,6 +24,9 @@ Command* PrintCommandGenerator::create(CodeReader &codeReader) {
 
     }
 }
+/**
+ * destructor, free memory
+ */
 PrintCommandGenerator::~PrintCommandGenerator() {
 
 }

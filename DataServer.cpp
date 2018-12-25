@@ -1,16 +1,36 @@
 #include <iostream>
 #include "DataServer.h"
-
+/**
+ * creates Data Server object with initialized with given fields:
+ * speed, port, thread manager and symbol table
+ * @param symbolTable symbol table object
+ * @param port port of connection
+ * @param speed speed of read frequency from server
+ * @param threadManager thread manager object
+ */
 DataServer::DataServer(SymbolTable *symbolTable, int port, int speed, ThreadManager* threadManager)
 : Server("127.0.0.1", port, threadManager, symbolTable),varsUpdater(symbolTable) {
     this->speed = speed;
 };
+/**
+ * sets the speed of reading frequency from server
+ * @param speed newly speed
+ */
 void DataServer::setSpeed(int speed) {
     this->speed = speed;
 }
+/**
+ * getter method of speed field
+ * @return  the speed of reading frequency from server
+ */
 int DataServer::getSpeed() const {
     return this->speed;
 }
+/**
+ * open data server localhost.
+ * so the simulator can connect and transmit data with program.
+ * @return nullptr
+ */
 void* DataServer::openDataServer() {
     int socketFd, connectFd;                            // socket file descriptor
     struct sockaddr_in server_address, client_address;       // socket structure
@@ -51,9 +71,15 @@ void* DataServer::openDataServer() {
     cout << "request accepted"  << endl;
     return nullptr;
 }
+/**
+ * close data server.
+ */
 void DataServer::closeDataServer() {
     //@ todo close data server
 }
+/**
+ * read single line from the server
+ */
 void DataServer::readSingleLine() {
     pthread_mutex_lock(&g__mutex);
     const int bufferSize = 512;
@@ -68,15 +94,28 @@ void DataServer::readSingleLine() {
     pthread_mutex_unlock(&g__mutex);
     varsUpdater.update(buffer);
 }
+/**
+ * reads data from server continuously with predetermined frequency
+ */
 void DataServer::readData() {
-
+    //@todo use speed
     while (true){
         this->readSingleLine();
     }
 }
+/**
+* help to pass openDataServer to pthread
+* @param context the context fo the function to be send
+* @return nullptr
+*/
 void* DataServer::openDataServerHelper(void *context) {
     return ((DataServer*) context)->openDataServer();
 }
+/**
+ * helper method to enables us to open pthread that his target is the read lines from server.
+ * @param context the context for the function to be send
+ * @return nullptr
+ */
 void* DataServer::readLineHelper(void *context) {
     ((DataServer*) context)->readData();
     return nullptr;

@@ -77,37 +77,66 @@ public:
      * @return returns the number of remaining token in code.
      */
     int getRemainingTokens() const;
-
+    /**
+     * isEndPoint method checks if there is no tokens left to read
+     * @return boolean variable indicate whether code tokens read in its entirety
+     */
     bool isEndPoint();
-
+    /**
+     * isRemainingToken method check whether there are given times of tokens left to read
+     * @param tokens number of tokens
+     * @return returns true if there are given amount of times of tokens left to read.
+     * at any other case return false.
+     */
     bool isRemainingToken(int tokens) const ;
-
+    /**
+     * read the next token without progress of index.
+     * @return next token of code
+     */
     string peekNextToken();
-
+    /**
+     * read the next token and advance into the next token.
+     * @return next token of code.
+     */
     string getNextToken();
     /**
      * get the strings between brackets
      * @param startIndex of the current reading
      * @return string array that is inside the brackets
      */
-    vector<string> getEntireBlock();/**
-     * get the list of command from array
-     * @param commands: the command array of the object that is kind of CommandParser
-     * @param arr of string commands
-     * @param length the length of the array
-     * @return the number of cells it read, so the execute will be able to tell the parser
+    vector<string> getEntireBlock();
+    /**
+     * getter method of symbol table field
+     * @return returns symbol table object
      */
-    //int getCommandsFromArry(list<Command*> &commands, string *arr, int length);
     SymbolTable *getSymbolTable() const;
-
+    /**
+     * setVariable method get variable and value.
+     * and set the value of variable to given value
+     * @param variable variable name
+     * @param value value to change
+     */
     void setVariable(string variable, double value);
-
-    string getPreviousToken();          // not decrement index
-
+    /**
+     * read pervious token
+     * @return pervious token in code.
+     */
+    string getPreviousToken();
+    /**
+     * markEndBlocks method marked the blocks in code
+     * in practise, he inserts end of blocks tokens into queue structure.
+     */
     void markEndBlocks();
-
+    /**
+     * isBlockEnd method checks if current block end and
+     * all the commands in block read.
+     * @return true if current block ends
+     * ay any other case returns false
+     */
     bool isBlockEnd();
-
+    /**
+    * destructor, free memory
+    */
     virtual ~CodeReader();
 };
 

@@ -15,6 +15,9 @@ CommandExpression::CommandExpression(Command *command) {
 double CommandExpression::calculate() const {
     return this->command->execute();
 }
+/**
+* destructor, free memory
+*/
 CommandExpression::~CommandExpression() {
     delete this->command;
 }
