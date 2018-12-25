@@ -24,7 +24,6 @@ Command *UpdateVarCommandGenerator::create(CodeReader &codeReader) {
     string expression = codeReader.getNextToken();           // get expression
     UpdateVarCommand* command =  new UpdateVarCommand(var, expressionParser.parseExpression(expression), codeReader.getSymbolTable());
     if (!this->server)
-        cout << "command->setServer()" << endl;
         command->setServer(this->server);
     return command;
 }
