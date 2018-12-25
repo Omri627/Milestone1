@@ -9,7 +9,7 @@ ExitCommand::ExitCommand(CodeParser *codeParser, ThreadManager * threadManager, 
     this->clientServer = clientServer;
 }
 /**
- *
+ * excute the exit
  * @return
  */
 int ExitCommand::execute() {
@@ -20,6 +20,7 @@ int ExitCommand::execute() {
     if (!this->clientServer)
         delete this->clientServer;
     pthread_mutex_destroy(&g__mutex);
+    exit(0);
 
 }
 ExitCommand::~ExitCommand() {

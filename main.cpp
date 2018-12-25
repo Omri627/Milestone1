@@ -19,7 +19,7 @@ int main(int argc, char *argv[]) {
         codeParser->runCode();
         threadManager->closeMainThread();
     }
-
+    cout << "No file name given" << endl;
     return 0;
     /*ExpressionParser expressionParser;
     SymbolTable* symbolTable = new SymbolTable;

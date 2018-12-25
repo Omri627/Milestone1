@@ -15,9 +15,8 @@ OpenDataServerCommand::OpenDataServerCommand(ThreadManager * threadManager, Symb
 }
 
 OpenDataServerCommand::OpenDataServerCommand(ThreadManager * threadManager, SymbolTable *symbolTable, Expression *port, Expression *speed) {
-    //todo: changes port and speed!
-    this->port = 5400;
-    this->speed = 10;
+    this->port = port->calculate();
+    this->speed = speed->calculate();
     this->threadManager = threadManager;
     this->server = new DataServer(symbolTable, this->port, this->speed,threadManager);
 }

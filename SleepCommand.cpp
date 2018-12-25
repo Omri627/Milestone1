@@ -1,12 +1,10 @@
 #include "SleepCommand.h"
 /**
  * the constructor creates Sleep-Command object with the given seconds as parameter.
- * @param seconds number of seconds to sleep
+ * @param miliSeconds number of seconds to sleep
  */
-SleepCommand::SleepCommand(double seconds) {
-    //@todo: i think we have a mistake here, we shoudnt divide it by 1000.
-    //@todo: since we used usleep.
-    this->miliseconds = seconds / 1000;
+SleepCommand::SleepCommand(double miliSeconds) {
+    this->miliseconds = miliSeconds;
 }
 /**
  * execute sleep command operation

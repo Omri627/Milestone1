@@ -11,9 +11,9 @@ private:
 public:
     /**
      * the constructor creates Sleep-Command object with the given seconds as parameter.
-     * @param seconds number of seconds to sleep
+     * @param miliSeconds number of seconds to sleep
      */
-    SleepCommand(double seconds);
+    SleepCommand(double miliSeconds);
     /**
      * execute sleep command operation
      * and sleep for given number of miliseconds.

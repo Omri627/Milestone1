@@ -60,7 +60,6 @@ Expression::Relation ConditionParser::getRelation(string relation) {
 }
 
 ConditionParser::~ConditionParser() {
-    cout << "condition parser destructor" << endl;
     //delete this->leftExpression;
     //delete this->rightExpression;
     for (Command * command : this->commands)
