@@ -25,7 +25,10 @@ public:
     * @return whileCommand*
     */
     virtual Command *create(CodeReader &codeReader);
-
+    /**
+     * destructor, free memory
+     */
+    virtual ~WhileCommandGenerator();
 };
 
 

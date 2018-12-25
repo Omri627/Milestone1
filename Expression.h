@@ -32,6 +32,8 @@ public:
         G, GE, LE, L, E, NE
     };
 
+    virtual ~Expression();
+
 
 };
 

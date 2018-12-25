@@ -39,3 +39,7 @@ int WhileCommand::execute() {
     }
     return 1;
 }
+
+WhileCommand::~WhileCommand() {
+
+}

@@ -1,9 +1,5 @@
-//
-// Created by ranraboh on 16/12/18.
-//
-
-#ifndef PROJECT_DEFINEVARCOMMAND_H
-#define PROJECT_DEFINEVARCOMMAND_H
+#ifndef DEFINE_VAR_COMMAND
+    #define DEFINE_VAR_COMMAND
 
 
 #include "Var.h"
@@ -62,6 +58,8 @@ public:
     * at any other case return 0
     */
     virtual int execute();
+
+    virtual ~UpdateVarCommand();
 };
 
 

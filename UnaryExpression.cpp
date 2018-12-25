@@ -20,3 +20,6 @@ void UnaryExpression::setOperand(Expression *operand) {
 Expression* UnaryExpression::getOperand() const {
     return  this->operand;
 }
+UnaryExpression::~UnaryExpression() {
+    delete(this->operand);
+}

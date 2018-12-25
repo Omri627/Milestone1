@@ -24,6 +24,7 @@ public:
      */
     virtual void printExpression() const;
 
+    virtual ~Minus();
 };
 
 

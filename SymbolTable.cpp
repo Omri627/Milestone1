@@ -197,4 +197,6 @@ SymbolTable::~SymbolTable() {
     for (pair<string, Var*> p : variables) {
         delete p.second;
     }
+    this->variables.clear();
+    this->paths.clear();
 }

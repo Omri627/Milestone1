@@ -106,4 +106,8 @@ void Var::printExpression() const {
     cout << " " << this->name << " ";
 
 }
-
+/**
+ * destructor, free memory
+ */
+Var::~Var() {
+}

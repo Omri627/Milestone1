@@ -43,3 +43,6 @@ void Plus::printExpression() const {
     this->getSecondOperand()->printExpression();
     cout << ")";
 }
+Plus::~Plus() {
+
+}

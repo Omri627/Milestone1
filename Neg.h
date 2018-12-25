@@ -15,7 +15,9 @@ public:
      * printExpression method prints out textual representation of this expression
      * infix mode representation
      */
-    void printExpression() const override;
+    virtual void printExpression() const;
+
+    virtual ~Neg();
 };
 
 

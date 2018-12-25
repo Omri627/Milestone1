@@ -10,8 +10,8 @@ WhileCommandGenerator::WhileCommandGenerator() {
  * the code parser used to read the commands in block.
  * @param codeParser code parser object
  */
-WhileCommandGenerator::WhileCommandGenerator(CodeParser *codeParser) {
-    this->setCodeParser(codeParser);
+WhileCommandGenerator::WhileCommandGenerator(CodeParser *codeParser)
+: ConditionParserGenerator(codeParser) {
 }
 /**
  * this function crate the while command
@@ -20,6 +20,10 @@ WhileCommandGenerator::WhileCommandGenerator(CodeParser *codeParser) {
  */
 Command* WhileCommandGenerator::create(CodeReader &codeReader) {
     ExpressionParser expressionParser(codeReader.getSymbolTable());
+    const int commandParameters = 5;
+    /* throw exception in case no enough parameters was given */
+    if (!codeReader.isRemainingToken(commandParameters))
+        throw "invalid open server command: no enough parameters transmitted";
     string leftExpression = codeReader.getNextToken();
     string relation = codeReader.getNextToken();
     string rightExpression = codeReader.getNextToken();
@@ -30,3 +34,4 @@ Command* WhileCommandGenerator::create(CodeReader &codeReader) {
                                          expressionParser.parseExpression(leftExpression), relation);
     return  whileCommand;
 }
+WhileCommandGenerator::~WhileCommandGenerator() {}

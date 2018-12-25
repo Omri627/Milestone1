@@ -37,6 +37,8 @@ public:
      * @param expression newly second operand expression
      */
     void setSecondOperand(Expression *expression);
+
+    ~BinaryExpression();
 };
 
 #endif

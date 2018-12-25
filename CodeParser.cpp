@@ -7,6 +7,8 @@
 #include "ConnectCommand.h"
 #include "ConnectCommandGenerator.h"
 #include "SleepCommandGenerator.h"
+#include "ExitCommandGenerator.h"
+
 CodeParser::CodeParser(CodeReader* codeReader) {
     this->codeReader = codeReader;
     this->threadManager = new ThreadManager;
@@ -27,19 +29,19 @@ void CodeParser::runCode() {
     while (!this->codeReader->isEndPoint()) {
         command = this->parseNext();
         command->execute();
+        delete command;
     }
 }
 void CodeParser::loadCommandMap() {
     PrintCommandGenerator* printGenerator = new PrintCommandGenerator;
     DefineVarCommandGenerator* defineGenerator = new DefineVarCommandGenerator;
     UpdateVarCommandGenerator* updateVarCommandGenerator = new UpdateVarCommandGenerator(this->clientServer);
-    WhileCommandGenerator* whileGenerator = new WhileCommandGenerator;
-    whileGenerator->setCodeParser(this);
-    IfCommandGenerator* ifGenerator = new IfCommandGenerator;
-    ifGenerator->setCodeParser(this);
+    WhileCommandGenerator* whileGenerator = new WhileCommandGenerator(this);
+    IfCommandGenerator* ifGenerator = new IfCommandGenerator(this);
     OpenServerCommandGenerator* serverCommandGenerator = new OpenServerCommandGenerator(this->threadManager);
     ConnectCommandGenerator* connectCommandGenerator = new ConnectCommandGenerator(this, this->threadManager);
     SleepCommandGenerator * sleepCommandGenerator = new SleepCommandGenerator;
+    ExitCommandGenerator * exitCommandGenerator = new ExitCommandGenerator(this, this->threadManager, this->clientServer);
     this->commands["print"] = printGenerator;
     this->commands["var"] = defineGenerator;
     this->commands["update"] = updateVarCommandGenerator;
@@ -48,6 +50,7 @@ void CodeParser::loadCommandMap() {
     this->commands["openDataServer"] = serverCommandGenerator;
     this->commands["connect"] = connectCommandGenerator;
     this->commands["sleep"] = sleepCommandGenerator;
+    this->commands["exit"] = exitCommandGenerator;
 }
 Command* CodeParser::parseNext() {
     //loop trough all the command in the string array
@@ -84,4 +87,14 @@ void CodeParser::setClientServer(ClientServer *server) {
 }
 CodeReader *CodeParser::getCodeReader() const {
     return codeReader;
+}
+
+CodeParser::~CodeParser() {
+    map < string, CommandGenerator* >::iterator iterator;
+    iterator = this->commands.begin();
+    while (iterator != this->commands.end()) {
+        delete iterator->second;
+        iterator++;
+    }
+    delete this->codeReader;
 }

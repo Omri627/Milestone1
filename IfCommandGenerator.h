@@ -19,6 +19,8 @@ public:
     */
     virtual Command *create(CodeReader &codeReader);
 
+    virtual ~IfCommandGenerator();
+
 
 };
 

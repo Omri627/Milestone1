@@ -2,7 +2,7 @@
 #include "Lexer.h"
 
 CodeReader::CodeReader(Lexer lexer, SymbolTable* st) {
-    this->codeTokens = lexer.getSplitFromFile("script.txt");
+    this->codeTokens = lexer.getSplitFromFile();
     this->index = 0;
     this->symbolTable = st;
     this->markEndBlocks();
@@ -20,7 +20,7 @@ CodeReader::CodeReader(int index, vector<string> codeLines, SymbolTable* st)
     this->markEndBlocks();
 }
 CodeReader::CodeReader(Lexer lexer) {
-    this->codeTokens = lexer.getSplitFromFile("script.txt");
+    this->codeTokens = lexer.getSplitFromFile();
     SymbolTable* st = new SymbolTable;
     this->symbolTable = st;
     this->markEndBlocks();
@@ -87,8 +87,10 @@ string CodeReader::getPreviousToken() {
     return this->codeTokens[this->index - 1];
 }
 bool CodeReader::isBlockEnd() {
-    if (this->index == this->blockEnds.top())
+    if (this->index == this->blockEnds.front()) {
+        this->blockEnds.pop();
         return true;
+    }
     return false;
 }
 void CodeReader::markEndBlocks() {
@@ -103,4 +105,8 @@ void CodeReader::markEndBlocks() {
     }
     if (blocksAmount != 0)
         throw "invalid code";
+}
+
+CodeReader::~CodeReader() {
+    this->codeTokens.clear();
 }

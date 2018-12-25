@@ -22,6 +22,8 @@ public:
      * @param operand sub-expression operand
      */
     void setOperand(Expression * operand);
+
+    ~UnaryExpression();
 };
 
 

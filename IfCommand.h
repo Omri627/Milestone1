@@ -12,5 +12,7 @@ public:
     IfCommand(list< Command * > commands, Expression *rightExpression, Expression *leftExpression, string relation);
 
     virtual int execute();
+
+    virtual ~IfCommand();
 };
 #endif

@@ -14,7 +14,6 @@ SymbolUpdater::SymbolUpdater(SymbolTable *symbolTable) : symbolTable(symbolTable
  * load the path into the paths vector
  */
 void SymbolUpdater::loadPath() {
-
     pathsVec.emplace_back("/instrumentation/airspeed-indicator/indicated-speed-kt");
     pathsVec.emplace_back("/instrumentation/altimeter/indicated-altitude-ft");
     pathsVec.emplace_back("/instrumentation/altimeter/pressure-alt-ft");
@@ -39,7 +38,6 @@ void SymbolUpdater::loadPath() {
     //pathsVec.emplace_back("/controls/engines/engine/throttle");
     pathsVec.emplace_back("/controls/engines/current-engine/throttle");
     pathsVec.emplace_back("/engines/engine/rpm");
-
 }
 /**
  * update each bind var from the information that got from the server
@@ -95,3 +93,6 @@ void SymbolUpdater::updateVar(double value, string path) {
     }
 }
 
+SymbolUpdater::~SymbolUpdater() {
+    this->pathsVec.clear();
+}

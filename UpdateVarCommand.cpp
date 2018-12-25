@@ -63,3 +63,6 @@ int UpdateVarCommand::execute() {
         this->server->updateServer(this->var);
     return 1;
 }
+UpdateVarCommand::~UpdateVarCommand() {
+    delete(this->phrase);
+}

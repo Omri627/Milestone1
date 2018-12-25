@@ -9,3 +9,7 @@ Command *SleepCommandGenerator::create(CodeReader &codeReader) {
     string time = codeReader.getNextToken();
     return new SleepCommand(atoi(time.c_str()));
 }
+
+SleepCommandGenerator::~SleepCommandGenerator() {
+
+}

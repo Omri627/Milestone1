@@ -28,3 +28,9 @@ Command *UpdateVarCommandGenerator::create(CodeReader &codeReader) {
         command->setServer(this->server);
     return command;
 }
+/**
+ * destructor, free memory
+ */
+UpdateVarCommandGenerator::~UpdateVarCommandGenerator() {
+    this->server = nullptr;
+}

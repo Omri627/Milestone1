@@ -7,7 +7,18 @@
 
 class CommandGenerator {
 public:
-virtual Command * create(CodeReader& codeReader) = 0;
+    /**
+    * create method creates new command object
+    * the method reads the parameters for command from code tokens
+    * @param codeReader code tokens
+    * @return command object
+    */
+    virtual Command *create(CodeReader &codeReader) = 0;
+
+    /**
+    * destructor, free memory
+    */
+    virtual ~CommandGenerator();
 };
 
 

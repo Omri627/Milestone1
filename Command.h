@@ -16,6 +16,8 @@ public:
      * @return int if successful
      */
     virtual int execute() = 0;
+
+    virtual ~Command() {}
 };
 
 #endif

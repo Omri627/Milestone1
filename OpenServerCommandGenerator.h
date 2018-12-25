@@ -12,6 +12,8 @@ public:
     OpenServerCommandGenerator(ThreadManager* threadManager);
 
     virtual Command *create(CodeReader &codeReader);
+
+    virtual ~OpenServerCommandGenerator();
 };
 
 

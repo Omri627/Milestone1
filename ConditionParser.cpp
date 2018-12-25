@@ -1,6 +1,8 @@
 #include "ConditionParser.h"
 #include "Expression.h"
 #include<algorithm>
+#include <iostream>
+
 ConditionParser::ConditionParser(list<Command *> commands, Expression *rightExpression, Expression *leftExpression,
                                  Expression::Relation relation) {
         this->rightExpression = rightExpression;
@@ -34,6 +36,8 @@ bool ConditionParser::checkCondition() {
             return *this->leftExpression < *this->rightExpression;
         case Expression::E:
             return *this->leftExpression == *this->rightExpression;
+        case Expression::NE:
+            return *this->leftExpression != *this->rightExpression;
     }
 }
 const list<Command *> &ConditionParser::getCommands() const {
@@ -50,5 +54,15 @@ Expression::Relation ConditionParser::getRelation(string relation) {
         return Expression::LE;
     if (!relation.compare("=="))
         return Expression::E;
+    if (!relation.compare("!="))
+        return Expression::NE;
     throw "relation is invalid";
+}
+
+ConditionParser::~ConditionParser() {
+    cout << "condition parser destructor" << endl;
+    //delete this->leftExpression;
+    //delete this->rightExpression;
+    for (Command * command : this->commands)
+        delete command;
 }

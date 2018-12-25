@@ -267,4 +267,8 @@ string Lexer::getRestFromIndex(string line, int i) {
     return s;
 }
 
-Lexer::Lexer(const string &fileNmae) : fileName(fileNmae) {}
+Lexer::Lexer(const string &fileName) : fileName(fileName) {}
+
+Lexer::~Lexer() {
+    this->codeLine.clear();
+}

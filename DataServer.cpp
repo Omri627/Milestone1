@@ -1,26 +1,18 @@
 #include <iostream>
 #include "DataServer.h"
 
-DataServer::DataServer(SymbolTable *symbolTable, int port, int speed, ThreadManager* threadManager) : varsUpdater(symbolTable) {
-    this->symbolTable = symbolTable;
-    this->port = port;
+DataServer::DataServer(SymbolTable *symbolTable, int port, int speed, ThreadManager* threadManager)
+: Server("127.0.0.1", port, threadManager, symbolTable),varsUpdater(symbolTable) {
     this->speed = speed;
-    this->threadManager = threadManager;
 };
-void DataServer::setPort(int port) {
-    this->port = port;
-}
 void DataServer::setSpeed(int speed) {
     this->speed = speed;
-}
-int DataServer::getPort() const {
-    return this->port;
 }
 int DataServer::getSpeed() const {
     return this->speed;
 }
 void* DataServer::openDataServer() {
-    int socketFd, establishedFd;                            // socket file descriptor
+    int socketFd, connectFd;                            // socket file descriptor
     struct sockaddr_in server_address, client_address;       // socket structure
     int clientSizeStructure;
     // AF-INET = address family ipv4
@@ -38,7 +30,7 @@ void* DataServer::openDataServer() {
     bzero((char *) &server_address, sizeof(server_address));  // used to set all the socket structures with null values.
     server_address.sin_family = AF_INET;                      // setting address family (=ipv4)
     server_address.sin_addr.s_addr = INADDR_ANY;              // internal ip address
-    server_address.sin_port = htons(this->port);              // setting server port
+    server_address.sin_port = htons(this->getPort());              // setting server port
     //* bind function assigns a local protocol address to a socket. *//*
     if (bind(socketFd, (struct sockaddr *) &server_address, sizeof(server_address)) < 0) {
         perror("ERROR on binding");
@@ -50,11 +42,12 @@ void* DataServer::openDataServer() {
     listen(socketFd, 5);
     //* Accept actual connection from the client *//*
     clientSizeStructure = sizeof(client_address);
-    this->fileDescriptor = accept(socketFd, (struct sockaddr *) &client_address, (socklen_t *) &clientSizeStructure);
-    if (establishedFd < 0) {
+    connectFd = accept(socketFd, (struct sockaddr *) &client_address, (socklen_t *) &clientSizeStructure);
+    if (connectFd < 0) {
         perror("ERROR on accept");
         exit(1);
     }
+    this->setSocketFd(connectFd);
     cout << "request accepted"  << endl;
     return nullptr;
 }
@@ -67,14 +60,13 @@ void DataServer::readSingleLine() {
     int bytesReaded;
     char buffer[bufferSize];
     bzero(buffer,bufferSize);                      // set buffer with null values
-    bytesReaded = read(this->fileDescriptor, buffer, bufferSize-1);
+    bytesReaded = read(this->getSocketFd(), buffer, bufferSize-1);
     if (bytesReaded < 0) {
         perror("ERROR reading from socket");
         exit(1);
     }
     pthread_mutex_unlock(&g__mutex);
     varsUpdater.update(buffer);
-
 }
 void DataServer::readData() {
 

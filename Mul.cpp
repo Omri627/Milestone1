@@ -34,3 +34,7 @@ void Mul::printExpression() const {
     this->getSecondOperand()->printExpression();
     cout << ")";
 }
+
+Mul::~Mul() {
+
+}

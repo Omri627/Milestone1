@@ -87,6 +87,10 @@ public:
      * infix mode representation
      */
     virtual void printExpression() const;
+    /**
+     * destructor, free memory.
+     */
+    ~Var();
 };
 
 #endif

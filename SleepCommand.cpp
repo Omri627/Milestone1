@@ -4,6 +4,8 @@
  * @param seconds number of seconds to sleep
  */
 SleepCommand::SleepCommand(double seconds) {
+    //@todo: i think we have a mistake here, we shoudnt divide it by 1000.
+    //@todo: since we used usleep.
     this->miliseconds = seconds / 1000;
 }
 /**
@@ -14,4 +16,8 @@ SleepCommand::SleepCommand(double seconds) {
  */
 int SleepCommand::execute() {
     usleep(this->miliseconds);
+}
+
+SleepCommand::~SleepCommand() {
+
 }

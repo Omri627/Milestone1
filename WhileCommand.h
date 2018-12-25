@@ -34,6 +34,8 @@ public:
  * @return 1 if successful
  */
     virtual int execute() ;
+
+    virtual ~WhileCommand();
 };
 
 

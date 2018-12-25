@@ -1,6 +1,3 @@
-//
-// Created by ranraboh on 16/12/18.
-//
 
 #ifndef PROJECT_DEFINEVARCOMMANDGENERATOR_H
 #define PROJECT_DEFINEVARCOMMANDGENERATOR_H
@@ -10,7 +7,15 @@
 class DefineVarCommand;
 class DefineVarCommandGenerator  : public CommandGenerator{
 public:
+    /**
+    * create method creates new define var command object
+    * with paramters received by code.
+    * @param codeReader code tokens
+    * @return new define var command
+    */
     virtual Command *create(CodeReader &codeReader);
+
+    virtual ~DefineVarCommandGenerator();
 };
 
 

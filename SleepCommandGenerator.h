@@ -12,7 +12,9 @@ public:
      * @param codeReader holds the code tokens
      * @return returns sleep command object
      */
-    Command *create(CodeReader &codeReader) override;
+    virtual Command *create(CodeReader &codeReader);
+
+    virtual ~SleepCommandGenerator();
 };
 
 #endif

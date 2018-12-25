@@ -44,3 +44,7 @@ int OpenDataServerCommand::execute() {
     pthread_detach(serverListenThread);
     return threadId;
 }
+
+OpenDataServerCommand::~OpenDataServerCommand() {
+
+}

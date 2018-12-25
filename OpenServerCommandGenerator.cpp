@@ -6,13 +6,16 @@ OpenServerCommandGenerator::OpenServerCommandGenerator(ThreadManager *threadMana
     this->threadManager = threadManager;
 }
 Command *OpenServerCommandGenerator::create(CodeReader &codeReader) {
-    if (!codeReader.isRemainingToken(2))
+    const int commandParameters = 2;
+    if (!codeReader.isRemainingToken(commandParameters))
         throw "invalid open server command: no enough parameters transmitted";
     string port = codeReader.getNextToken();
     string speed = codeReader.getNextToken();
-    //todo throw error if there is no 2 parameter
     ExpressionParser expressionParser(codeReader.getSymbolTable());
     return new OpenDataServerCommand(this->threadManager, codeReader.getSymbolTable(),
             expressionParser.parseExpression(port),
             expressionParser.parseExpression(speed));
+}
+OpenServerCommandGenerator::~OpenServerCommandGenerator() {
+    this->threadManager = nullptr;
 }

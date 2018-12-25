@@ -1,28 +1,16 @@
 #ifndef CLIENT_SERVER
     #define CLIENT_SERVER
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <netdb.h>
-#include <sys/socket.h>
-#include <unistd.h>
-#include <netinet/in.h>
-#include <iostream>
 #include "SymbolTable.h"
 #include "Expression.h"
 #include "ThreadManager.h"
 #include "SymbolUpdater.h"
 #include <string.h>
 #include "Utils.h"
+#include "Server.h"
 
 using namespace std;
-class ClientServer {
-private:
-    string address;
-    int port;
-    SymbolTable * symbolTable;
-    ThreadManager * threadManager;
-    int socketFd;
+class ClientServer : public Server {
 public:
     /**
      * the constructor gets connection details: ip address, port and the symbols table
@@ -32,7 +20,7 @@ public:
      * @param port port number
      * @param st
      */
-    ClientServer(string address, int port, SymbolTable * st);
+    ClientServer(string address, int port,ThreadManager*threadManager ,SymbolTable * st);
     /**
      * the constructor gets connection details: ip address, port and the symbols table
      * and creates new ClientServer object which manage the the connection between the client and server.
@@ -41,40 +29,11 @@ public:
      * @param portExpression port value represented as expression
      * @param st
      */
-    ClientServer(string address, Expression* portExpression, SymbolTable * st);
-    /**
-     * getAddress method is getter method of server's ip address.
-     * @return returns the ip address of server
-     */
-    string getAddress();
-    /**
-     * getPort method is getter method of port connection.
-     * @return returns the port of connection between client and server.
-     */
-    int getPort();
-    /**
-     * setPort method sets the port attribute.
-     * @param portExpression port value represented as expression.
-     */
-    void setPort(Expression * portExpression);
-    /**
-     * setPort method sets the port attribute with the given port number.
-     * @param port newly port number
-     */
-    void setPort(int port);
-    /**
-     * setAddress method sets the ip address attribute with given address
-     * @param address newly ip address
-     */
-    void setAddress(string address);
+    ClientServer(string address, Expression* portExpression,ThreadManager*threadManager ,SymbolTable * st);
 
-    void setThreadManager(ThreadManager* threadManager);
+    virtual void connectToServer();
 
-    void connectToServer();
-
-    static void *connectServerHelper(void *context);
-
-    void writeIntoServer(string message);
+    virtual void readData();
     /**
     * updateServer method sends a message to server
     * for update a single variable
@@ -82,7 +41,8 @@ public:
      */
     void updateServer(string variable);
 
+    static void *connectServerHelper(void *context);
+
 };
 
-
-#endif //PROJECT_CLIENTSERVER_H
+#endif

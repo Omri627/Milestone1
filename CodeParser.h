@@ -45,6 +45,8 @@ public:
 
     CodeReader *getCodeReader() const;
 
+    virtual ~CodeParser();
+
 };
 
 

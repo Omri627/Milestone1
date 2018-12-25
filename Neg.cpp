@@ -17,3 +17,6 @@ void Neg::printExpression() const {
     this->getOperand()->printExpression();
     cout << ")";
 }
+Neg::~Neg() {
+
+}

@@ -37,4 +37,7 @@ void Number::printExpression() const {
     cout << " " << this->value << " ";
 
 }
+Number::~Number() {
+
+}
 

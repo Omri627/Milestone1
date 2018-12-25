@@ -37,3 +37,7 @@ void Div::printExpression() const {
     this->getSecondOperand()->printExpression();
     cout << ")";
 }
+
+Div::~Div() {
+
+}

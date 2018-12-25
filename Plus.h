@@ -30,6 +30,7 @@ public:
      * infix mode representation
      */
     void printExpression() const override;
-};
 
+    virtual ~Plus();
+};
 #endif

@@ -37,3 +37,9 @@ void BinaryExpression::setFirstOperand(Expression *expression) {
 void BinaryExpression::setSecondOperand(Expression *expression) {
     this->secondOperand = expression;
 }
+BinaryExpression::~BinaryExpression() {
+    if (!this->firstOperand)
+        delete(this->firstOperand);
+    if (!this->secondOperand)
+        delete(this->secondOperand);
+}

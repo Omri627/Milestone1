@@ -11,44 +11,38 @@
 #include "SymbolUpdater.h"
 #include "Utils.h"
 #include "ThreadManager.h"
+#include "Server.h"
 
 
-class DataServer {
+class DataServer : public Server {
 private:
-    int port;
     int speed;
     /* socket structures */
-    struct sockaddr_in server_address, client_address;
-    int fileDescriptor;
-    SymbolTable * symbolTable;
     SymbolUpdater varsUpdater;
-    ThreadManager* threadManager;
 public:
     DataServer(SymbolTable * symbolTable, int port, int speed, ThreadManager* threadManager);
 
+    int getSpeed() const;
+
+    void setSpeed(int speed);
+
     void* openDataServer();
+
+    void closeDataServer();
+
+    void readSingleLine();
+
+    void readData();
+
     /**
-     * help to pass openDataServer to pthread
-     * @param context the context fo the function to be send
-     * @return
-     */
+    * help to pass openDataServer to pthread
+    * @param context the context fo the function to be send
+    * @return
+    */
     static void* openDataServerHelper(void *context);
 
     static void* readLineHelper(void *context);
 
-    void closeDataServer();
-
-    void readData();
-
-    int getPort() const ;
-
-    int getSpeed() const;
-
-    void setPort(int port);
-
-    void setSpeed(int speed);
-
-    void readSingleLine();
 };
 
 

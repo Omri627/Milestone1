@@ -35,6 +35,8 @@ public:
      * infix mode representation
      */
     virtual void printExpression() const;
+
+    virtual ~Number();
 };
 
 

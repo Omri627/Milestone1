@@ -14,7 +14,9 @@ using namespace std;
 class SymbolUpdater {
 
 private:
+    /* symbol table object */
     SymbolTable* symbolTable;
+    /* holding path of variables in simulator server. */
     vector<string> pathsVec;
 
     /**
@@ -40,7 +42,9 @@ public:
     * @param buffer
     */
     void update(char buffer[SIZE]);
+
+    virtual ~SymbolUpdater();
 };
 
 
-#endif //PROJECT_SYMBOLUPDATER_H
+#endif

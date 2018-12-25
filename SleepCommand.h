@@ -13,15 +13,16 @@ public:
      * the constructor creates Sleep-Command object with the given seconds as parameter.
      * @param seconds number of seconds to sleep
      */
-    SleepCommand(double miliseconds);
+    SleepCommand(double seconds);
     /**
      * execute sleep command operation
-     * and sleep for given number of seconds.
+     * and sleep for given number of miliseconds.
      * @return returns 1 if the operation succeed
      * at any other case return 0
      */
     virtual int execute();
 
+    virtual ~SleepCommand();
 };
 
 

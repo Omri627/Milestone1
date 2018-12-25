@@ -36,6 +36,8 @@ public:
 
     void printPostfixNotation(string expression);
 
+    virtual ~ExpressionParser();
+
 private:
     bool isGreaterPrecedence(string firstOperation, string secondOperation);
 

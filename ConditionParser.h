@@ -32,6 +32,8 @@ public:
     const list<Command *> &getCommands() const;
 
     Expression::Relation getRelation(string relation);
+
+    virtual ~ConditionParser();
 };
 
 

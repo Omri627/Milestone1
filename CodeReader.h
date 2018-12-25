@@ -4,6 +4,7 @@
 #include <string>
 #include <list>
 #include <map>
+#include <queue>
 #include <vector>
 #include "Lexer.h"
 #include "SymbolTable.h"
@@ -21,7 +22,7 @@ private:
     /* table used to store information about variables in code.  */
     SymbolTable* symbolTable;
     /* list of block ends tokens used to mark the blocks in code. */
-    stack<int> blockEnds;
+    queue<int> blockEnds;
 public:
     /**
     * the constructor gets the code tokens and symbols table.
@@ -106,6 +107,8 @@ public:
     void markEndBlocks();
 
     bool isBlockEnd();
+
+    virtual ~CodeReader();
 };
 
 

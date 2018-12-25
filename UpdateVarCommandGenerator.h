@@ -25,7 +25,10 @@ public:
      * @return returns update var command object.
      */
     Command *create(CodeReader &codeReader);
-
+    /**
+     * destructor, free memory
+     */
+    ~UpdateVarCommandGenerator();
 };
 
 

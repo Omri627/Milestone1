@@ -1,6 +1,3 @@
-//
-// Created by omri on 14/12/18.
-//
 
 #include "IfCommand.h"
 #include "ConditionParser.h"
@@ -19,4 +16,7 @@ int IfCommand::execute() {
         }
     }
     return 1;
+}
+
+IfCommand::~IfCommand() {
 }

@@ -30,6 +30,8 @@ public:
 
     virtual int execute();
 
+    virtual ~OpenDataServerCommand();
+
 };
 
 

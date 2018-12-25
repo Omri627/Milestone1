@@ -32,3 +32,7 @@ void Minus::printExpression() const {
     this->getSecondOperand()->printExpression();
     cout << ")";
 }
+
+Minus::~Minus() {
+
+}

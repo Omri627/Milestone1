@@ -88,6 +88,7 @@ public:
      */
     vector<string> getSplitFromFile();
 
+    virtual ~Lexer();
 };
 
 #endif

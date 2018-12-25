@@ -64,3 +64,7 @@ bool Expression::operator!=(const Expression &other) const {
     double rightOperand = other.calculate();
     return leftOperand != rightOperand;
 }
+
+Expression::~Expression() {
+
+}
