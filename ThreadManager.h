@@ -119,6 +119,8 @@ public:
      */
     void closeMainThread();
 
+    virtual ~ThreadManager();
+
 private:
     /* holds information about threads in program. */
     map<int, thread_detail> threads;

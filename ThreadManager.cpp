@@ -88,3 +88,7 @@ void ThreadManager::closeMainThread() {
     exit(0);
 }
 
+ThreadManager::~ThreadManager() {
+    pthread_mutex_destroy(&g__mutex);
+}
+
