@@ -53,32 +53,35 @@ void SymbolUpdater::update(char *buffer) {
     int start = 0; // start index for param
     int end = 0; // end index for the param
     double value;
+    try {
+        for (start = 0; start < buff.length(); start++) {
+            string param;
+            end = buff.find(COMMA ,start);
+            if (end == string::npos) {
+                //last param, read to the end
+                param = buff.substr(start);
+                if (param != "") {
+                    value = stod(param);
+                    updateVar(value, *it);
+                }
+                break;
+            } else {
+                param = buff.substr(start, end - start);
+            }
+            start = end; // point to the next comma
 
-    for (start = 0; start < buff.length(); start++) {
-        string param;
-        end = buff.find(COMMA ,start);
-        if (end == string::npos) {
-            //last param, read to the end
-            param = buff.substr(start);
             if (param != "") {
                 value = stod(param);
                 updateVar(value, *it);
             }
-            break;
-        } else {
-            param = buff.substr(start, end - start);
-        }
-        start = end; // point to the next comma
 
-        if (param != "") {
-            value = stod(param);
-            updateVar(value, *it);
+            if (it != pathsVec.end()) {
+                //increment the iterator
+                it++;
+            }
         }
-
-        if (it != pathsVec.end()) {
-            //increment the iterator
-            it++;
-        }
+    } catch (char* e) {
+        perror(e);
     }
 }
 /**
