@@ -80,9 +80,9 @@ vector<string> Lexer::getSplitFromFile() {
                 }
             }
         }
-    } catch (char* e) {
+    } catch (...) {
         infile.close();
-        perror("Syntax Error");
+        cout << "Syntax Error" << endl;
         exit(0);
     }
     infile.close();

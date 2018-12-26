@@ -80,8 +80,8 @@ void SymbolUpdater::update(char *buffer) {
                 it++;
             }
         }
-    } catch (char* e) {
-        perror(e);
+    } catch (...) {
+       cout << "Error: Symbol Updater failed to convert double" << endl;
     }
 }
 /**
