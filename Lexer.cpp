@@ -26,61 +26,67 @@
 * @return vector<string>
 */
 vector<string> Lexer::getSplitFromFile() {
-
     ifstream infile;
     infile.open(this->fileName, ios::in);
     if (!infile.is_open()) {
         throw "file did not opened";
     }
-    string line;
-    while (getline(infile, line)) {
-        if (!line.empty()) {
-            for (int i = 0; i < line.length(); i++) {
-                string word = getOneExpression(line, i);
-                word = trimSpaces(word);
-                if (word == "") {
-                    continue;
-                } if (word == PRINT) {
-                    codeLine.push_back(word);
-                    i++;
-                    //the next parameter is the rest of the word;
-                    word = getRestFromIndex(line, i);
-                    codeLine.push_back(word);
-                    break;
-
-                }else if (word.find(EQUAL) != string::npos || word.find(GRATER) != string::npos ||
-                          word.find(LESS) != string::npos)  { //check if contains  = | < | >
-
-                    if (word.find(NOT_EQUAL) != string::npos|| word.find(EQUAL_EQUAL) != string::npos||
-                        word.find(GRATER_EQUAL) != string::npos|| word.find(LESS_EQUAL) != string::npos) {
-                        //check if contains two boolean operators
-                        string s = extractTwoOperator(word);
-                        word = trimSpaces(word);
+    try {
+        string line;
+        while (getline(infile, line)) {
+            if (!line.empty()) {
+                for (int i = 0; i < line.length(); i++) {
+                    string word = getOneExpression(line, i);
+                    word = trimSpaces(word);
+                    if (word == "") {
+                        continue;
+                    } if (word == PRINT) {
                         codeLine.push_back(word);
-                        codeLine.push_back(s);
-
-                    } else {
-                        //one boolean operator
-                        string s = extractOneOperator(word);
-                        word = trimSpaces(word);
+                        i++;
+                        //the next parameter is the rest of the word;
+                        word = getRestFromIndex(line, i);
                         codeLine.push_back(word);
-                        codeLine.push_back(s);
-                        if (s == EQUAL) {
-                            if (line.find("bind") == string::npos) {
-                                string s2 = line.substr(i + 1);
-                                codeLine.push_back(s2);
-                                break;
+                        break;
+
+                    }else if (word.find(EQUAL) != string::npos || word.find(GRATER) != string::npos ||
+                              word.find(LESS) != string::npos)  { //check if contains  = | < | >
+
+                        if (word.find(NOT_EQUAL) != string::npos|| word.find(EQUAL_EQUAL) != string::npos||
+                            word.find(GRATER_EQUAL) != string::npos|| word.find(LESS_EQUAL) != string::npos) {
+                            //check if contains two boolean operators
+                            string s = extractTwoOperator(word);
+                            word = trimSpaces(word);
+                            codeLine.push_back(word);
+                            codeLine.push_back(s);
+
+                        } else {
+                            //one boolean operator
+                            string s = extractOneOperator(word);
+                            word = trimSpaces(word);
+                            codeLine.push_back(word);
+                            codeLine.push_back(s);
+                            if (s == EQUAL) {
+                                if (line.find("bind") == string::npos) {
+                                    string s2 = line.substr(i + 1);
+                                    codeLine.push_back(s2);
+                                    break;
+                                }
                             }
                         }
-                    }
 
-                } else {
-                    codeLine.push_back(word);
+                    } else {
+                        codeLine.push_back(word);
+                    }
                 }
             }
         }
+    } catch (char* e) {
+        infile.close();
+        perror(e);
+        exit(0);
     }
     infile.close();
+    codeLine.push_back("exit");
     return codeLine;
 }
 /**

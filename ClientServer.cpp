@@ -29,7 +29,6 @@ ClientServer::ClientServer(string address, Expression* portExpression, ThreadMan
 * @param variable variable name
  */
 void ClientServer::updateServer(string variable) {
-    //cout << "entered updateServer" << endl;
     char commandMessage[512];
     if (this->getSocketFd() == 0)
         return;

@@ -13,8 +13,8 @@ int main(int argc, char *argv[]) {
 
     if (argc >= 2) {
         string fileName = string(argv[1]);
-        ThreadManager* threadManager = new ThreadManager;
         Lexer lexer(fileName);
+        ThreadManager* threadManager = new ThreadManager;
         CodeParser *codeParser = new CodeParser(lexer, threadManager);
         codeParser->runCode();
         threadManager->closeMainThread();
