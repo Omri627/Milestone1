@@ -1,6 +1,7 @@
 #include <iostream>
 #include "PrintCommand.h"
 #include "Var.h"
+#include "ExpressionParser.h"
 
 /**
 * constructor: creates print command object initialized with given string.
@@ -18,10 +19,11 @@ PrintCommand::PrintCommand(string str) {
 * @param symbolTable symbol table object
 * @param var the var to print his value
 */
-PrintCommand::PrintCommand(SymbolTable *symbolTable, string var) {
+PrintCommand::PrintCommand(SymbolTable *symbolTable, string expression) {
     this->symbolTable = symbolTable;
-    this->str = var;
+    this->str = expression;
 }
+
 /**
  * prints out the messege or variable value on screen.
  * @return 1 if the operation finished successfully
@@ -29,7 +31,9 @@ PrintCommand::PrintCommand(SymbolTable *symbolTable, string var) {
 int PrintCommand::execute() {
     if (symbolTable != nullptr) {
         try {
-            cout << to_string(symbolTable->getVar(this->str)->getValue()) << endl;
+            ExpressionParser * parser = new ExpressionParser(this->symbolTable);
+            Expression * expression = parser->parseExpression(this->str);
+            cout << to_string(expression->calculate()) << endl;
         } catch (const char* message) {
             cout << message << endl;
             exit(1);
@@ -41,5 +45,3 @@ int PrintCommand::execute() {
 }
 
 PrintCommand::~PrintCommand() {
-
-}
