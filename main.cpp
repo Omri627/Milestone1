@@ -20,19 +20,5 @@ int main(int argc, char *argv[]) {
     }
     cout << "No file name given" << endl;
     return 0;
-    /*ExpressionParser expressionParser;
-    SymbolTable* symbolTable = new SymbolTable;
-    expressionParser.setSymbolTable(symbolTable);
-    symbolTable->addVariable("x", 3);
-    symbolTable->addVariable("h0", 5);
-    symbolTable->addVariable("heading", 10);
-    string expression = "  (h0 - heading)/20 ";
-    Expression *expObject = expressionParser.parseExpression(expression);
-    double value = expObject->calculate();
-    cout <<  "before: " << expression << endl << endl;
-    cout <<  "after: ";
-    expressionParser.printPostfixNotation(expression);
-    expObject->printExpression();
-    cout << endl;
-    cout << value << endl;*/
+
 }
