@@ -1,5 +1,7 @@
 #include <iostream>
 #include "DataServer.h"
+pthread_mutex_t global_mutex;
+
 /**
  * creates Data Server object with initialized with given fields:
  * speed, port, thread manager and symbol table
@@ -81,7 +83,7 @@ void DataServer::closeDataServer() {
  * read single line from the server
  */
 void DataServer::readSingleLine() {
-    pthread_mutex_lock(&g__mutex);
+    pthread_mutex_lock(&global_mutex);
     const int bufferSize = 512;
     int bytesReaded;
     char buffer[bufferSize];
@@ -91,7 +93,7 @@ void DataServer::readSingleLine() {
         perror("ERROR reading from socket");
         exit(1);
     }
-    pthread_mutex_unlock(&g__mutex);
+    pthread_mutex_unlock(&global_mutex);
     varsUpdater.update(buffer);
 }
 /**

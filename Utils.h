@@ -2,6 +2,7 @@
 #define PROJECT_UTILS_H
 
 #include <string>
+extern pthread_mutex_t global_mutex;
 
 using namespace std;
 

@@ -1,6 +1,7 @@
 #include <thread>
 #include <unistd.h>
 #include "ThreadManager.h"
+
 /**
  * Creates an empty thread manager
  */

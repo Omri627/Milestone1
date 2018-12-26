@@ -5,12 +5,11 @@
 #include <sys/types.h>
 #include <vector>
 #include <map>
+
 using namespace std;
 
-
-static pthread_mutex_t g__mutex;
-
 class ThreadManager {
+
 public:
     /**
      * thread_detail struct holds information about single thread

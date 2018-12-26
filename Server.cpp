@@ -105,9 +105,9 @@ void Server::sendData(string message) {
     int byteTransmitted;
     const char * msgToTransmit = message.c_str();
     /* Send message to the server */
-    pthread_mutex_lock(&g__mutex);
+    pthread_mutex_lock(&global_mutex);
     byteTransmitted = write(this->getSocketFd(), msgToTransmit, strlen(msgToTransmit));
-    pthread_mutex_unlock(&g__mutex);
+    pthread_mutex_unlock(&global_mutex);
     if (byteTransmitted < 0) {
         perror("ERROR writing to socket");
         exit(1);

@@ -4,7 +4,6 @@
 #include "ExpressionParser.h"
 #include "Lexer.h"
 #include "CodeParser.h"
-#include "Utils.h"
 #include "pthread.h"
 
 using namespace std;

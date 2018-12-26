@@ -82,7 +82,7 @@ vector<string> Lexer::getSplitFromFile() {
         }
     } catch (char* e) {
         infile.close();
-        perror(e);
+        perror("Syntax Error");
         exit(0);
     }
     infile.close();

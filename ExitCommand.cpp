@@ -19,7 +19,7 @@ int ExitCommand::execute() {
         delete threadManager;
     if (!this->clientServer)
         delete this->clientServer;
-    pthread_mutex_destroy(&g__mutex);
+    pthread_mutex_destroy(&global_mutex);
     exit(0);
 
 }
