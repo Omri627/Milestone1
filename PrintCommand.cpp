@@ -44,4 +44,4 @@ int PrintCommand::execute() {
     return 1;
 }
 
-PrintCommand::~PrintCommand() {
+PrintCommand::~PrintCommand() {};
