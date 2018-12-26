@@ -45,5 +45,4 @@ int OpenDataServerCommand::execute() {
 }
 
 OpenDataServerCommand::~OpenDataServerCommand() {
-    delete this->server;
 }
