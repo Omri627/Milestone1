@@ -17,4 +17,4 @@ public:
 };
 
 
-#endif //PROJECT_OPENSERVERCOMMANDGENERATOR_H
+#endif

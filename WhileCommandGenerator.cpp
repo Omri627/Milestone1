@@ -23,7 +23,7 @@ Command* WhileCommandGenerator::create(CodeReader &codeReader) {
     const int commandParameters = 5;
     /* throw exception in case no enough parameters was given */
     if (!codeReader.isRemainingToken(commandParameters))
-        throw "invalid open server command: no enough parameters transmitted";
+        throw "invalid while command";
     string leftExpression = codeReader.getNextToken();
     string relation = codeReader.getNextToken();
     string rightExpression = codeReader.getNextToken();

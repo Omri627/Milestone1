@@ -16,11 +16,13 @@ public:
     */
     ExitCommand(CodeParser *codeParser, ThreadManager * threadManager, ClientServer * clientServer);
     /**
-     *
+     * exit the program and release allocated memory
      * @return
      */
     virtual int execute();
-
+    /**
+     * destrcutor, free memory
+     */
     virtual ~ExitCommand();
 
 };

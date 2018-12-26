@@ -106,6 +106,8 @@ void SymbolTable::updateVariable(Var &var) {
 * @return Var*
 */
 Var* SymbolTable::getVar(string var) {
+    if (!this->isVariableExist(var))
+        throw "error: use of undefined variable";
     return this->variables[var];
 }
 /**

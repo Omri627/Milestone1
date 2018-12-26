@@ -17,6 +17,9 @@ ConnectCommandGenerator::ConnectCommandGenerator(CodeParser *codeParser, ThreadM
  * @return command object
  */
 Command *ConnectCommandGenerator::create(CodeReader &codeReader) {
+    const int commandParameters = 2;
+    if (!codeReader.isRemainingToken(commandParameters))
+        throw "invalid connect command: no enough parameters transmitted";
     ExpressionParser expressionParser(codeReader.getSymbolTable());
     string address = codeReader.getNextToken();
     string port = codeReader.getNextToken();

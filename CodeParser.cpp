@@ -80,10 +80,15 @@ void CodeParser::loadCommandMap() {
  */
 Command* CodeParser::parseNext() {
     //loop trough all the command in the string array
-    string codeToken = codeReader->getNextToken();
-    CommandGenerator * commandGenerator = this->getCommand(codeToken);
-    Command * command = commandGenerator->create(*codeReader);
-    return command;
+    try {
+        string codeToken = codeReader->getNextToken();
+        CommandGenerator *commandGenerator = this->getCommand(codeToken);
+        Command *command = commandGenerator->create(*codeReader);
+        return command;
+    } catch (char const* error_message) {
+        cout << error_message << endl;
+        exit(1);
+    }
 }
 /**
  * parseBlock method parse the code in entire block.
@@ -94,8 +99,13 @@ list< Command* > CodeParser::parseBlock() {
     list<Command *> blockCommands;
     string codeToken;
     while (!this->codeReader->isBlockEnd()) {
-        Command * command = this->parseNext();
-        blockCommands.push_back(command);
+        try {
+            Command *command = this->parseNext();
+            blockCommands.push_back(command);
+        } catch (char * error_message) {
+            cout << error_message << endl;
+            exit(1);
+        }
     }
     this->codeReader->getNextToken();          // ignore end of block '}'
     return blockCommands;
@@ -110,8 +120,10 @@ CommandGenerator* CodeParser::getCommand(string keyword) {
     map< string, CommandGenerator * >::iterator iterator;
     iterator = this->commands.find(keyword);
     if (iterator == this->commands.end()) {
-        if (!this->codeReader->getSymbolTable()->isVariableExist(keyword))
-            throw "command not found";
+        if (!this->codeReader->getSymbolTable()->isVariableExist(keyword)) {
+            cout << "command " << keyword << " is invalid" << endl;
+            exit(1);
+        }
         return this->commands["update"];
     }
     return iterator->second;

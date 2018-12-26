@@ -28,7 +28,12 @@ PrintCommand::PrintCommand(SymbolTable *symbolTable, string var) {
  */
 int PrintCommand::execute() {
     if (symbolTable != nullptr) {
-        cout << to_string(symbolTable->getVar(this->str)->getValue()) << endl;
+        try {
+            cout << to_string(symbolTable->getVar(this->str)->getValue()) << endl;
+        } catch (const char* message) {
+            cout << message << endl;
+            exit(1);
+        }
     } else {
         cout << str << endl;
     }

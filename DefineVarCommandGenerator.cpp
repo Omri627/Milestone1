@@ -15,7 +15,7 @@ Command *DefineVarCommandGenerator::create(CodeReader &codeReader) {
     bool isBind = false;                        // indicate whether this var bound to server
     /* throw exception in case no enough parameters was given */
     if (!codeReader.isRemainingToken(commandParameters))
-        throw "invalid open server command: no enough parameters transmitted";
+        throw "invalid define command: no enough parameters transmitted";
     var = codeReader.getNextToken();           // get parameter variable name
     ExpressionParser expressionParser(codeReader.getSymbolTable());
     if (codeReader.getNextToken() != "=")

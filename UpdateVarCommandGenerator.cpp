@@ -18,6 +18,10 @@ UpdateVarCommandGenerator::UpdateVarCommandGenerator(ClientServer *server) {
  */
 Command *UpdateVarCommandGenerator::create(CodeReader &codeReader) {
     ExpressionParser expressionParser(codeReader.getSymbolTable());
+    const int commandParameters = 2;
+    /* throw exception in case no enough parameters was given */
+    if (!codeReader.isRemainingToken(commandParameters))
+        throw "invalid command";
     string var =  codeReader.getPreviousToken();             // get name of variable which we skipped
     if (codeReader.getNextToken() != "=")
         throw "syntax error: missing operator '='";

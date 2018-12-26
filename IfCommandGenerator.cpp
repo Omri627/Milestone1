@@ -24,14 +24,15 @@ Command* IfCommandGenerator::create(CodeReader &codeReader) {
     const int commandParameters = 5;
     /* throw exception in case no enough parameters was given */
     if (!codeReader.isRemainingToken(commandParameters))
-        throw "invalid open server command: no enough parameters transmitted";
+        throw "invalid if command";
     string leftExpression = codeReader.getNextToken();
     string relation = codeReader.getNextToken();
     string rightExpression = codeReader.getNextToken();
     if (codeReader.getNextToken() != "{")
         throw INVALID_EXPRESSION;
     this->generateBlockCommands();
-    IfCommand* ifCommand = new IfCommand(this->getBlockCommands(), expressionParser.parseExpression(rightExpression),
+    IfCommand *ifCommand = new IfCommand(this->getBlockCommands(),
+                                         expressionParser.parseExpression(rightExpression),
                                          expressionParser.parseExpression(leftExpression), relation);
     return ifCommand;
 }

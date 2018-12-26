@@ -1,4 +1,4 @@
-#ifndef CONDITION_PARSER
+ #ifndef CONDITION_PARSER
     #define CONDITION_PARSER
 
 #include "CommandGenerator.h"

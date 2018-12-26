@@ -9,7 +9,7 @@ ExitCommand::ExitCommand(CodeParser *codeParser, ThreadManager * threadManager, 
     this->clientServer = clientServer;
 }
 /**
- * excute the exit
+ * exit the program and release allocated memory
  * @return
  */
 int ExitCommand::execute() {
@@ -23,6 +23,9 @@ int ExitCommand::execute() {
     exit(0);
 
 }
+/**
+ * destrcutor, free memory
+ */
 ExitCommand::~ExitCommand() {
 
 }

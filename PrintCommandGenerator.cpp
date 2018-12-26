@@ -11,7 +11,7 @@ Command* PrintCommandGenerator::create(CodeReader &codeReader) {
     string str;
     /* throw exception in case no enough parameters was given */
     if (!codeReader.isRemainingToken(commandParameters))
-        throw "invalid open server command: no enough parameters transmitted";
+        throw "invalid print command: no enough parameters transmitted";
     str = codeReader.getNextToken();
     if (str[0] != '\"') {
         //the string to print is var
